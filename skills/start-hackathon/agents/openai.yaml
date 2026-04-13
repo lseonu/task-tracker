@@ -1,0 +1,4 @@
+interface:
+  display_name: "Start Hackathon"
+  short_description: "Begin the guided Codex hackathon flow"
+  default_prompt: "Use $start-hackathon to start the OpenAI Codex Hackathon flow in this folder."

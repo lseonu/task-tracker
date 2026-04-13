@@ -1,0 +1,4 @@
+interface:
+  display_name: "Hackathon Map"
+  short_description: "Show the flow, commands, and progress state"
+  default_prompt: "Use $hackathon-map to show my OpenAI Codex Hackathon progress and next step."

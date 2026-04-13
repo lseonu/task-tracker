@@ -1,0 +1,4 @@
+interface:
+  display_name: "Build Project"
+  short_description: "Build the planned project with Codex"
+  default_prompt: "Use $build-project to build my planned hackathon project in this folder."

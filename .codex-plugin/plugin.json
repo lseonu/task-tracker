@@ -1,0 +1,42 @@
+{
+  "name": "openai-codex-hackathon",
+  "version": "0.1.0",
+  "description": "Draft Devpost-style hackathon coach for building with Codex from orientation through submission.",
+  "author": {
+    "name": "Devpost Prototype",
+    "email": "[TODO: plugin-owner@example.com]",
+    "url": "[TODO: internal repo or docs URL]"
+  },
+  "homepage": "[TODO: official plugin landing page]",
+  "repository": "[TODO: official source repository]",
+  "license": "UNLICENSED",
+  "keywords": [
+    "hackathon",
+    "devpost",
+    "codex",
+    "openai",
+    "submission"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "OpenAI Codex Hackathon",
+    "shortDescription": "A guided Codex-first Devpost hackathon flow",
+    "longDescription": "Draft plugin for walking participants from orientation and rules review through planning, building, and submission prep inside Codex. Fairness-critical sections intentionally contain TODO placeholders for official sponsor and legal copy.",
+    "developerName": "Devpost Prototype",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://openai.com/codex/",
+    "privacyPolicyURL": "https://openai.com/policies/row-privacy-policy/",
+    "termsOfServiceURL": "https://openai.com/policies/row-terms-of-use/",
+    "defaultPrompt": [
+      "Start my OpenAI Codex Hackathon flow in this folder.",
+      "Show my hackathon map and next step.",
+      "Help me prepare my Devpost submission."
+    ],
+    "brandColor": "#10A37F"
+  }
+}
