@@ -1,0 +1,22 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="103" y1="72" x2="1106" y2="617" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#331A12"/>
+      <stop offset="0.5" stop-color="#8A4C1F"/>
+      <stop offset="1" stop-color="#FFF5EA"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" rx="32" fill="url(#bg)"/>
+  <rect x="62" y="62" width="1076" height="551" rx="28" fill="#23140F" fill-opacity="0.8" stroke="#FFC37A" stroke-opacity="0.5" stroke-width="2"/>
+  <text x="104" y="148" fill="#FFD9A8" font-family="Arial, sans-serif" font-size="18">RULES AND SUBMISSION WALKTHROUGH</text>
+  <text x="104" y="228" fill="white" font-family="Arial, sans-serif" font-size="54" font-weight="700">Submission Requirements Review Video Here</text>
+  <text x="104" y="280" fill="#FFE7C5" font-family="Arial, sans-serif" font-size="28">Explain what to submit, what is still provisional, and what the user must verify officially.</text>
+  <rect x="104" y="330" width="408" height="228" rx="24" fill="#342018" stroke="#FFC37A" stroke-width="2"/>
+  <circle cx="308" cy="444" r="58" fill="#FFD299"/>
+  <path d="M284 409L346 444L284 479V409Z" fill="#6E4016"/>
+  <rect x="568" y="344" width="524" height="24" rx="12" fill="#8D5326"/>
+  <rect x="568" y="394" width="474" height="22" rx="11" fill="#8D5326"/>
+  <rect x="568" y="442" width="418" height="22" rx="11" fill="#8D5326"/>
+  <rect x="568" y="490" width="360" height="22" rx="11" fill="#8D5326"/>
+  <text x="104" y="596" fill="#FFD8A2" font-family="Arial, sans-serif" font-size="20">Placeholder only. Replace with the eventual rules or submission-guidance video.</text>
+</svg>

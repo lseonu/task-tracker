@@ -18,6 +18,7 @@ Create or update `devpost-submission.md` in the project root with these sections
 - `## Public Repository Link`
 - `## Demo Video`
 - `## Screenshot Shot List`
+- `## Browser Handoff Checklist`
 - `## Known Limitations`
 - `## TODO Official Form Fields`
 

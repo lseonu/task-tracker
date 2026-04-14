@@ -1,0 +1,27 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="96" y1="70" x2="1108" y2="617" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#072B29"/>
+      <stop offset="0.55" stop-color="#0E544C"/>
+      <stop offset="1" stop-color="#F2F7F5"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="171" y1="164" x2="884" y2="538" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2EE6C5"/>
+      <stop offset="1" stop-color="#9FF7E7"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" rx="32" fill="url(#bg)"/>
+  <rect x="64" y="64" width="1072" height="547" rx="28" fill="#0B1E1D" fill-opacity="0.72" stroke="#7FE7D4" stroke-opacity="0.35" stroke-width="2"/>
+  <rect x="105" y="108" width="210" height="34" rx="17" fill="#123D39"/>
+  <text x="210" y="130" fill="#BFF8EC" font-family="Arial, sans-serif" font-size="16" text-anchor="middle">OPENAI CODEX HACKATHON</text>
+  <text x="104" y="220" fill="white" font-family="Arial, sans-serif" font-size="56" font-weight="700">Onboarding Video Here</text>
+  <text x="104" y="272" fill="#D6F5EE" font-family="Arial, sans-serif" font-size="28">Short welcome, how the flow works, and where to go next.</text>
+  <rect x="104" y="331" width="388" height="204" rx="24" fill="#0F2D2A" stroke="#5FD8C0" stroke-width="2"/>
+  <circle cx="298" cy="433" r="56" fill="url(#accent)"/>
+  <path d="M278 398L337 433L278 468V398Z" fill="#08302D"/>
+  <rect x="548" y="340" width="490" height="24" rx="12" fill="#1B504A"/>
+  <rect x="548" y="392" width="390" height="20" rx="10" fill="#1B504A"/>
+  <rect x="548" y="440" width="432" height="20" rx="10" fill="#1B504A"/>
+  <rect x="548" y="488" width="278" height="20" rx="10" fill="#1B504A"/>
+  <text x="104" y="585" fill="#9EDFD3" font-family="Arial, sans-serif" font-size="20">Placeholder only. Replace with a small local MP4 or direct video URL later.</text>
+</svg>

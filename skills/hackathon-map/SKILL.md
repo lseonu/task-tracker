@@ -29,48 +29,56 @@ The state file should remain intentionally small. Expect keys in this shape:
   "rules_acknowledged": false,
   "project": {
     "name": "",
-    "problem": "",
-    "users": "",
-    "core_workflow": "",
+    "summary": "",
     "openai_usage": "",
-    "codex_usage": "",
-    "wow_factor": "",
-    "anti_patterns_checked": false
+    "codex_usage": ""
   },
-  "build": {
-    "status": "not-started",
-    "latest_milestone": "",
-    "repo_ready": false,
-    "demo_ready": false
+  "reminders": {
+    "last_checked_at": "",
+    "next_deadline_label": "",
+    "next_deadline_display": "",
+    "official_dates_confirmed": false
   },
   "submission": {
     "draft_file": "devpost-submission.md",
     "status": "not-started",
     "public_demo_url": "",
     "repo_url": "",
-    "video_url": ""
+    "video_url": "",
+    "browser_handoff_ready": false
   },
   "next_command": "review-rules"
 }
 ```
 
+Always make it clear that `.openai-codex-hackathon-state.json` is what powers this map. The participant should understand that the file is the continuity layer for the whole in-Codex hackathon experience.
+
 ## Dynamic Progress Card
 
-Render a Mermaid flowchart before the text summary when practical.
+Render a compact visual progress card before the text summary when practical.
 
-Build the diagram from the current state instead of reading from any external runtime tool. This feature must have zero runtime dependencies.
+Build the visual from the current state instead of reading from any external runtime tool. This feature must have zero runtime dependencies.
+
+Prefer this order:
+- inline SVG progress graphic first
+- Mermaid with explicit styling as fallback
+- plain text only as a last resort
 
 Use this styling approach:
 - completed stages should read as done
 - the current stage should stand out clearly
 - the next command should read as the recommended next action
 - blocked stages should be visibly blocked
+- each stage should feel like a distinct progress marker, not just a label in a list
 
 If the state file does not exist yet, render the whole chain as `not started` and highlight `start-hackathon`.
 
-After the Mermaid diagram:
+After the visual card:
 - provide the compact text summary below it
-- keep the diagram small enough to scan quickly
+- keep the graphic small enough to scan quickly
+- use the same visual language every time so the user learns to recognize it
+
+Any skill that updates `.openai-codex-hackathon-state.json` should immediately render a refreshed compact version of this progress card after the state write.
 
 ## Command Map
 
@@ -78,8 +86,7 @@ Always render these commands in order:
 - `start-hackathon`
 - `review-rules`
 - `resources`
-- `plan-project`
-- `build-project`
+- `deadline-reminders`
 - `prepare-submission`
 - `submission-check`
 
@@ -91,9 +98,7 @@ Derive status from state:
 - `available` otherwise
 
 Use these gates:
-- `plan-project`, `build-project`, `prepare-submission`, and `submission-check` are blocked until `rules_acknowledged` is `true`
-- `build-project` is blocked until the project fields are materially filled in
-- `prepare-submission` is blocked until a project exists
+- `deadline-reminders`, `prepare-submission`, and `submission-check` are blocked until `rules_acknowledged` is `true`
 - `submission-check` is blocked until `devpost-submission.md` exists or `submission.status` is `drafting`
 
 ## Response Pattern
@@ -104,4 +109,4 @@ Keep the output compact and practical:
 - Show the command list with statuses
 - End with a single recommendation for the next command
 
-When helpful, mention that this MVP mirrors the core Devpost participant path and intentionally defers gallery, discussions, and event updates.
+When helpful, mention that this prototype mirrors the core Devpost participant path and intentionally defers direct Devpost API submission, auth, gallery, discussions, and live event updates.

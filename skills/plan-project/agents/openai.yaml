@@ -1,4 +1,0 @@
-interface:
-  display_name: "Plan Project"
-  short_description: "Shape a viable project idea and approach"
-  default_prompt: "Use $plan-project to help me choose and shape a viable hackathon project idea."

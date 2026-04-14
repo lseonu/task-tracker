@@ -1,6 +1,6 @@
 ---
 name: review-rules
-description: Present the hackathon requirements, judging criteria, eligibility placeholders, and submission obligations, then capture explicit acknowledgment before planning or building can continue. Use when the user is starting the hackathon or needs to re-check official requirements.
+description: Present the hackathon requirements, judging criteria, eligibility placeholders, and submission obligations, then capture explicit acknowledgment before the user relies on the plugin for the rest of the flow. Use when the user is starting the hackathon or needs to re-check official requirements.
 ---
 
 # Review Rules
@@ -11,7 +11,9 @@ Act as the mandatory fairness gate. Make sure the participant sees the important
 
 ## Required Reference
 
-Read `references/placeholder-rules.md` before responding.
+Read these before responding:
+- `../../config/hackathon.json`
+- `references/placeholder-rules.md`
 
 ## Preconditions
 
@@ -19,9 +21,18 @@ Read `.openai-codex-hackathon-state.json`.
 
 If the state file does not exist, direct the user to run `$start-hackathon` first.
 
+## Presentation Style
+
+Present this like a compact review screen, not a legal memo.
+
+When practical:
+- use short sections, callouts, or tables instead of a long paragraph stack
+- render `../../assets/placeholders/submission-requirements-review-video.svg` as a stand-in for a future rules or submission-requirements video
+- keep the copy concise enough to scan in one pass
+
 ## Strict Gate
 
-Do not unlock planning or building until the user explicitly acknowledges the rules review.
+Do not unlock the rest of the plugin flow until the user explicitly acknowledges the rules review.
 
 Use this exact standard:
 - If `rules_acknowledged` is `true`, give a short summary and point to the next command
@@ -44,6 +55,7 @@ Present these sections every time acknowledgment is still pending:
 - Provisional judging criteria with `TODO official approval`
 - Originality, third-party usage, testing, and content restrictions
 - `[TODO: official contact and escalation path]`
+- Official-pages disclaimer: the participant must still verify the official Devpost materials
 
 Keep the wording concise. The participant should see the whole structure without reading a wall of text.
 
@@ -54,5 +66,7 @@ When the user explicitly acknowledges:
 - Add `review-rules` to `completed_stages` if needed
 - Set `current_stage` to `resources`
 - Set `next_command` to `resources`
+
+After updating state, render a refreshed compact progress card based on the current `.openai-codex-hackathon-state.json` so the participant sees the stage unlock immediately.
 
 Then direct the user to `$resources`.
