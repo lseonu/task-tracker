@@ -7,9 +7,9 @@
     "platform": "Devpost"
   },
   "official_urls": {
-    "landing_page": "[TODO: official hackathon landing page]",
+    "landing_page": "https://openai.devpost.com/",
     "resources_page": "[TODO: official hackathon resources page]",
-    "submission_page": "[TODO: official Devpost submission page]"
+    "submission_page": "https://openai.devpost.com/"
   },
   "dates": {
     "start": {
@@ -55,7 +55,7 @@
     "[TODO: official hackathon kickoff recording]"
   ],
   "notes": {
-    "prototype_scope": "No direct Devpost API submission or auth flow yet. This prototype focuses on rules, resources, reminders, submission prep, and browser handoff.",
+    "prototype_scope": "No direct Devpost API submission or auth flow yet. This prototype focuses on rules, resources, live progress tracking, submission prep, and browser handoff.",
     "reuse": "To support another hackathon, duplicate this file, swap the event metadata, deadlines, links, requirements, and sponsor copy, then point the plugin copy at the new config."
   }
 }

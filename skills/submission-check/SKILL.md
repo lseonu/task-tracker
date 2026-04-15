@@ -9,15 +9,21 @@ description: Run the final pre-submission review against the hackathon requireme
 
 Perform the last internal review before the participant leaves Codex to submit on Devpost in the browser. Flag missing assets, weak claims, and unresolved placeholders.
 
+This step should function as the clean final box-checking gate after the revision round, not as a second qualitative critique pass.
+
 ## Required Reference
 
 Read `references/preflight-checklist.md` before responding.
+
+Also read `../../config/hackathon.json` for the browser handoff URL.
 
 ## Preconditions
 
 Read `.openai-codex-hackathon-state.json`.
 
 If the file does not exist, direct the user to `$start-hackathon`.
+
+If `rules_acknowledged` is not `true`, direct the user to `$review-rules` first.
 
 If `devpost-submission.md` does not exist, direct the user to `$prepare-submission`.
 
@@ -38,6 +44,10 @@ Run a concrete pass-fail review across:
 - unresolved legal or sponsor placeholders clearly labeled
 - no obvious contradiction between the build and the submission copy
 
+Keep the review practical. Focus on completeness, clarity of required assets, and browser handoff readiness.
+
+Do not spend time on broad product critique here unless it directly affects submission readiness.
+
 ## Output Format
 
 Return:
@@ -50,9 +60,36 @@ Return:
 Prefer a visual review card over a plain paragraph block.
 
 When practical:
+- render an inline SVG scorecard first when possible
 - use status icons or emoji sparingly to make the review easier to scan
 - present the criteria as a compact table
-- make the result feel like a grading moment, not just a dumped checklist
+- make the result feel like a polished preflight check, not just a dumped checklist
+
+Keep the text terse. The visual scorecard and checklist should do most of the work.
+
+## Handoff Behavior
+
+If the result is `ready`:
+- explicitly tell the user they are ready to complete the Devpost submission in the browser
+- reference the official submission URL from `../../config/hackathon.json` when it is available
+- if the official URL is still missing, say that the browser handoff link is still `TODO official URL`
+
+If the result is `close` or `not ready`:
+- point back to the most useful fixing command
+- keep the remediation list concrete and short
+- do not turn this into a second revision essay
+
+## Visual Guidance
+
+When practical, render `../../assets/placeholders/submission-check-scorecard.svg` as a placeholder or fallback visual for the final review surface.
+
+The review UI should feel:
+- crisp
+- trustworthy
+- compact
+- a little ceremonial, since this is the final internal checkpoint
+
+Avoid anything playful enough to undercut the seriousness of the final review.
 
 ## State Update
 
@@ -62,9 +99,18 @@ If the project passes cleanly enough for handoff:
 - Set `submission.browser_handoff_ready` to `true`
 - Set `current_stage` to `submission-check`
 - Clear `next_command` or set it to `hackathon-map`
+- Update `dashboard` if it exists:
+  - set `completion_percent` to `100`
+  - set `registration_status` to `complete`
+  - update `last_rendered_at`
 
 If it does not pass:
 - Set `submission.status` to `needs-work`
-- Point the user back to the specific command that should fix the issue
+- Set `current_stage` to `submission-check`
+- Set `next_command` to the specific command that should fix the issue
+- Point the user back to that specific command
+- Update `dashboard` if it exists:
+  - set `completion_percent` to `80`
+  - update `last_rendered_at`
 
 After updating state, render a refreshed compact progress card based on the current `.openai-codex-hackathon-state.json`.

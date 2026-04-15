@@ -7,7 +7,11 @@ description: Start the OpenAI Codex Hackathon workflow in the current project fo
 
 ## Overview
 
-Initialize the hackathon flow in the current workspace. Treat the first response like a compact landing page inside Codex: welcoming, visual, and immediately clear about what the user should do next.
+Initialize the hackathon flow in the current workspace. Treat the first response like a compact Devpost-style landing page remixed for Codex: welcoming, visual, and immediately clear about what the user should do next.
+
+## Required Reference
+
+Read `../../config/hackathon.json` before responding.
 
 ## Workspace Assumption
 
@@ -28,11 +32,23 @@ Use this initial payload:
   "current_stage": "review-rules",
   "completed_stages": ["start-hackathon"],
   "rules_acknowledged": false,
+  "registration": {
+    "devpost_registered": false,
+    "registration_url": "https://openai.devpost.com/",
+    "last_prompted_at": ""
+  },
   "project": {
     "name": "",
     "summary": "",
     "openai_usage": "",
     "codex_usage": ""
+  },
+  "dashboard": {
+    "completion_percent": 0,
+    "registration_status": "not-started",
+    "deadline_label": "Official deadline pending",
+    "deadline_display": "TODO official date",
+    "last_rendered_at": ""
   },
   "reminders": {
     "last_checked_at": "",
@@ -54,15 +70,18 @@ Use this initial payload:
 
 If the state file already exists, do not overwrite user data. Summarize the current state and recommend `$hackathon-map` or the recorded `next_command`.
 
+Do not create sample project content, draft submission files, or example hackathon notes during this step. Only initialize or reuse the state file.
+
 ## Experience Goal
 
 Make this feel like the participant has landed inside the hackathon itself rather than inside a plain command reference.
 
 Keep it compact, but give it some lift:
-- feel like a lightweight hackathon welcome page, not a wall of bullets
+- feel like a lightweight hackathon landing page plus dashboard, not a wall of bullets
 - use rich markdown and graphical output when practical
 - keep every visual useful; avoid decorative filler
 - position the plugin as the Codex-native participant flow, with the browser reserved for official verification and final Devpost submission
+- make it obvious that browser registration happens first, then the rest of the workflow continues in Codex
 
 ## Opening Message
 
@@ -70,11 +89,24 @@ Use a practical coach tone with a little more polish than a standard CLI handoff
 
 Cover these points clearly:
 - This plugin is meant to replace as much of the Devpost participant journey as possible inside Codex
+- Devpost registration still happens in the browser before the participant continues here
 - The tiny `.openai-codex-hackathon-state.json` file is the continuity layer for the experience
 - `$hackathon-map` reads that state file and can be run anytime to show live progress
 - Rules review is a strict blocker before the rest of the workflow
 - The final browser handoff is still the actual Devpost submission step
 - This prototype does not submit to Devpost automatically
+
+## Response Structure
+
+Use this order when practical:
+- a compact hero with a one-sentence TLDR
+- a primary CTA to register on Devpost
+- one clickable temporary hackathon link from `../../config/hackathon.json`
+- a short explanation of how the Codex flow takes over after registration
+- the zero-state dashboard rendered from `.openai-codex-hackathon-state.json`
+- a compact note that the state file powers the live map
+
+Keep the whole response to about one compact screenful.
 
 ## Command Chain
 
@@ -90,23 +122,48 @@ Show this sequence in the visual map:
 - `$start-hackathon`
 - `$review-rules`
 - `$resources`
-- `$deadline-reminders`
 - `$prepare-submission`
 - `$submission-check`
 
-Also note that `$hackathon-map` can be run at any time.
+Also note that `$hackathon-map` can be run at any time to show both workflow progress and deadline/readiness context.
 
 ## Visual Guidance
 
 When practical, render these local placeholder assets in the response:
 - `../../assets/placeholders/onboarding-video.svg` as a stand-in for a future onboarding video
+- `../../assets/placeholders/start-hackathon-landing.svg` as the compact start screen visual
+- `../../assets/placeholders/devpost-registration-handoff.svg` as the browser registration handoff visual
+
+Also render one remote Devpost brand image as a lightweight cue when practical:
+- `https://logo.clearbit.com/devpost.com`
 
 The opening view should ideally include:
 - a compact welcome hero
 - a short "how this works" summary
+- a visible browser handoff for Devpost registration
 - the progress map with `review-rules` highlighted as next
+- the dashboard in a fully zeroed initial state except for `start-hackathon` being complete
 - a short note that the state file powers the live map
+
+## Zero-State Dashboard
+
+Render a compact inline SVG dashboard from `.openai-codex-hackathon-state.json` immediately after the state file is created or loaded.
+
+The dashboard should:
+- show the workflow in order
+- show `start-hackathon` as complete
+- show `review-rules` as next
+- show every later stage as not started or blocked
+- show registration as an external prerequisite banner, not as its own command stage
+- show the next known deadline from config when available, otherwise `TODO official date`
+- include a tiny legend or labels so the visual is self-explanatory without extra prose
+
+After the dashboard, explain in one or two lines that the graphic is driven by the state file and will update as the participant confirms each step.
 
 ## Handoff
 
-End by directing the user to run `$review-rules`, and remind them that `$hackathon-map` is the live progress view they can revisit at any point.
+End with a clear two-part handoff:
+- first, open the Devpost registration page in the browser
+- then come back and run `$review-rules`
+
+Also remind the user that `$hackathon-map` is the live progress view they can revisit at any point.

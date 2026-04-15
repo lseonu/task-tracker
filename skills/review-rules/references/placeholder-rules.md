@@ -54,6 +54,16 @@ Provisional sample structure modeled on a Devpost-style hackathon. Replace with 
 - Submission materials must not contain prohibited, unlawful, hateful, or infringing content
 - Testing access expectations should be stated clearly for judges
 
+## Common Submission Blockers Later
+
+Use this as practical guidance in the review screen.
+
+- Eligibility details left unverified against the official Devpost page
+- Required submission fields missing or only partially completed
+- Demo, repo, or testing instructions not usable by judges
+- Third-party assets, datasets, or integrations without clear usage rights
+- Projects that mention OpenAI but do not show why model capabilities are central to the product
+
 ## Questions And Escalation
 
 - `[TODO: official hackathon manager contact]`

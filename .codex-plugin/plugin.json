@@ -1,7 +1,7 @@
 {
   "name": "openai-codex-hackathon",
   "version": "0.1.0",
-  "description": "Prototype Codex-native hackathon experience for rules, resources, reminders, and submission prep before final Devpost handoff.",
+  "description": "Prototype Codex-native hackathon experience for rules, resources, progress tracking, and submission prep before final Devpost handoff.",
   "author": {
     "name": "Devpost Prototype",
     "email": "[TODO: plugin-owner@example.com]",
@@ -21,7 +21,7 @@
   "interface": {
     "displayName": "OpenAI Codex Hackathon",
     "shortDescription": "A guided Codex-native hackathon flow",
-    "longDescription": "Prototype plugin for replacing most of the participant-side Devpost journey with a richer Codex experience: orientation, rules review, resources, reminders, submission drafting, and final preflight before browser handoff. It intentionally stops short of direct Devpost submission while sponsor, legal, and event copy are still being finalized.",
+    "longDescription": "Prototype plugin for replacing most of the participant-side Devpost journey with a richer Codex experience: orientation, rules review, resources, live progress tracking, submission drafting, and final preflight before browser handoff. It intentionally stops short of direct Devpost submission while sponsor, legal, and event copy are still being finalized.",
     "developerName": "Devpost Prototype",
     "category": "Developer Tools",
     "capabilities": [

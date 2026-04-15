@@ -19,6 +19,7 @@ Create or update `devpost-submission.md` in the project root with these sections
 - `## Demo Video`
 - `## Screenshot Shot List`
 - `## Browser Handoff Checklist`
+- `## Submission Readiness Notes`
 - `## Known Limitations`
 - `## TODO Official Form Fields`
 
@@ -26,4 +27,5 @@ Create or update `devpost-submission.md` in the project root with these sections
 
 - Keep claims specific and testable
 - Make the OpenAI and Codex usage concrete
+- Keep the story product-facing and easy to understand
 - Label placeholders clearly when the real event form is still unknown

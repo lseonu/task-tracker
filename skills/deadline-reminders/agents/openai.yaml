@@ -1,4 +1,0 @@
-interface:
-  display_name: "Deadline Reminders"
-  short_description: "Show deadlines, reminders, and next actions"
-  default_prompt: "Use $deadline-reminders to show the next OpenAI Codex Hackathon deadline and what I should do next."

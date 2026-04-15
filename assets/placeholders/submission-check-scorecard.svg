@@ -1,0 +1,26 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="84" y1="66" x2="1117" y2="616" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#171A28"/>
+      <stop offset="0.5" stop-color="#35507A"/>
+      <stop offset="1" stop-color="#F5F8FF"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" rx="32" fill="url(#bg)"/>
+  <rect x="58" y="58" width="1084" height="559" rx="30" fill="#101521" fill-opacity="0.84" stroke="#B5CBFF" stroke-opacity="0.45" stroke-width="2"/>
+  <text x="102" y="146" fill="#DCE7FF" font-family="Arial, sans-serif" font-size="18">FINAL SUBMISSION CHECK</text>
+  <text x="102" y="220" fill="white" font-family="Arial, sans-serif" font-size="52" font-weight="700">Ready, Close, or Not Ready</text>
+  <text x="102" y="272" fill="#E9F0FF" font-family="Arial, sans-serif" font-size="28">Final internal checkpoint before the Devpost browser handoff.</text>
+  <rect x="102" y="328" width="306" height="196" rx="24" fill="#182339" stroke="#B5CBFF" stroke-width="2"/>
+  <text x="132" y="374" fill="#F4F7FF" font-family="Arial, sans-serif" font-size="22" font-weight="700">Scorecard</text>
+  <rect x="132" y="404" width="214" height="18" rx="9" fill="#28405F"/>
+  <rect x="132" y="440" width="240" height="18" rx="9" fill="#28405F"/>
+  <rect x="132" y="476" width="188" height="18" rx="9" fill="#28405F"/>
+  <rect x="452" y="328" width="590" height="196" rx="24" fill="#182339" stroke="#B5CBFF" stroke-width="2"/>
+  <text x="482" y="374" fill="#F4F7FF" font-family="Arial, sans-serif" font-size="22" font-weight="700">Checks</text>
+  <rect x="482" y="404" width="520" height="18" rx="9" fill="#3B5F94"/>
+  <rect x="482" y="440" width="460" height="18" rx="9" fill="#3B5F94"/>
+  <rect x="482" y="476" width="500" height="18" rx="9" fill="#3B5F94"/>
+  <rect x="102" y="550" width="940" height="22" rx="11" fill="#28405F"/>
+  <text x="102" y="603" fill="#DCE7FF" font-family="Arial, sans-serif" font-size="20">Placeholder only. Replace with the final polished scorecard art once the end-state UI is approved.</text>
+</svg>

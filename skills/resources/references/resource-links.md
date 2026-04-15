@@ -4,14 +4,12 @@ Use these as the MVP "Resources" tab inside Codex. Keep the list short and high-
 
 ## Quick Start
 
-- Start with the official event page and official resources page when those URLs are available
 - Use the OpenAI docs links for build-time execution details
 - Use the Devpost help links when the participant needs to understand the final browser handoff
+- Keep the resource set short enough to scan in one pass
 
 ## Docs
 
-- `[TODO: official hackathon landing page]`
-- `[TODO: official hackathon resources page]`
 - [OpenAI Codex](https://openai.com/codex/)
 - [OpenAI API Docs](https://platform.openai.com/docs/)
 - [OpenAI API Quickstart](https://platform.openai.com/docs/quickstart)
@@ -27,6 +25,16 @@ Use these as the MVP "Resources" tab inside Codex. Keep the list short and high-
 ## Inspiration Prompt
 
 Encourage builders to move beyond a generic chat UI. Push toward products with a concrete workflow, a real user, and visible leverage from OpenAI capabilities plus Codex-assisted execution.
+
+## Strong Project Archetypes
+
+Use these as broad guide rails, not prescriptions.
+
+- Workflow product: a user repeats the same meaningful task often enough that an AI-powered workflow saves real time or improves outcomes
+- Agentic operator tool: the system plans, executes, and reports on a bounded job with clear user oversight
+- Decision support product: the model helps users interpret, triage, or act on complex information in a way that is faster or more reliable than a manual process
+- Creative or technical copilot with structure: not just chatting, but helping users move through a defined multi-step flow with artifacts, checkpoints, or outputs
+- Internal tool with measurable leverage: a product that helps a team ship, review, monitor, or debug work more effectively
 
 ## Rich Media Guidance
 

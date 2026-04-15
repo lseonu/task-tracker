@@ -1,0 +1,24 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="98" y1="72" x2="1105" y2="615" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2C1320"/>
+      <stop offset="0.48" stop-color="#6C2954"/>
+      <stop offset="1" stop-color="#FFF3FA"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" rx="32" fill="url(#bg)"/>
+  <rect x="62" y="62" width="1076" height="551" rx="28" fill="#1B0F18" fill-opacity="0.8" stroke="#FFB6E0" stroke-opacity="0.45" stroke-width="2"/>
+  <text x="102" y="148" fill="#FFD1EE" font-family="Arial, sans-serif" font-size="18">BROWSER HANDOFF</text>
+  <text x="102" y="224" fill="white" font-family="Arial, sans-serif" font-size="54" font-weight="700">Register on Devpost First</text>
+  <text x="102" y="276" fill="#FFE5F5" font-family="Arial, sans-serif" font-size="28">Use the browser for registration, then come right back here for rules, resources, and submission prep.</text>
+  <rect x="102" y="334" width="422" height="212" rx="24" fill="#301624" stroke="#FFB6E0" stroke-width="2"/>
+  <rect x="576" y="340" width="470" height="26" rx="13" fill="#843B69"/>
+  <rect x="576" y="392" width="400" height="22" rx="11" fill="#843B69"/>
+  <rect x="576" y="440" width="446" height="22" rx="11" fill="#843B69"/>
+  <rect x="576" y="488" width="318" height="22" rx="11" fill="#843B69"/>
+  <rect x="152" y="376" width="322" height="126" rx="18" fill="#FFF4FB"/>
+  <rect x="174" y="402" width="278" height="18" rx="9" fill="#E3B4CF"/>
+  <rect x="174" y="436" width="180" height="18" rx="9" fill="#E3B4CF"/>
+  <rect x="174" y="468" width="220" height="18" rx="9" fill="#E3B4CF"/>
+  <text x="102" y="592" fill="#FFD8EF" font-family="Arial, sans-serif" font-size="20">Placeholder only. Swap in the approved registration handoff art or browser screenshot later.</text>
+</svg>

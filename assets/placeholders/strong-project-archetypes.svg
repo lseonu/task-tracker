@@ -1,0 +1,35 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="79" y1="60" x2="1112" y2="620" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#102118"/>
+      <stop offset="0.5" stop-color="#276348"/>
+      <stop offset="1" stop-color="#F3FFF8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" rx="32" fill="url(#bg)"/>
+  <rect x="58" y="58" width="1084" height="559" rx="30" fill="#0F1913" fill-opacity="0.82" stroke="#AEEBCC" stroke-opacity="0.45" stroke-width="2"/>
+  <text x="102" y="146" fill="#D8FAE6" font-family="Arial, sans-serif" font-size="18">STRONG PROJECT ARCHETYPES</text>
+  <text x="102" y="220" fill="white" font-family="Arial, sans-serif" font-size="52" font-weight="700">Project Shapes That Usually Travel Well</text>
+  <text x="102" y="272" fill="#E7FFF1" font-family="Arial, sans-serif" font-size="28">Use these as broad patterns to sharpen your idea, not as a rigid menu.</text>
+  <rect x="102" y="330" width="240" height="168" rx="22" fill="#183727" stroke="#AEEBCC" stroke-width="2"/>
+  <rect x="362" y="330" width="240" height="168" rx="22" fill="#183727" stroke="#AEEBCC" stroke-width="2"/>
+  <rect x="622" y="330" width="240" height="168" rx="22" fill="#183727" stroke="#AEEBCC" stroke-width="2"/>
+  <rect x="882" y="330" width="240" height="168" rx="22" fill="#183727" stroke="#AEEBCC" stroke-width="2"/>
+  <text x="126" y="376" fill="#F4FFF8" font-family="Arial, sans-serif" font-size="22" font-weight="700">Workflow Tool</text>
+  <text x="126" y="412" fill="#D8FAE6" font-family="Arial, sans-serif" font-size="18">Clear user loop</text>
+  <text x="126" y="438" fill="#D8FAE6" font-family="Arial, sans-serif" font-size="18">Repeatable value</text>
+  <text x="126" y="464" fill="#D8FAE6" font-family="Arial, sans-serif" font-size="18">Visible output</text>
+  <text x="386" y="376" fill="#F4FFF8" font-family="Arial, sans-serif" font-size="22" font-weight="700">Agentic Tool</text>
+  <text x="386" y="412" fill="#D8FAE6" font-family="Arial, sans-serif" font-size="18">Bounded job</text>
+  <text x="386" y="438" fill="#D8FAE6" font-family="Arial, sans-serif" font-size="18">Human oversight</text>
+  <text x="386" y="464" fill="#D8FAE6" font-family="Arial, sans-serif" font-size="18">Concrete payoff</text>
+  <text x="646" y="376" fill="#F4FFF8" font-family="Arial, sans-serif" font-size="22" font-weight="700">Decision Support</text>
+  <text x="646" y="412" fill="#D8FAE6" font-family="Arial, sans-serif" font-size="18">Complex inputs</text>
+  <text x="646" y="438" fill="#D8FAE6" font-family="Arial, sans-serif" font-size="18">Actionable guidance</text>
+  <text x="646" y="464" fill="#D8FAE6" font-family="Arial, sans-serif" font-size="18">Credible user value</text>
+  <text x="906" y="376" fill="#F4FFF8" font-family="Arial, sans-serif" font-size="22" font-weight="700">Structured Copilot</text>
+  <text x="906" y="412" fill="#D8FAE6" font-family="Arial, sans-serif" font-size="18">Not just chat</text>
+  <text x="906" y="438" fill="#D8FAE6" font-family="Arial, sans-serif" font-size="18">Artifacts and steps</text>
+  <text x="906" y="464" fill="#D8FAE6" font-family="Arial, sans-serif" font-size="18">Strong demo path</text>
+  <text x="102" y="590" fill="#D8FAE6" font-family="Arial, sans-serif" font-size="20">Placeholder only. Replace with the final launch visual once the archetype language is approved.</text>
+</svg>
