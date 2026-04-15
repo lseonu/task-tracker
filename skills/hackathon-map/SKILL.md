@@ -78,8 +78,8 @@ Render a compact visual progress card before the text summary when practical.
 Build the visual from the current state instead of reading from any external runtime tool. This feature must have zero runtime dependencies.
 
 Prefer this order:
-- inline SVG progress graphic first
-- Mermaid with explicit styling as fallback
+- Mermaid with explicit styling first
+- a Markdown image that points at a saved SVG only if Mermaid cannot express the layout cleanly
 - plain text only as a last resort
 
 Use this styling approach:
@@ -101,7 +101,7 @@ Any skill that updates `.openai-codex-hackathon-state.json` should immediately r
 
 ## Visual Layout
 
-The response should be led by a single inline SVG dashboard whenever practical.
+The response should be led by a single rendered dashboard whenever practical.
 
 That dashboard should combine:
 - the workflow map
@@ -112,14 +112,19 @@ That dashboard should combine:
 
 Prefer one coherent card over multiple separate graphics.
 
-The SVG should feel like a friendly product surface:
+The visual should feel like a friendly product surface:
 - clear hierarchy
 - strong contrast
 - small number of colors with consistent meaning
 - compact labels
 - enough whitespace to scan in seconds
 
-Avoid decorative filler, giant paragraphs inside the SVG, or anything that looks like placeholder admin tooling.
+Avoid decorative filler, giant paragraphs inside the diagram, or anything that looks like placeholder admin tooling.
+
+Important rendering rule for Codex desktop:
+- prefer Mermaid for generated dashboards
+- if a custom SVG is necessary, save it to a file and render it with Markdown image syntax
+- never emit raw `<svg>...</svg>` markup directly into the response
 
 ## Deadline And Readiness Summary
 
@@ -165,7 +170,7 @@ Use these gates:
 ## Response Pattern
 
 Keep the output compact and practical:
-- lead with the inline SVG dashboard
+- lead with the rendered dashboard
 - include only a few short lines of supporting text
 - show the current stage
 - show one-line project status if known

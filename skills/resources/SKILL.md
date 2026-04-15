@@ -41,6 +41,11 @@ Preferred structure:
 
 Use markdown links for resources. If a direct image URL or supported rich media URL is available, render at most one or two useful inline media items. Prefer official or first-party sources.
 
+For local or remote images in Codex desktop:
+- use Markdown image syntax
+- use absolute filesystem paths for local placeholder assets
+- never use raw HTML `<img>` tags
+
 If real media is not available yet, render these local placeholders:
 - `../../assets/placeholders/resources-video.svg`
 - `../../assets/placeholders/anti-patterns-poster.svg`

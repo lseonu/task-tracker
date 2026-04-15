@@ -114,8 +114,8 @@ Do not render the flow as plain inline text unless you have no other option.
 
 Prefer this order of presentation:
 - a compact hero section with a one-sentence TLDR and the immediate next action
-- a graphical command map rendered as inline SVG first
-- Mermaid with explicit styling as the fallback if inline SVG is awkward
+- a graphical command map rendered as Mermaid first
+- a Markdown image that points at a saved SVG only if Mermaid cannot express the layout cleanly
 - plain text arrows only as a last resort
 
 Show this sequence in the visual map:
@@ -137,6 +137,15 @@ When practical, render these local placeholder assets in the response:
 Also render one remote Devpost brand image as a lightweight cue when practical:
 - `https://logo.clearbit.com/devpost.com`
 
+Important rendering rule for Codex desktop:
+- use Markdown image syntax for every local or remote image
+- use absolute filesystem paths for local assets
+- never use raw HTML `<img>` tags in the response
+
+Example pattern:
+- `![Hackathon landing](/absolute/path/to/start-hackathon-landing.svg)`
+- `![Devpost](https://logo.clearbit.com/devpost.com)`
+
 The opening view should ideally include:
 - a compact welcome hero
 - a short "how this works" summary
@@ -147,7 +156,11 @@ The opening view should ideally include:
 
 ## Zero-State Dashboard
 
-Render a compact inline SVG dashboard from `.openai-codex-hackathon-state.json` immediately after the state file is created or loaded.
+Render a compact zero-state dashboard from `.openai-codex-hackathon-state.json` immediately after the state file is created or loaded.
+
+Prefer Mermaid with explicit styling for this dashboard in Codex desktop.
+
+Do not emit raw `<svg>...</svg>` markup directly into the response. If Mermaid cannot express the desired layout cleanly, write a temporary SVG file and render it as a Markdown image instead.
 
 The dashboard should:
 - show the workflow in order

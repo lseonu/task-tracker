@@ -60,7 +60,8 @@ Return:
 Prefer a visual review card over a plain paragraph block.
 
 When practical:
-- render an inline SVG scorecard first when possible
+- render the scorecard as Mermaid first when possible
+- use a Markdown image that points at a saved SVG only if Mermaid cannot express the layout cleanly
 - use status icons or emoji sparingly to make the review easier to scan
 - present the criteria as a compact table
 - make the result feel like a polished preflight check, not just a dumped checklist
@@ -82,6 +83,11 @@ If the result is `close` or `not ready`:
 ## Visual Guidance
 
 When practical, render `../../assets/placeholders/submission-check-scorecard.svg` as a placeholder or fallback visual for the final review surface.
+
+For local placeholder visuals in Codex desktop:
+- use Markdown image syntax with an absolute filesystem path
+- never use raw HTML `<img>` tags
+- never emit raw `<svg>...</svg>` markup directly into the response
 
 The review UI should feel:
 - crisp

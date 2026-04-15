@@ -34,6 +34,7 @@ When practical:
 - keep the copy concise enough to scan in one pass
 - keep the structure exhaustive even when some items are still `TODO official copy`
 - make the participant feel supported, not scolded
+- render images with Markdown image syntax, not raw HTML
 
 ## Strict Gate
 
