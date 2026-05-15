@@ -415,15 +415,6 @@ ${rows.map(([label, value]) => `          <p><strong>${escapeHtml(label)}:</stro
         </section>`;
 }
 
-function renderCopySource(contentPath) {
-  if (!contentPath) return "";
-  return `
-        <section class="artifact-copy-source" data-slot="copy-source">
-          <h3>Edit this page copy</h3>
-          <p>Main body copy comes from <code>${escapeHtml(contentPath)}</code>.</p>
-        </section>`;
-}
-
 async function renderPage(config, state, activeStep, options = {}) {
   const contentPath = options.contentPath || config.content?.[activeStep.key];
   const markdown = contentPath ? interpolateCopy(await readFile(path.join(configRoot, contentPath), "utf8"), config) : "";
@@ -511,7 +502,6 @@ ${renderSecurityScan(securityScan)}
             <h3>Next action</h3>
             <p>${inlineMarkdown(interpolateCopy(options.nextAction || activeStep.nextAction, config))}</p>
           </div>
-${renderCopySource(contentPath)}
         </section>
       </div>
     </div>

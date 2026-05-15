@@ -293,7 +293,6 @@ html[data-theme="dark"] .artifact-step[data-state="active"] {
 
 .artifact-panel,
 .artifact-next-action,
-.artifact-copy-source,
 .artifact-context {
   background: transparent;
   border: 0;
@@ -306,7 +305,6 @@ html[data-theme="dark"] .artifact-step[data-state="active"] {
 
 .artifact-panel h3,
 .artifact-next-action h3,
-.artifact-copy-source h3,
 .artifact-context h3 {
   margin: 0 0 6px;
   color: var(--artifact-strong);
@@ -326,7 +324,6 @@ html[data-theme="dark"] .artifact-step[data-state="active"] {
 .artifact-panel p,
 .artifact-panel li,
 .artifact-next-action p,
-.artifact-copy-source p,
 .artifact-context p {
   color: var(--artifact-text);
   font-size: 19px;
@@ -357,16 +354,6 @@ html[data-theme="dark"] .artifact-context {
 .artifact-context p {
   margin: 6px 0 0;
   font-size: 16px;
-}
-
-.artifact-copy-source {
-  padding-top: 18px;
-  border-top: 1px solid var(--artifact-line);
-}
-
-.artifact-copy-source p {
-  margin: 0;
-  font-size: 14px;
 }
 
 .artifact-card-grid {
@@ -587,7 +574,6 @@ html[data-theme="dark"] .artifact-security-scan[data-security-status="pass"] h3 
   .artifact-panel h3,
   .artifact-panel h4,
   .artifact-next-action h3,
-  .artifact-copy-source h3,
   .artifact-context h3 {
     font-size: 18px;
   }

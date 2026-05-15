@@ -98,7 +98,7 @@ The renderer reads:
 
 Participants should not need to know this machinery exists. Skills should render or refresh the right artifact automatically when the user runs commands such as `$resources` or `$submission-check`.
 
-Each generated page visibly names the Markdown file that supplies its main body copy. This is intentional: event, product, and design owners can revise copy in `content/steps/` or `content/learning/` without editing the renderer or skill files.
+Event, product, and design owners can revise copy in `content/steps/` or `content/learning/` without editing the renderer or skill files. The Markdown files include maintainer-only comments with their source paths; generated participant pages should not display copy-editing instructions.
 
 The renderer is deterministic, not an AI page writer. It combines shared HTML/CSS, `config/hackathon.json`, Markdown copy, and the small local state file. Dynamic values such as participant name, project idea, current learning step, readiness status, and security scan results come from state or generated JSON files, while long-form instructional copy stays in Markdown.
 

@@ -30,7 +30,7 @@ Update these files for a new vendor or customer event:
 - `assets/logos/`: official Devpost logo variants.
 - `assets/banners/`: event-specific banner art.
 
-The generated HTML pages visibly show their Markdown source path so copy owners can find the right file quickly during QA.
+The generated HTML pages do not show maintainer notes to participants. Copy owners should use this document and the maintainer-only comments inside the Markdown files to find the right source file quickly during QA.
 
 ## Minimum Event Data
 
