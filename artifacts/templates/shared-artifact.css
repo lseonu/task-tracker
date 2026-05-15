@@ -386,14 +386,6 @@ html[data-theme="dark"] .artifact-context {
   border-top: 1px solid var(--artifact-line);
 }
 
-.artifact-security-scan[data-security-status="pass"] h3 {
-  color: var(--devpost-navy);
-}
-
-html[data-theme="dark"] .artifact-security-scan[data-security-status="pass"] h3 {
-  color: var(--devpost-blue);
-}
-
 .artifact-security-scan[data-security-status="block"] h3 {
   color: #b42318;
 }

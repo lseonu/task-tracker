@@ -454,7 +454,7 @@ async function renderPage(config, state, activeStep, options = {}) {
       }
     })();
   </script>
-  <link rel="stylesheet" href="../../.openai-codex-hackathon/templates/shared-artifact.css?v=template-workshop-1">
+  <link rel="stylesheet" href="../../.openai-codex-hackathon/templates/shared-artifact.css?v=template-workshop-2">
 </head>
 <body>
   <main class="artifact-shell" data-current-stage="${activeStep.id}" data-next-command="${escapeHtml(next)}">
