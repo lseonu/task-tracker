@@ -132,6 +132,8 @@ Do not render:
 
 In normal operation, respond with:
 
+- a warm welcome that names the event and explains that Codex will guide the participant through the hackathon from this project folder
+- one sentence explaining that Codex will communicate through chat plus dynamic HTML artifacts rendered in the Codex in-app browser
 - whether state was created or loaded
 - that the Start artifact was regenerated
 - the localhost preview URL
@@ -142,6 +144,7 @@ In normal operation, respond with:
 If artifact generation fails, use a compact text fallback:
 
 - current stage: Start
+- this plugin normally uses dynamic HTML artifacts in the Codex in-app browser, but the artifact could not be rendered
 - next command: `$review-rules`
 - registration reminder: Devpost registration still happens in the browser
 - one-sentence error summary

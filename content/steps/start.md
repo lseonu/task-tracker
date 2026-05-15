@@ -1,6 +1,8 @@
 # Welcome to {{event.name}}
 
-Start by registering on Devpost, then continue here in Codex.
+Welcome. Codex will guide you through the hackathon from inside this project folder.
+
+You will use chat for questions, decisions, and confirmations. Codex will also render dynamic HTML artifacts in the Codex in-app browser so each step has a clear visual workspace, current progress, and next action.
 
 Devpost remains the official registration and submission surface. Codex guides the rest of the build and preparation flow: reviewing requirements, choosing resources, optionally shaping your idea through a guided learning path, preparing your submission materials, and running a final check before browser handoff.
 
