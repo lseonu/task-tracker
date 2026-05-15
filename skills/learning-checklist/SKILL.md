@@ -68,7 +68,7 @@ Set:
 Run:
 
 ```bash
-node scripts/render-artifacts.mjs --page learning-checklist
+node "$HOME/.codex/plugins/cache/local-plugins/openai-codex-hackathon/0.1.0/scripts/render-artifacts.mjs" --page learning-checklist
 ```
 
 The generated page is `artifacts/generated/learning-checklist.html`.

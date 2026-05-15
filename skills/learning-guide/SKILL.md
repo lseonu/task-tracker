@@ -6,6 +6,8 @@ user-invocable: false
 
 # Learning Guide
 
+Read `../PLUGIN_RUNTIME.md` before running any renderer or scanner command from a participant project.
+
 This guide adapts the Devpost learning curriculum for the Codex hackathon plugin.
 
 The path is nested inside Step 3: Resources and uses Codex commands:

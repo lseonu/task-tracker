@@ -15,6 +15,7 @@ The HTML artifact is the primary participant interface. Chat is only the confirm
 
 Read these before responding:
 
+- `../PLUGIN_RUNTIME.md`
 - `../../config/hackathon.json`
 - `references/placeholder-rules.md`
 
@@ -67,7 +68,7 @@ Do not duplicate this content as a long chat response during normal operation.
 When presenting the rules gate or after recording a `yes` response, run:
 
 ```bash
-node scripts/render-artifacts.mjs --page rules
+node "$HOME/.codex/plugins/cache/local-plugins/openai-codex-hackathon/0.1.0/scripts/render-artifacts.mjs" --page rules
 ```
 
 The generated page is `artifacts/generated/review-rules.html`.

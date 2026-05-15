@@ -73,19 +73,19 @@ Direct `file://` navigation was rejected during testing, while localhost preview
 Generate the top-level HTML artifacts with:
 
 ```bash
-node scripts/render-artifacts.mjs --all
+node "$HOME/.codex/plugins/cache/local-plugins/openai-codex-hackathon/0.1.0/scripts/render-artifacts.mjs" --all
 ```
 
 Or generate one page:
 
 ```bash
-node scripts/render-artifacts.mjs --page resources
+node "$HOME/.codex/plugins/cache/local-plugins/openai-codex-hackathon/0.1.0/scripts/render-artifacts.mjs" --page resources
 ```
 
 Learning-path pages can be generated the same way:
 
 ```bash
-node scripts/render-artifacts.mjs --page learning-onboard
+node "$HOME/.codex/plugins/cache/local-plugins/openai-codex-hackathon/0.1.0/scripts/render-artifacts.mjs" --page learning-onboard
 ```
 
 The renderer reads:
@@ -124,3 +124,7 @@ The future Devpost MCP should become the source of truth for event, registration
 Until then, `config/hackathon.json` plus the Markdown content files provide a lightweight, forkable setup for a specific hackathon.
 
 See [`docs/future-devpost-mcp.md`](docs/future-devpost-mcp.md) for the current integration notes, OpenAI documentation links, likely read-only tool shape, auth/state guidance, and migration plan. V1 intentionally does not add `.mcp.json` or `mcpServers` until the Devpost MCP server and auth model are known.
+
+## Devpost Team Handoff
+
+For configuring this plugin for OpenAI or a future customer hackathon, start with [`docs/devpost-team-onboarding.md`](docs/devpost-team-onboarding.md).

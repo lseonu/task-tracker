@@ -17,6 +17,7 @@ Unlike the step commands, `$hackathon-map` does not mark workflow stages complet
 
 Read:
 
+- `../PLUGIN_RUNTIME.md`
 - `.openai-codex-hackathon-state.json` when present
 - `../../config/hackathon.json`
 
@@ -48,7 +49,7 @@ If an older state file references removed prototype fields like `dashboard`, `re
 When state exists, regenerate the recovery artifact:
 
 ```bash
-node scripts/render-artifacts.mjs --page map
+node "$HOME/.codex/plugins/cache/local-plugins/openai-codex-hackathon/0.1.0/scripts/render-artifacts.mjs" --page map
 ```
 
 The generated page is `artifacts/generated/hackathon-map.html`. It should show the current top-level stage, completed stages, optional learning state, and next command without marking anything complete.

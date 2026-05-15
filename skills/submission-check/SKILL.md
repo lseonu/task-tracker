@@ -17,6 +17,7 @@ The HTML artifact is the primary participant interface. Chat is only the control
 
 Read before responding:
 
+- `../PLUGIN_RUNTIME.md`
 - `references/preflight-checklist.md`
 - `../../config/hackathon.json`
 
@@ -35,7 +36,7 @@ If `devpost-submission.md` does not exist, direct the user to `$prepare-submissi
 Before assigning the final readiness result, run:
 
 ```bash
-node scripts/submission-security-scan.mjs
+node "$HOME/.codex/plugins/cache/local-plugins/openai-codex-hackathon/0.1.0/scripts/submission-security-scan.mjs"
 ```
 
 Read `artifacts/generated/submission-security-scan.json`.
@@ -75,7 +76,7 @@ Assign one top-line result: `ready`, `close`, or `not ready`.
 After running the readiness review and updating state, run:
 
 ```bash
-node scripts/render-artifacts.mjs --page check
+node "$HOME/.codex/plugins/cache/local-plugins/openai-codex-hackathon/0.1.0/scripts/render-artifacts.mjs" --page check
 ```
 
 The generated page is `artifacts/generated/submission-check.html`.

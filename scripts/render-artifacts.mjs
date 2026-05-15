@@ -1,11 +1,18 @@
-import { readFile, writeFile } from "node:fs/promises";
+import { cp, mkdir, readFile, writeFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const root = process.cwd();
-const generatedDir = path.join(root, "artifacts/generated");
-const statePath = path.join(root, ".openai-codex-hackathon-state.json");
-const configPath = path.join(root, "config/hackathon.json");
+const scriptDir = path.dirname(fileURLToPath(import.meta.url));
+const pluginRoot = path.resolve(process.env.HACKATHON_PLUGIN_ROOT || path.join(scriptDir, ".."));
+const projectRoot = path.resolve(process.env.HACKATHON_PROJECT_ROOT || process.cwd());
+const generatedDir = path.join(projectRoot, "artifacts/generated");
+const supportDir = path.join(projectRoot, ".openai-codex-hackathon");
+const statePath = path.join(projectRoot, ".openai-codex-hackathon-state.json");
+const projectConfigPath = path.join(projectRoot, "config/hackathon.json");
+const pluginConfigPath = path.join(pluginRoot, "config/hackathon.json");
+const configPath = existsSync(projectConfigPath) ? projectConfigPath : pluginConfigPath;
+const configRoot = configPath === projectConfigPath ? projectRoot : pluginRoot;
 const securityScanPath = path.join(generatedDir, "submission-security-scan.json");
 
 const steps = [
@@ -201,7 +208,7 @@ function generatedAssetPath(assetPath) {
   const value = String(assetPath || "").trim();
   if (!value) return "";
   if (/^(?:https?:)?\/\//.test(value) || value.startsWith("data:")) return value;
-  return `../../${value.replace(/^\.?\//, "")}`;
+  return `../../.openai-codex-hackathon/${value.replace(/^\.?\//, "")}`;
 }
 
 function renderBrandHeader(config) {
@@ -419,7 +426,7 @@ function renderCopySource(contentPath) {
 
 async function renderPage(config, state, activeStep, options = {}) {
   const contentPath = options.contentPath || config.content?.[activeStep.key];
-  const markdown = contentPath ? interpolateCopy(await readFile(path.join(root, contentPath), "utf8"), config) : "";
+  const markdown = contentPath ? interpolateCopy(await readFile(path.join(configRoot, contentPath), "utf8"), config) : "";
   const body = markdownToHtml(markdown);
   const securityScan = activeStep.id === "submission-check" ? await readOptionalJson(securityScanPath) : null;
   const participantName = state.participant?.display_name || state.participant?.name || "";
@@ -456,7 +463,7 @@ async function renderPage(config, state, activeStep, options = {}) {
       }
     })();
   </script>
-  <link rel="stylesheet" href="../templates/shared-artifact.css?v=template-workshop-1">
+  <link rel="stylesheet" href="../../.openai-codex-hackathon/templates/shared-artifact.css?v=template-workshop-1">
 </head>
 <body>
   <main class="artifact-shell" data-current-stage="${activeStep.id}" data-next-command="${escapeHtml(next)}">
@@ -562,8 +569,16 @@ async function renderMapPage(config, state) {
   });
 }
 
+async function prepareRuntimeFiles() {
+  await mkdir(generatedDir, { recursive: true });
+  await mkdir(supportDir, { recursive: true });
+  await cp(path.join(pluginRoot, "artifacts/templates"), path.join(supportDir, "templates"), { recursive: true });
+  await cp(path.join(pluginRoot, "assets"), path.join(supportDir, "assets"), { recursive: true });
+}
+
 async function main() {
   const args = parseArgs();
+  await prepareRuntimeFiles();
   const config = await readJson(configPath);
   const state = await readState();
   const pages = args.all
@@ -582,7 +597,7 @@ async function main() {
         : await renderPage(config, state, step);
     const outPath = path.join(generatedDir, step.file);
     await writeFile(outPath, html, "utf8");
-    console.log(path.relative(root, outPath));
+    console.log(path.relative(projectRoot, outPath));
   }
 }
 

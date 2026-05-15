@@ -15,7 +15,7 @@ The HTML artifact is the primary participant interface. Chat is only the control
 
 ## Required Reference
 
-Read `references/submission-template.md` before responding.
+Read `../PLUGIN_RUNTIME.md` and `references/submission-template.md` before responding.
 
 ## Preconditions
 
@@ -73,7 +73,7 @@ Do not turn this into a long essay. Keep the revision handoff short and actionab
 After drafting or updating `devpost-submission.md` and state, run:
 
 ```bash
-node scripts/render-artifacts.mjs --page prepare
+node "$HOME/.codex/plugins/cache/local-plugins/openai-codex-hackathon/0.1.0/scripts/render-artifacts.mjs" --page prepare
 ```
 
 The generated page is `artifacts/generated/prepare-submission.html`.

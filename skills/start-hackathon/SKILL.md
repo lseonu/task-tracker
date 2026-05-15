@@ -13,7 +13,7 @@ The HTML artifact is the primary participant interface. Chat is only the control
 
 ## Required Reference
 
-Read `../../config/hackathon.json` before responding.
+Read `../PLUGIN_RUNTIME.md` and `../../config/hackathon.json` before responding.
 
 ## Workspace Assumption
 
@@ -104,7 +104,7 @@ Then regenerate the Start artifact.
 After creating or loading state, run:
 
 ```bash
-node scripts/render-artifacts.mjs --page start
+node "$HOME/.codex/plugins/cache/local-plugins/openai-codex-hackathon/0.1.0/scripts/render-artifacts.mjs" --page start
 ```
 
 The generated page is `artifacts/generated/start-hackathon.html`.

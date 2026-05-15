@@ -1,4 +1,4 @@
-import { readFile, writeFile } from "node:fs/promises";
+import { mkdir, readdir, readFile, stat, writeFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
@@ -56,13 +56,33 @@ function isLikelyTextFile(relativePath) {
 }
 
 function gitFiles() {
-  const tracked = execFileSync("git", ["ls-files"], { cwd: root, encoding: "utf8" })
-    .split(/\r?\n/)
-    .filter(Boolean);
-  const untracked = execFileSync("git", ["ls-files", "--others", "--exclude-standard"], { cwd: root, encoding: "utf8" })
-    .split(/\r?\n/)
-    .filter(Boolean);
-  return [...new Set([...tracked, ...untracked])].filter((file) => !shouldSkipPath(file));
+  try {
+    const tracked = execFileSync("git", ["ls-files"], { cwd: root, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] })
+      .split(/\r?\n/)
+      .filter(Boolean);
+    const untracked = execFileSync("git", ["ls-files", "--others", "--exclude-standard"], { cwd: root, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] })
+      .split(/\r?\n/)
+      .filter(Boolean);
+    return [...new Set([...tracked, ...untracked])].filter((file) => !shouldSkipPath(file));
+  } catch {
+    return null;
+  }
+}
+
+async function walkFiles(dir = root, output = []) {
+  const entries = await readdir(dir, { withFileTypes: true });
+  for (const entry of entries) {
+    const absolutePath = path.join(dir, entry.name);
+    const relativePath = path.relative(root, absolutePath);
+    if (!relativePath || shouldSkipPath(relativePath)) continue;
+    if (entry.isDirectory()) {
+      await walkFiles(absolutePath, output);
+    } else if (entry.isFile()) {
+      const info = await stat(absolutePath);
+      if (info.size <= 1024 * 1024) output.push(relativePath);
+    }
+  }
+  return output;
 }
 
 function redact(value) {
@@ -90,7 +110,7 @@ function isSpecificSecretValue(value) {
 
 async function scan() {
   const findings = [];
-  const files = gitFiles();
+  const files = gitFiles() || await walkFiles();
 
   for (const relativePath of files) {
     if (!isLikelyTextFile(relativePath) && !isRiskyFile(relativePath)) continue;
@@ -147,6 +167,7 @@ async function scan() {
     findings
   };
 
+  await mkdir(path.dirname(outputPath), { recursive: true });
   await writeFile(outputPath, `${JSON.stringify(result, null, 2)}\n`, "utf8");
   console.log(JSON.stringify(result, null, 2));
 }

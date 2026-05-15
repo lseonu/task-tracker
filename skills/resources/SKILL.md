@@ -15,6 +15,7 @@ The HTML artifact is the primary participant interface. Chat is only the control
 
 Read these files before responding:
 
+- `../PLUGIN_RUNTIME.md`
 - `../../config/hackathon.json`
 - `references/resource-links.md`
 - `references/anti-patterns.md`
@@ -54,7 +55,7 @@ Do not render local placeholder images or resource posters in chat.
 After reading references and updating state, run:
 
 ```bash
-node scripts/render-artifacts.mjs --page resources
+node "$HOME/.codex/plugins/cache/local-plugins/openai-codex-hackathon/0.1.0/scripts/render-artifacts.mjs" --page resources
 ```
 
 The generated page is `artifacts/generated/resources.html`.
