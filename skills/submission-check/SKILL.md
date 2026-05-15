@@ -5,17 +5,20 @@ description: Run the final pre-submission review against the hackathon requireme
 
 # Submission Check
 
-## Overview
+## Purpose
 
-Perform the last internal review before the participant leaves Codex to submit on Devpost in the browser. Flag missing assets, weak claims, and unresolved placeholders.
+Run the final internal readiness review, run the local security scanner, update state, regenerate the Check HTML artifact, and give the participant the shortest useful handoff.
 
-This step should function as the clean final box-checking gate after the revision round, not as a second qualitative critique pass.
+This does not submit to Devpost. The participant still completes the official submission in the browser.
 
-## Required Reference
+The HTML artifact is the primary participant interface. Chat is only the control surface and fallback.
 
-Read `references/preflight-checklist.md` before responding.
+## Required References
 
-Also read `../../config/hackathon.json` for the browser handoff URL.
+Read before responding:
+
+- `references/preflight-checklist.md`
+- `../../config/hackathon.json`
 
 ## Preconditions
 
@@ -27,9 +30,9 @@ If `rules_acknowledged` is not `true`, direct the user to `$review-rules` first.
 
 If `devpost-submission.md` does not exist, direct the user to `$prepare-submission`.
 
-## Review Standard
+## Security Scan
 
-Before assigning the final readiness result, run the local security scanner:
+Before assigning the final readiness result, run:
 
 ```bash
 node scripts/submission-security-scan.mjs
@@ -37,7 +40,18 @@ node scripts/submission-security-scan.mjs
 
 Read `artifacts/generated/submission-security-scan.json`.
 
-Run a concrete pass-fail review across:
+Treat scan results this way:
+
+- `block`: high-confidence secret or risky credential file found. The submission cannot be marked `ready`.
+- `review`: no high-confidence secret, but warning findings need user review. The submission can be `close`, not `ready`, unless the user has explicitly verified the warnings are benign.
+- `pass`: no high-confidence findings or warnings from the scanner.
+
+Never paste raw secret values in chat or artifacts. Use only redacted evidence from the scanner.
+
+## Readiness Review
+
+Review:
+
 - rules acknowledgment recorded
 - project brief present
 - honest build description
@@ -54,104 +68,64 @@ Run a concrete pass-fail review across:
 - no high-confidence exposed secrets from the local security scan
 - no risky credential-looking files that need user review
 
-Keep the review practical. Focus on completeness, clarity of required assets, and browser handoff readiness.
+Assign one top-line result: `ready`, `close`, or `not ready`.
 
-Do not spend time on broad product critique here unless it directly affects submission readiness.
+## Artifact Output
 
-## Security Scan Policy
-
-The local scanner is a lightweight MVP. It scans likely text files, including tracked and untracked files when safe, and writes a redacted JSON report.
-
-Treat scan results this way:
-
-- `block`: high-confidence secret or risky credential file found. The submission cannot be marked `ready`.
-- `review`: no high-confidence secret, but warning findings need user review. The submission can be `close`, not `ready`, unless the user has explicitly verified the warnings are benign.
-- `pass`: no high-confidence findings or warnings from the scanner.
-
-Never paste raw secret values in chat or artifacts. Use only the redacted evidence from the scanner.
-
-## Output Format
-
-Return:
-- a short top-line result: `ready`, `close`, or `not ready`
-- a compact scorecard with a simple numeric rubric when practical
-- a flat checklist or table with `pass`, `fix now`, or `placeholder`
-- short reasoning for each weak area
-- the single next best action to take
-
-Prefer a visual review card over a plain paragraph block.
-
-When practical:
-- render the scorecard as Mermaid first when possible
-- use a Markdown image that points at a saved SVG only if Mermaid cannot express the layout cleanly
-- use status icons or emoji sparingly to make the review easier to scan
-- present the criteria as a compact table
-- make the result feel like a polished preflight check, not just a dumped checklist
-
-Keep the text terse. The visual scorecard and checklist should do most of the work.
-
-## HTML Artifact Output
-
-After running the readiness review and updating state, regenerate the Check artifact:
+After running the readiness review and updating state, run:
 
 ```bash
-node scripts/submission-security-scan.mjs
 node scripts/render-artifacts.mjs --page check
 ```
 
 The generated page is `artifacts/generated/submission-check.html`.
 
-In chat, keep the response compact: give the readiness result, the shortest useful fix-now list if needed, and the Devpost browser handoff when ready.
+Expected preview URL when the repo is served on port 8787:
 
-## Handoff Behavior
-
-If the result is `ready`:
-- explicitly tell the user they are ready to complete the Devpost submission in the browser
-- reference the official submission URL from `../../config/hackathon.json` when it is available
-- if the official URL is still missing, say that the browser handoff link is still `TODO official URL`
-
-If the result is `close` or `not ready`:
-- point back to the most useful fixing command
-- keep the remediation list concrete and short
-- do not turn this into a second revision essay
-
-## Visual Guidance
-
-When practical, render `../../assets/placeholders/submission-check-scorecard.svg` as a placeholder or fallback visual for the final review surface.
-
-For local placeholder visuals in Codex desktop:
-- use Markdown image syntax with an absolute filesystem path
-- never use raw HTML `<img>` tags
-- never emit raw `<svg>...</svg>` markup directly into the response
-
-The review UI should feel:
-- crisp
-- trustworthy
-- compact
-- a little ceremonial, since this is the final internal checkpoint
-
-Avoid anything playful enough to undercut the seriousness of the final review.
+```text
+http://localhost:8787/artifacts/generated/submission-check.html
+```
 
 ## State Update
 
 If the project passes cleanly enough for handoff:
-- Add `submission-check` to `completed_stages` if needed
-- Set `submission.status` to `ready`
-- Set `submission.browser_handoff_ready` to `true`
-- Set `current_stage` to `submission-check`
-- Clear `next_command` or set it to `hackathon-map`
-- Update `dashboard` if it exists:
-  - set `completion_percent` to `100`
-  - set `registration_status` to `complete`
-  - update `last_rendered_at`
+
+- add `submission-check` to `completed_stages` if needed
+- set `submission.status` to `ready`
+- set `submission.browser_handoff_ready` to `true`
+- set `current_stage` to `submission-check`
+- clear `next_command` or set it to `hackathon-map`
 
 If it does not pass:
-- Set `submission.status` to `needs-work`
-- Set `current_stage` to `submission-check`
-- Set `next_command` to the specific command that should fix the issue
-- Point the user back to that specific command
-- Update `dashboard` if it exists:
-  - set `completion_percent` to `80`
-  - update `last_rendered_at`
 
-After updating state, render a refreshed compact progress card based on the current `.openai-codex-hackathon-state.json`.
+- set `submission.status` to `needs-work`
+- set `current_stage` to `submission-check`
+- set `next_command` to the specific command that should fix the issue
+
+## Chat Output
+
+Keep chat output compact.
+
+Do not render:
+
+- placeholder SVGs
+- Markdown images
+- Mermaid diagrams
+- inline scorecard graphics
+- long checklist dumps already represented in the artifact
+
+Respond with:
+
+- readiness result: `ready`, `close`, or `not ready`
+- security scan status
+- artifact regenerated
+- localhost preview URL
+- the shortest useful fix-now list if needed
+- browser handoff URL only when ready
+
+If artifact generation fails, use a compact text fallback:
+
+- readiness result
+- security scan status
+- fix-now list
+- next recommended command or Devpost handoff

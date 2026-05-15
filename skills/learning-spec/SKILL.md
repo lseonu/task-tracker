@@ -69,4 +69,6 @@ Run:
 node scripts/render-artifacts.mjs --page learning-spec
 ```
 
-End by recommending `$learning-checklist`.
+The generated page is `artifacts/generated/learning-spec.html`.
+
+End by saying the artifact was regenerated and recommending `$learning-checklist`.

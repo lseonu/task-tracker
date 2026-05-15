@@ -1,6 +1,6 @@
 # Resource Links
 
-Use these as the MVP "Resources" tab inside Codex. Keep the list short and high-signal, but present them more like a compact hackathon resources page than a raw bookmark list.
+Use these as source material for the generated Resources HTML artifact. Keep the list short and high-signal.
 
 ## Quick Start
 
@@ -36,8 +36,6 @@ Use these as broad guide rails, not prescriptions.
 - Creative or technical copilot with structure: not just chatting, but helping users move through a defined multi-step flow with artifacts, checkpoints, or outputs
 - Internal tool with measurable leverage: a product that helps a team ship, review, monitor, or debug work more effectively
 
-## Rich Media Guidance
+## Media Guidance
 
-If a direct image URL or supported media URL is available, render one or two inline items in the desktop app. Keep it useful, not decorative.
-
-If no real media is available yet, it is better to render a clearly labeled placeholder graphic than to omit the media section entirely.
+Do not render media directly in chat. If official media is added later, put it in the artifact content/config path rather than producing inline chat images.

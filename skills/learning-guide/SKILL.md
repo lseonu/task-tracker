@@ -23,6 +23,8 @@ The path is nested inside Step 3: Resources and uses Codex commands:
 - Use local documents as durable context instead of long JSON state.
 - Keep `.openai-codex-hackathon-state.json` small: progress, file paths, and confirmed project metadata only.
 - After each learning command, regenerate the matching HTML artifact.
+- Generated HTML is the primary participant interface. Chat is only for the live interview, brief progress updates, and fallback if artifact generation fails.
+- Do not render placeholder SVGs, Markdown images, Mermaid diagrams, inline dashboards, or long artifact-style pages in chat.
 
 ## Documents
 
@@ -59,6 +61,7 @@ After generating each document:
 
 - Give 2-4 sentences of feedback using `✓` and `△`.
 - Name the file created or updated.
+- Say the matching HTML artifact was regenerated and provide the localhost URL when useful.
 - Tell the participant the next command.
 - Update `docs/hackathon-learning/process-notes.md`.
 

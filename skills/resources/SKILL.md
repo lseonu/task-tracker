@@ -5,15 +5,16 @@ description: Show the participant's resource hub for working through the hackath
 
 # Resources
 
-## Overview
+## Purpose
 
-Mirror the Devpost Resources tab inside Codex. Make it feel like a compact one-screen resource hub from a real hackathon site: practical, inspiring, and graphical, without filler.
+Regenerate the Resources HTML artifact, update state for Step 3, and explain the two available paths: continue directly to submission prep or enter the optional learning path.
 
-This page should primarily help the participant find useful resources inside the app, while also nudging them toward stronger project choices and a better overall hackathon experience.
+The HTML artifact is the primary participant interface. Chat is only the control surface and fallback.
 
 ## Required References
 
 Read these files before responding:
+
 - `../../config/hackathon.json`
 - `references/resource-links.md`
 - `references/anti-patterns.md`
@@ -26,47 +27,31 @@ If the state file does not exist, direct the user to `$start-hackathon`.
 
 If `rules_acknowledged` is not `true`, tell the user to finish `$review-rules` first. This is a blocker before the rest of the workflow.
 
-## Response Structure
+## Artifact Content
 
-Render this as a compact resource hub, not just a link dump.
+The Resources artifact should help the participant understand:
 
-Preferred structure:
-- a short intro or quick-start section
-- Build toolbox
-- Videos or launch media
-- Strong project archetypes
-- Inspiration
-- Anti-patterns to avoid
-- what the user can do next in the workflow
+- useful in-app resources
+- strong project archetypes
+- anti-patterns to avoid
+- the normal next step: `$prepare-submission`
+- the optional learning path nested inside Step 3
 
-Use markdown links for resources. If a direct image URL or supported rich media URL is available, render at most one or two useful inline media items. Prefer official or first-party sources.
+The optional learning path is command-driven, not clickable routing inside the artifact.
 
-For local or remote images in Codex desktop:
-- use Markdown image syntax
-- use absolute filesystem paths for local placeholder assets
-- never use raw HTML `<img>` tags
+Visible learning sequence:
 
-If real media is not available yet, render these local placeholders:
-- `../../assets/placeholders/resources-video.svg`
-- `../../assets/placeholders/anti-patterns-poster.svg`
-- `../../assets/placeholders/strong-project-archetypes.svg`
+`Ideate -> Scope -> PRD -> Spec -> Checklist -> Build -> Return`
 
-Keep anti-pattern guidance direct. Explicitly call out:
-- thin wrappers around a single prompt
-- generic chatbots with no clear workflow
-- demo-only projects with no usable product loop
-- shallow file or website question-answer tools presented as full products
-- any additional `[TODO: finalize with Codex team]` anti-patterns from the final launch draft
+Command sequence:
 
-The anti-pattern visual should actively shape the participant's thinking, not feel like a footnote.
+`$learning-onboard -> $learning-scope -> $learning-prd -> $learning-spec -> $learning-checklist -> $learning-build`
 
-The overall feel should be closer to a polished in-app event resources page than a plain checklist, but still compact and skimmable.
+Do not render local placeholder images or resource posters in chat.
 
-Aim for a no-scroll or near-no-scroll layout inside the Codex desktop chat when practical.
+## Artifact Output
 
-## HTML Artifact Output
-
-After reading references and updating state, regenerate the Resources artifact:
+After reading references and updating state, run:
 
 ```bash
 node scripts/render-artifacts.mjs --page resources
@@ -74,50 +59,46 @@ node scripts/render-artifacts.mjs --page resources
 
 The generated page is `artifacts/generated/resources.html`.
 
-In chat, keep the response compact: say the artifact was updated, note that guided planning is optional and nested inside Step 3, and recommend `$prepare-submission` unless the user chooses the learning path.
+Expected preview URL when the repo is served on port 8787:
 
-If the user chooses guided planning, explain that the path stays inside Step 3 and starts with the Ideate phase via `$learning-onboard`. The visible sequence is Ideate, Scope, PRD, Spec, Checklist, Build, and Return. The command sequence is `$learning-onboard`, `$learning-scope`, `$learning-prd`, `$learning-spec`, `$learning-checklist`, and `$learning-build`.
-
-## Content Guidance
-
-Prioritize useful in-app resources over outbound hackathon links.
-
-The participant should leave this screen knowing:
-- what to read when they need implementation help
-- what kinds of projects tend to perform well
-- what weak project shapes to avoid
-- which skill to use next depending on where they are
-
-When presenting strong project archetypes, keep them universal and reusable. Favor categories like:
-- workflow tools with a clear repeatable user loop
-- agents that complete a concrete job with visible leverage from OpenAI capabilities
-- products with a real user, credible pain point, and testable end-to-end flow
-- interfaces where Codex meaningfully accelerates building, iteration, or operator workflows
-
-Do not turn this into idea generation for one narrow stack or category. The archetypes should be broad enough to inspire, not prescribe.
-
-## Navigation
-
-Do not force a single next step.
-
-After the main content, show the participant which skills are now available and why they might use each one:
-- `$hackathon-map` for a live progress snapshot
-- `$prepare-submission` once they have enough built to start shaping the final entry
-- `$submission-check` when they want a final pass before browser handoff
-
-Also remind them of the overall workflow so the submission path stays legible.
+```text
+http://localhost:8787/artifacts/generated/resources.html
+```
 
 ## State Update
 
 After showing resources:
-- Add `resources` to `completed_stages` if needed
-- Set `current_stage` to `resources`
-- Set `next_command` to `prepare-submission`
-- Update `dashboard` if it exists:
-  - set `completion_percent` to `60`
-  - preserve registration and deadline fields
-  - update `last_rendered_at`
 
-After updating state, render a refreshed compact progress card based on the current `.openai-codex-hackathon-state.json`.
+- add `resources` to `completed_stages` if needed
+- set `current_stage` to `resources`
+- set `next_command` to `prepare-submission`
+- preserve registration and deadline fields
 
-End by showing the available next skills and a short recommendation for the most likely next move, without implying that only one path is allowed.
+Do not mark the optional learning path active unless the user chooses it or runs `$learning-onboard`.
+
+## Chat Output
+
+Keep chat output minimal.
+
+Do not render:
+
+- placeholder SVGs
+- Markdown images
+- Mermaid diagrams
+- inline dashboards
+- long resource lists already represented in the artifact
+
+Respond with:
+
+- artifact regenerated
+- localhost preview URL
+- note that guided planning is optional and nested inside Step 3
+- recommendation: continue with `$prepare-submission` unless they want guided planning
+- guided path entry command: `$learning-onboard`
+
+If artifact generation fails, use a compact text fallback:
+
+- current stage: Resources
+- two paths available
+- next likely command: `$prepare-submission`
+- optional learning command: `$learning-onboard`

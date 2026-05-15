@@ -74,4 +74,6 @@ Run:
 node scripts/render-artifacts.mjs --page learning-onboard
 ```
 
-End with a compact note that the next command is `$learning-scope`.
+The generated page is `artifacts/generated/learning-onboard.html`.
+
+End with a compact note that the artifact was regenerated and the next command is `$learning-scope`.

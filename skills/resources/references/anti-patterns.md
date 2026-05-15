@@ -14,6 +14,6 @@ Use these as draft anti-patterns for the MVP. Replace or refine them with sponso
 
 Add a launch-task reminder: ask the Codex team which anti-patterns they most want to discourage in the final event copy, then bake those into the official version of this skill.
 
-## Visual Guidance
+## Presentation Guidance
 
-When practical, present these as a split `Do / Don't` or `Strong / Weak` visual rather than a plain list.
+Use these as copy/source material for the generated Resources artifact. Do not create a separate inline chat visual for them.

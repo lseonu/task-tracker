@@ -64,4 +64,6 @@ Run:
 node scripts/render-artifacts.mjs --page learning-prd
 ```
 
-End by recommending `$learning-spec`.
+The generated page is `artifacts/generated/learning-prd.html`.
+
+End by saying the artifact was regenerated and recommending `$learning-spec`.

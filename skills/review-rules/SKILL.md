@@ -5,15 +5,16 @@ description: Present the hackathon requirements, judging criteria, eligibility p
 
 # Review Rules
 
-## Overview
+## Purpose
 
-Act as the mandatory fairness gate. Make sure the participant sees the important contest information before idea selection or coding.
+Act as the mandatory rules gate, update state only after explicit `yes`, regenerate the Rules HTML artifact, and keep chat terse.
 
-The tone should feel more like a brisk preflight briefing than a legal memo: the participant needs to hear it before takeoff, but the experience should still feel guided, calm, and upbeat.
+The HTML artifact is the primary participant interface. Chat is only the confirmation/control surface and fallback.
 
-## Required Reference
+## Required References
 
 Read these before responding:
+
 - `../../config/hackathon.json`
 - `references/placeholder-rules.md`
 
@@ -21,69 +22,49 @@ Read these before responding:
 
 Read `.openai-codex-hackathon-state.json`.
 
-If the state file does not exist, direct the user to run `$start-hackathon` first.
-
-## Presentation Style
-
-Present this like a compact review screen, not a legal memo.
-
-When practical:
-- use short sections, callouts, or tables instead of a long paragraph stack
-- render `../../assets/placeholders/submission-requirements-review-video.svg` as a stand-in for a future rules or submission-requirements video
-- render `../../assets/placeholders/rules-preflight-briefing.svg` as a static fallback or companion visual when useful
-- keep the copy concise enough to scan in one pass
-- keep the structure exhaustive even when some items are still `TODO official copy`
-- make the participant feel supported, not scolded
-- render images with Markdown image syntax, not raw HTML
+If the state file does not exist, direct the user to `$start-hackathon`.
 
 ## Strict Gate
 
 Do not unlock the rest of the plugin flow until the user explicitly agrees to the rules review.
 
-Use this exact standard:
-- If `rules_acknowledged` is `true`, give a short summary and point to the next command
-- If `rules_acknowledged` is `false`, present the required sections and ask: `Do you agree to these terms? Reply yes or no.`
+Use this standard:
 
-Require a simple yes/no response for the legal confirmation.
+- If `rules_acknowledged` is `true`, keep the response short and point to `$resources`.
+- If `rules_acknowledged` is `false`, tell the user to review the generated artifact and ask exactly: `Do you agree to these terms? Reply yes or no.`
 
-Accept `yes` as the affirmative confirmation. Treat `no` as a stop: keep the flow locked, do not update the state file, and explain that the participant can ask questions or return later if they are not ready to agree.
+Accept only `yes` as affirmative confirmation.
 
-Do not accept longer or ambiguous acknowledgments such as `confirm`, `acknowledge`, `continue`, or `reviewed` for the legal confirmation. If the participant gives one of those, ask them to reply with `yes` or `no`.
+Treat `no` as a stop:
 
-If the user asks substantive questions, answer them from the placeholder reference and clearly label provisional areas as `TODO official copy`.
+- do not update the state file
+- keep the flow locked
+- invite the participant to ask questions or return later
 
-## Required Sections
+Do not accept ambiguous acknowledgments such as `confirm`, `acknowledge`, `continue`, or `reviewed`.
 
-Present these sections every time acknowledgment is still pending:
-- Fairness and equal-information notice
+If the participant asks substantive questions, answer from the placeholder reference and clearly label provisional areas as `TODO official copy`.
+
+## Required Artifact Content
+
+The Rules artifact should cover:
+
+- fairness and equal-information notice
 - `[TODO: official eligibility rules]`
 - `[TODO: official contest dates and deadlines]`
-- What to build
-- What to submit
-- Provisional judging criteria with `TODO official approval`
-- Originality, third-party usage, testing, and content restrictions
-- Common reasons a submission can get blocked later
+- what to build
+- what to submit
+- provisional judging criteria with `TODO official approval`
+- originality, third-party usage, testing, and content restrictions
+- common reasons a submission can get blocked later
 - `[TODO: official contact and escalation path]`
-- Official-pages disclaimer: the participant must still verify the official Devpost materials
+- official-pages disclaimer: participants must still verify the official Devpost materials
 
-Keep the wording concise. The participant should see the whole structure without reading a wall of text.
+Do not duplicate this content as a long chat response during normal operation.
 
-## Response Structure
+## Artifact Output
 
-Use this order when practical:
-- a compact preflight-style hero with a one-line TLDR
-- one small visual or media placeholder
-- the required rule sections in a compact scannable layout
-- a short blocker box covering what could stop the user later
-- a short legal confirmation prompt: `Do you agree to these terms? Reply yes or no.`
-
-Aim for one compact screenful, or close to it.
-
-Do not repeat the `start-hackathon` onboarding copy. Assume the participant has already seen that step.
-
-## HTML Artifact Output
-
-When presenting the rules gate or after recording a `yes` response, regenerate the Rules artifact:
+When presenting the rules gate or after recording a `yes` response, run:
 
 ```bash
 node scripts/render-artifacts.mjs --page rules
@@ -91,35 +72,52 @@ node scripts/render-artifacts.mjs --page rules
 
 The generated page is `artifacts/generated/review-rules.html`.
 
-In chat, keep the response compact: point to the artifact, preserve the exact `yes`/`no` confirmation requirement when locked, and give `$resources` as the next command only after the state is unlocked.
+Expected preview URL when the repo is served on port 8787:
 
-## Blocker Guidance
-
-Include a short section that flags what commonly blocks a later submission or final handoff.
-
-Cover at least these themes:
-- missing eligibility confirmation or official-rule verification
-- missing required submission fields
-- unclear repo, demo, or testing instructions
-- unsupported third-party assets, data, or APIs
-- a project that does not clearly show why OpenAI capabilities are central
-
-This should feel like practical risk-reduction, not fear-based warning copy.
+```text
+http://localhost:8787/artifacts/generated/review-rules.html
+```
 
 ## State Update
 
-When the user explicitly replies `yes` to the legal confirmation:
-- Set `rules_acknowledged` to `true`
-- Set `registration.devpost_registered` to `true` if it is still `false`
-- Add `review-rules` to `completed_stages` if needed
-- Set `current_stage` to `resources`
-- Set `next_command` to `resources`
-- Update `dashboard` if it exists:
-  - set `completion_percent` to `40`
-  - set `registration_status` to `complete`
-  - preserve any real deadline values already present
-  - update `last_rendered_at`
+When the user explicitly replies `yes`:
 
-After updating state, render a refreshed compact progress card based on the current `.openai-codex-hackathon-state.json` so the participant sees the stage unlock immediately.
+- set `rules_acknowledged` to `true`
+- set `registration.devpost_registered` to `true` if it is still `false`
+- add `review-rules` to `completed_stages` if needed
+- set `current_stage` to `resources`
+- set `next_command` to `resources`
+- preserve any real deadline values already present
 
-Then direct the user to `$resources`.
+Then regenerate the Rules artifact.
+
+## Chat Output
+
+Keep chat output minimal.
+
+Do not render:
+
+- placeholder SVGs
+- Markdown images
+- Mermaid diagrams
+- inline dashboards
+- long rules text already represented in the artifact
+
+If locked, respond with:
+
+- artifact regenerated
+- localhost preview URL
+- exact confirmation prompt: `Do you agree to these terms? Reply yes or no.`
+
+If unlocked after `yes`, respond with:
+
+- rules acknowledged
+- artifact regenerated
+- next command: `$resources`
+
+If artifact generation fails, use a compact text fallback:
+
+- current stage: Review Rules
+- locked/unlocked status
+- exact yes/no requirement when locked
+- next command only when unlocked

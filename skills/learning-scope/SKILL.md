@@ -65,4 +65,6 @@ Run:
 node scripts/render-artifacts.mjs --page learning-scope
 ```
 
-End by recommending `$learning-prd`.
+The generated page is `artifacts/generated/learning-scope.html`.
+
+End by saying the artifact was regenerated and recommending `$learning-prd`.

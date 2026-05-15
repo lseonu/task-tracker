@@ -70,4 +70,6 @@ Run:
 node scripts/render-artifacts.mjs --page learning-build
 ```
 
-End with what changed, how it was verified, and the next command.
+The generated page is `artifacts/generated/learning-build.html`.
+
+End with what changed, how it was verified, the artifact URL when useful, and the next command.

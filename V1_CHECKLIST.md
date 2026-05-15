@@ -176,6 +176,7 @@ Status note:
 - Generated the five core pages in `artifacts/generated/`: start, review rules, resources, prepare submission, and submission check.
 - Updated the five participant-facing skill docs with concise HTML Artifact Output instructions.
 - Verified `artifacts/generated/resources.html` in the Codex in-app browser over localhost.
+- Rewrote the core command skill files to make generated HTML artifacts the primary interface and explicitly prevent stale inline placeholder images, Mermaid dashboards, and chat-first landing pages.
 
 ## 8. [x] Design Optional Learning On-Ramp And Off-Ramp
 

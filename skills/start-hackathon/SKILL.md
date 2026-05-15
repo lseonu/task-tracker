@@ -5,9 +5,11 @@ description: Start the OpenAI Codex Hackathon workflow in the current project fo
 
 # Start Hackathon
 
-## Overview
+## Purpose
 
-Initialize the hackathon flow in the current workspace. Treat the first response like a compact Devpost-style landing page remixed for Codex: welcoming, visual, and immediately clear about what the user should do next.
+Initialize or resume the local hackathon state, generate the Start HTML artifact, and point the participant to the next command.
+
+The HTML artifact is the primary participant interface. Chat is only the control surface and fallback.
 
 ## Required Reference
 
@@ -77,49 +79,13 @@ Use this initial payload:
 }
 ```
 
-If the state file already exists, do not overwrite user data. Summarize the current state and recommend `$hackathon-map` or the recorded `next_command`.
+If the state file already exists, do not overwrite user data. Load it, preserve it, and continue.
 
 Do not create sample project content, draft submission files, or example hackathon notes during this step. Only initialize or reuse the state file.
 
-## Experience Goal
+## Artifact Output
 
-Make this feel like the participant has landed inside the hackathon itself rather than inside a plain command reference.
-
-Keep it compact, but give it some lift:
-- feel like a lightweight hackathon landing page plus dashboard, not a wall of bullets
-- use rich markdown and graphical output when practical
-- keep every visual useful; avoid decorative filler
-- position the plugin as the Codex-native participant flow, with the browser reserved for official verification and final Devpost submission
-- make it obvious that browser registration happens first, then the rest of the workflow continues in Codex
-
-## Opening Message
-
-Use a practical coach tone with a little more polish than a standard CLI handoff.
-
-Cover these points clearly:
-- This plugin is meant to replace as much of the Devpost participant journey as possible inside Codex
-- Devpost registration still happens in the browser before the participant continues here
-- The tiny `.openai-codex-hackathon-state.json` file is the continuity layer for the experience
-- `$hackathon-map` reads that state file and can be run anytime to show live progress
-- Rules review is a strict blocker before the rest of the workflow
-- The final browser handoff is still the actual Devpost submission step
-- This prototype does not submit to Devpost automatically
-
-## Response Structure
-
-Use this order when practical:
-- a compact hero with a one-sentence TLDR
-- a primary CTA to register on Devpost
-- one clickable temporary hackathon link from `../../config/hackathon.json`
-- a short explanation of how the Codex flow takes over after registration
-- the zero-state dashboard rendered from `.openai-codex-hackathon-state.json`
-- a compact note that the state file powers the live map
-
-Keep the whole response to about one compact screenful.
-
-## HTML Artifact Output
-
-After creating or loading `.openai-codex-hackathon-state.json`, regenerate the Start artifact:
+After creating or loading state, run:
 
 ```bash
 node scripts/render-artifacts.mjs --page start
@@ -127,78 +93,47 @@ node scripts/render-artifacts.mjs --page start
 
 The generated page is `artifacts/generated/start-hackathon.html`.
 
-In chat, keep the response compact: say the artifact was updated, remind the user to preview generated HTML through localhost, and give the next command `$review-rules`.
+Generated HTML must be opened through localhost, not `file://`.
 
-## Command Chain
+Expected preview URL when the repo is served on port 8787:
 
-Do not render the flow as plain inline text unless you have no other option.
+```text
+http://localhost:8787/artifacts/generated/start-hackathon.html
+```
 
-Prefer this order of presentation:
-- a compact hero section with a one-sentence TLDR and the immediate next action
-- a graphical command map rendered as Mermaid first
-- a Markdown image that points at a saved SVG only if Mermaid cannot express the layout cleanly
-- plain text arrows only as a last resort
+## Chat Output
 
-Show this sequence in the visual map:
-- `$start-hackathon`
-- `$review-rules`
-- `$resources`
-- `$prepare-submission`
-- `$submission-check`
+Keep chat output minimal.
 
-Also note that `$hackathon-map` can be run at any time to show both workflow progress and deadline/readiness context.
+Do not render:
 
-## Visual Guidance
+- placeholder SVGs
+- Markdown images
+- Mermaid diagrams
+- inline dashboards
+- landing-page-style copy blocks
+- long explanations of the entire workflow
 
-When practical, render these local placeholder assets in the response:
-- `../../assets/placeholders/onboarding-video.svg` as a stand-in for a future onboarding video
-- `../../assets/placeholders/start-hackathon-landing.svg` as the compact start screen visual
-- `../../assets/placeholders/devpost-registration-handoff.svg` as the browser registration handoff visual
+In normal operation, respond with:
 
-Also render the bundled Devpost logo as a lightweight cue when practical:
-- `../../assets/logos/devpost-logo-original.svg` for light backgrounds
-- `../../assets/logos/devpost-logo-white.svg` for dark backgrounds
+- whether state was created or loaded
+- that the Start artifact was regenerated
+- the localhost preview URL
+- the next command: `$review-rules`
 
-Important rendering rule for Codex desktop:
-- use Markdown image syntax for every local or remote image
-- use absolute filesystem paths for local assets
-- never use raw HTML `<img>` tags in the response
+If artifact generation fails, use a compact text fallback:
 
-Example pattern:
-- `![Hackathon landing](/absolute/path/to/start-hackathon-landing.svg)`
-- `![Devpost](/absolute/path/to/assets/logos/devpost-logo-original.svg)`
-
-The opening view should ideally include:
-- a compact welcome hero
-- a short "how this works" summary
-- a visible browser handoff for Devpost registration
-- the progress map with `review-rules` highlighted as next
-- the dashboard in a fully zeroed initial state except for `start-hackathon` being complete
-- a short note that the state file powers the live map
-
-## Zero-State Dashboard
-
-Render a compact zero-state dashboard from `.openai-codex-hackathon-state.json` immediately after the state file is created or loaded.
-
-Prefer Mermaid with explicit styling for this dashboard in Codex desktop.
-
-Do not emit raw `<svg>...</svg>` markup directly into the response. If Mermaid cannot express the desired layout cleanly, write a temporary SVG file and render it as a Markdown image instead.
-
-The dashboard should:
-- show the workflow in order
-- show `start-hackathon` as complete
-- show `review-rules` as next
-- show every later stage as not started or blocked
-- show registration as an external prerequisite banner, not as its own command stage
-- show the next known deadline from config when available, otherwise `TODO official date`
-- include a tiny legend or labels so the visual is self-explanatory without extra prose
-
-After the dashboard, explain in one or two lines that the graphic is driven by the state file and will update as the participant confirms each step.
+- current stage: Start
+- next command: `$review-rules`
+- registration reminder: Devpost registration still happens in the browser
+- one-sentence error summary
 
 ## Handoff
 
-End with a clear two-part handoff:
-- first, open the Devpost registration page in the browser
-- then come back and run `$review-rules`
+End by telling the participant:
 
-Also remind the user that `$hackathon-map` is the live progress view they can revisit at any point.
+1. Preview the Start artifact through localhost.
+2. Register on Devpost if needed.
+3. Come back and run `$review-rules`.
+
+Also mention `$hackathon-map` only as the recovery command if they lose track later.
