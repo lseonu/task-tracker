@@ -6,5 +6,5 @@ This page should summarize whether the participant is ready, close, or not ready
 
 It should include the local security scan result, with redacted findings only.
 
-[TODO: replace with official final-check copy.]
+Before launch, the event owner can add final check criteria that match the official Devpost requirements.
 <!-- Copy maintainers: edit this page copy in content/steps/check.md. -->

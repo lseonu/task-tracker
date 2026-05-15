@@ -52,7 +52,7 @@ The draft should include:
 - browser handoff checklist
 - submission readiness notes
 - placeholders for repo URL, public demo URL, and video URL
-- `[TODO: official form-specific fields]` where the real event later requires exact copy
+- clearly labeled official form-specific fields where the real event later requires exact copy
 
 Make the draft honest about what exists today versus what is still placeholder material.
 

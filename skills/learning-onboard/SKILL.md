@@ -65,6 +65,9 @@ Set:
 - add `resources` to `completed_stages` if missing
 - `current_stage` to `resources`
 - `next_command` to `learning-scope`
+- `participant.display_name` when the participant gives a preferred name
+- `project.summary` when the participant describes the project idea
+- `project.name` when the participant gives a clear project name
 
 ## Artifact
 

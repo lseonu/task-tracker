@@ -13,7 +13,7 @@ Use `config/hackathon.json` for lightweight event configuration:
 - submission deadline display/cache
 - logo asset paths
 - paths to per-step Markdown content
-- minimal submission requirement placeholders
+- minimal submission requirement defaults
 
 Keep this file small. It is a V1 fallback configuration surface, not the final source of truth for Devpost data.
 
@@ -62,7 +62,7 @@ python3 -m http.server 8787
 Then open:
 
 ```text
-http://localhost:8787/artifacts/generated/resources-sample.html
+http://localhost:8787/artifacts/generated/resources.html
 ```
 
 Direct `file://` navigation was rejected during testing, while localhost previews worked.
@@ -96,6 +96,10 @@ The renderer reads:
 - `artifacts/templates/shared-artifact.css`
 
 Participants should not need to know this machinery exists. Skills should render or refresh the right artifact automatically when the user runs commands such as `$resources` or `$submission-check`.
+
+Each generated page visibly names the Markdown file that supplies its main body copy. This is intentional: event, product, and design owners can revise copy in `content/steps/` or `content/learning/` without editing the renderer or skill files.
+
+The renderer is deterministic, not an AI page writer. It combines shared HTML/CSS, `config/hackathon.json`, Markdown copy, and the small local state file. Dynamic values such as participant name, project idea, current learning step, readiness status, and security scan results come from state or generated JSON files, while long-form instructional copy stays in Markdown.
 
 ## Optional Learning Path
 

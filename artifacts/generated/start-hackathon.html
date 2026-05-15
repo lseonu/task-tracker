@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="../templates/shared-artifact.css?v=template-workshop-1">
 </head>
 <body>
-  <main class="artifact-shell" data-current-stage="start-hackathon" data-next-command="review-rules">
+  <main class="artifact-shell" data-current-stage="start-hackathon" data-next-command="Register on Devpost, then run $review-rules.">
     <header class="artifact-header" aria-label="Hackathon plugin header">
       <a class="artifact-brand-mark" data-slot="devpost-logo" href="https://devpost.com/" aria-label="Devpost">
         <img class="artifact-logo artifact-logo-light" src="../../assets/logos/devpost-logo-original.svg" alt="Devpost">
@@ -30,17 +30,17 @@
 
     <section class="artifact-progress-meta" aria-label="Current status">
       <span>Step 1 of 5: Start</span>
-      <span>Completed: Start</span>
-      <span>Next: review-rules</span>
-      <span>Deadline: TODO official date</span>
+      <span>Completed: None yet</span>
+      <span>Next: Register on Devpost, then run $review-rules.</span>
+      <span>Deadline: Official deadline to be confirmed</span>
     </section>
 
     <div class="artifact-workspace">
       <aside class="artifact-sidebar">
         <nav class="artifact-stepper" aria-label="Hackathon progress">
           <ol class="artifact-stepper-list">
-        <li class="artifact-step" data-step="start-hackathon" data-state="complete">
-          <span class="artifact-step-marker" aria-hidden="true">✓</span>
+        <li class="artifact-step" data-step="start-hackathon" data-state="active">
+          <span class="artifact-step-marker" aria-hidden="true"></span>
           <span>
             <span class="artifact-step-label">Step 1</span>
             <span class="artifact-step-description">Start</span>
@@ -60,14 +60,14 @@
             <span class="artifact-step-description">Resources</span>
           </span>
         </li>
-        <li class="artifact-step" data-step="prepare-submission" data-state="blocked">
+        <li class="artifact-step" data-step="prepare-submission" data-state="pending">
           <span class="artifact-step-marker" aria-hidden="true"></span>
           <span>
             <span class="artifact-step-label">Step 4</span>
             <span class="artifact-step-description">Prepare</span>
           </span>
         </li>
-        <li class="artifact-step" data-step="submission-check" data-state="blocked">
+        <li class="artifact-step" data-step="submission-check" data-state="pending">
           <span class="artifact-step-marker" aria-hidden="true"></span>
           <span>
             <span class="artifact-step-label">Step 5</span>
@@ -82,16 +82,18 @@
 
 
         <section class="artifact-hero" data-slot="page-intro">
-          <h2>Welcome to [Hackathon name]</h2>
+          <h2>Welcome to OpenAI Codex Hackathon</h2>
           <p>Register on Devpost, then continue here in Codex.</p>
         </section>
 
+
+
         <section class="artifact-layout" data-slot="page-body">
           <div class="artifact-panel" data-slot="primary-content">
-<h3>Welcome to [Hackathon name]</h3>
-<p>Register on Devpost, then continue here in Codex.</p>
-<p>This page should explain the basic handoff: Devpost remains the official registration and submission surface, while Codex guides the rest of the build and preparation flow.</p>
-<p>[TODO: replace with official event-specific welcome copy.]</p>
+<h3>Welcome to OpenAI Codex Hackathon</h3>
+<p>Start by registering on Devpost, then continue here in Codex.</p>
+<p>Devpost remains the official registration and submission surface. Codex guides the rest of the build and preparation flow: reviewing requirements, choosing resources, optionally shaping your idea through a guided learning path, preparing your submission materials, and running a final check before browser handoff.</p>
+<p>To personalize this flow, tell Codex your name and a short project idea. Those details can be stored in the local state file and reflected in later pages.</p>
 
 
           </div>
@@ -102,6 +104,11 @@
             <h3>Next action</h3>
             <p>Register on Devpost, then run $review-rules.</p>
           </div>
+
+        <section class="artifact-copy-source" data-slot="copy-source">
+          <h3>Edit this page copy</h3>
+          <p>Main body copy comes from <code>content/steps/start.md</code>.</p>
+        </section>
         </section>
       </div>
     </div>

@@ -66,7 +66,7 @@ Use this initial payload:
   },
   "deadlines": {
     "next_label": "",
-    "next_display": "TODO official date",
+    "next_display": "Official deadline to be confirmed",
     "official_dates_confirmed": false,
     "last_checked_at": ""
   },
@@ -82,6 +82,22 @@ Use this initial payload:
 If the state file already exists, do not overwrite user data. Load it, preserve it, and continue.
 
 Do not create sample project content, draft submission files, or example hackathon notes during this step. Only initialize or reuse the state file.
+
+## Light Personalization
+
+If `participant.name`/`participant.display_name` and `project.summary` are empty, ask a short optional personalization question in chat after generating the artifact:
+
+`If you want, tell me your name and a one-sentence project idea. I can store that locally so later pages feel specific to you and your project.`
+
+Do not block the flow on this. The participant can continue to `$review-rules` without answering.
+
+If the participant provides those details, update `.openai-codex-hackathon-state.json`:
+
+- `participant.display_name`
+- `project.summary`
+- `project.name` only if they give a clear project name
+
+Then regenerate the Start artifact.
 
 ## Artifact Output
 
@@ -120,6 +136,8 @@ In normal operation, respond with:
 - that the Start artifact was regenerated
 - the localhost preview URL
 - the next command: `$review-rules`
+- an invitation to ask questions about how the flow works before continuing
+- the optional personalization prompt if name/project idea are missing
 
 If artifact generation fails, use a compact text fallback:
 

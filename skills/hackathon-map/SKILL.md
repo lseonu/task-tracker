@@ -88,7 +88,7 @@ Respond with:
 - completed stages, summarized
 - next recommended command
 - current or refreshed artifact URL when available
-- deadline status if known, otherwise `TODO official date`
+- deadline status if known, otherwise `official deadline to be confirmed`
 
 If state does not exist, respond with:
 

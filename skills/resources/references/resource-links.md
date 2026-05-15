@@ -19,8 +19,8 @@ Use these as source material for the generated Resources HTML artifact. Keep the
 
 ## Videos
 
-- `[TODO: official OpenAI or Codex launch/session video]`
-- `[TODO: official hackathon kickoff recording]`
+- Official OpenAI or Codex launch/session video can be added before launch.
+- Official hackathon kickoff recording can be added before launch.
 
 ## Inspiration Prompt
 

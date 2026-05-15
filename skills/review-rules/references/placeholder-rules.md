@@ -1,4 +1,4 @@
-# Placeholder Rules
+# Provisional Rules
 
 Use this file as the draft source for the MVP fairness gate. It is intentionally provisional.
 
@@ -10,17 +10,17 @@ Do not present this draft as final legal copy.
 
 ## Eligibility
 
-- `[TODO: official eligibility requirements]`
-- `[TODO: restricted jurisdictions]`
-- `[TODO: age requirements]`
-- `[TODO: team policy if teams are added later]`
+- Official eligibility requirements should be copied from Devpost before launch.
+- Restricted jurisdictions should be copied from Devpost before launch.
+- Age requirements should be copied from Devpost before launch.
+- Team policy should be copied from Devpost before launch if teams are supported.
 
 ## Contest Dates
 
-- `[TODO: official start date and time]`
-- `[TODO: official submission deadline]`
-- `[TODO: official judging period]`
-- `[TODO: official winner announcement date]`
+- Official start date and time should be copied from Devpost before launch.
+- Official submission deadline should be copied from Devpost before launch.
+- Official judging period should be copied from Devpost before launch.
+- Official winner announcement date should be copied from Devpost before launch.
 
 ## What To Build
 
@@ -34,22 +34,22 @@ Draft MVP checklist:
 
 - A short text write-up explaining how OpenAI capabilities are central to the product
 - A public product or demo link when available
-- A public code repository link or `[TODO: official repo rule]`
-- A short demo video or `[TODO: official video requirement]`
+- A public code repository link when required by the official event page
+- A short demo video when required by the official event page
 - Testing instructions when a judge needs setup context
 
 ## Judging Criteria
 
 Provisional sample structure modeled on a Devpost-style hackathon. Replace with approved values before launch.
 
-- Technical execution: `[TODO: official weight]`
-- Potential impact: `[TODO: official weight]`
-- Innovation and wow factor: `[TODO: official weight]`
-- Presentation and demo quality: `[TODO: official weight]`
+- Technical execution: official weight to be copied from Devpost before launch
+- Potential impact: official weight to be copied from Devpost before launch
+- Innovation and wow factor: official weight to be copied from Devpost before launch
+- Presentation and demo quality: official weight to be copied from Devpost before launch
 
 ## Originality And Use Restrictions
 
-- Projects should be new for the contest period or follow `[TODO: official originality rule]`
+- Projects should be new for the contest period or follow the official originality rule
 - Participants must have the right to use any third-party assets, APIs, or data they include
 - Submission materials must not contain prohibited, unlawful, hateful, or infringing content
 - Testing access expectations should be stated clearly for judges
@@ -66,5 +66,5 @@ Use this as practical guidance in the review screen.
 
 ## Questions And Escalation
 
-- `[TODO: official hackathon manager contact]`
-- `[TODO: official support path]`
+- Official hackathon manager contact should be copied from Devpost or the event team before launch.
+- Official support path should be copied from Devpost or the event team before launch.

@@ -43,21 +43,21 @@ Treat `no` as a stop:
 
 Do not accept ambiguous acknowledgments such as `confirm`, `acknowledge`, `continue`, or `reviewed`.
 
-If the participant asks substantive questions, answer from the placeholder reference and clearly label provisional areas as `TODO official copy`.
+If the participant asks substantive questions, answer from the placeholder reference and clearly label provisional areas as awaiting official copy.
 
 ## Required Artifact Content
 
 The Rules artifact should cover:
 
 - fairness and equal-information notice
-- `[TODO: official eligibility rules]`
-- `[TODO: official contest dates and deadlines]`
+- official eligibility rules
+- official contest dates and deadlines
 - what to build
 - what to submit
-- provisional judging criteria with `TODO official approval`
+- provisional judging criteria awaiting official approval
 - originality, third-party usage, testing, and content restrictions
 - common reasons a submission can get blocked later
-- `[TODO: official contact and escalation path]`
+- official contact and escalation path
 - official-pages disclaimer: participants must still verify the official Devpost materials
 
 Do not duplicate this content as a long chat response during normal operation.
@@ -107,6 +107,8 @@ If locked, respond with:
 
 - artifact regenerated
 - localhost preview URL
+- a reminder to read the rendered rules page carefully before answering
+- an invitation to ask questions about the rules before replying
 - exact confirmation prompt: `Do you agree to these terms? Reply yes or no.`
 
 If unlocked after `yes`, respond with:

@@ -93,6 +93,8 @@ Respond with:
 - artifact regenerated
 - localhost preview URL
 - note that guided planning is optional and nested inside Step 3
+- one or two sentences explaining the decision between direct submission prep and the guided learning path
+- invitation to ask questions about which path fits their project
 - recommendation: continue with `$prepare-submission` unless they want guided planning
 - guided path entry command: `$learning-onboard`
 

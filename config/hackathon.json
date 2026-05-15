@@ -36,9 +36,9 @@
     }
   },
   "submission_requirements": [
-    "[TODO: official submission requirement]",
-    "[TODO: official submission requirement]",
-    "[TODO: official submission requirement]"
+    "Submit through the official Devpost event page.",
+    "Explain clearly how OpenAI tools or APIs are used.",
+    "Include the project evidence required by the official event page."
   ],
   "notes": {
     "configuration_owner": "Event owner or lead engineer should fill in official event details before launch.",

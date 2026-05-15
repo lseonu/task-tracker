@@ -292,7 +292,9 @@ html[data-theme="dark"] .artifact-step[data-state="active"] {
 }
 
 .artifact-panel,
-.artifact-next-action {
+.artifact-next-action,
+.artifact-copy-source,
+.artifact-context {
   background: transparent;
   border: 0;
   padding: 0;
@@ -303,7 +305,9 @@ html[data-theme="dark"] .artifact-step[data-state="active"] {
 }
 
 .artifact-panel h3,
-.artifact-next-action h3 {
+.artifact-next-action h3,
+.artifact-copy-source h3,
+.artifact-context h3 {
   margin: 0 0 6px;
   color: var(--artifact-strong);
   font-size: 20px;
@@ -321,7 +325,9 @@ html[data-theme="dark"] .artifact-step[data-state="active"] {
 
 .artifact-panel p,
 .artifact-panel li,
-.artifact-next-action p {
+.artifact-next-action p,
+.artifact-copy-source p,
+.artifact-context p {
   color: var(--artifact-text);
   font-size: 19px;
   line-height: 1.5;
@@ -334,6 +340,33 @@ html[data-theme="dark"] .artifact-step[data-state="active"] {
 .artifact-panel ul {
   margin: 22px 0 0;
   padding-left: 28px;
+}
+
+.artifact-context {
+  max-width: 760px;
+  margin: -22px 0 42px;
+  padding: 18px 20px;
+  border: 1px solid var(--artifact-line);
+  background: rgb(217 231 255 / 38%);
+}
+
+html[data-theme="dark"] .artifact-context {
+  background: rgb(34 49 54 / 70%);
+}
+
+.artifact-context p {
+  margin: 6px 0 0;
+  font-size: 16px;
+}
+
+.artifact-copy-source {
+  padding-top: 18px;
+  border-top: 1px solid var(--artifact-line);
+}
+
+.artifact-copy-source p {
+  margin: 0;
+  font-size: 14px;
 }
 
 .artifact-card-grid {
@@ -553,13 +586,16 @@ html[data-theme="dark"] .artifact-security-scan[data-security-status="pass"] h3 
 
   .artifact-panel h3,
   .artifact-panel h4,
-  .artifact-next-action h3 {
+  .artifact-next-action h3,
+  .artifact-copy-source h3,
+  .artifact-context h3 {
     font-size: 18px;
   }
 
   .artifact-panel p,
   .artifact-panel li,
-  .artifact-next-action p {
+  .artifact-next-action p,
+  .artifact-context p {
     font-size: 17px;
   }
 
@@ -647,7 +683,8 @@ html[data-theme="dark"] .artifact-security-scan[data-security-status="pass"] h3 
 
   .artifact-panel p,
   .artifact-panel li,
-  .artifact-next-action p {
+  .artifact-next-action p,
+  .artifact-context p {
     font-size: 17px;
   }
 

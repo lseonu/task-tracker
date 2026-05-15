@@ -10,7 +10,7 @@ Template files:
 
 - `artifacts/templates/shared-artifact-template.html`
 - `artifacts/templates/shared-artifact.css`
-- `artifacts/generated/resources-sample.html`
+- `artifacts/generated/resources.html`
 
 ## Design Posture
 
@@ -101,7 +101,7 @@ Do not store generated HTML in state. State remains the source of truth for work
 
 Open generated HTML artifacts through a localhost preview server, not direct `file://` URLs.
 
-Codex Desktop's in-app browser can preview local development servers and file-backed previews, but direct file protocol navigation was rejected during testing. Serving the repo over localhost and opening URLs such as `http://localhost:<port>/artifacts/generated/resources-sample.html` avoids that error for users.
+Codex Desktop's in-app browser can preview local development servers and file-backed previews, but direct file protocol navigation was rejected during testing. Serving the repo over localhost and opening URLs such as `http://localhost:<port>/artifacts/generated/resources.html` avoids that error for users.
 
 ## Media Rule
 

@@ -15,7 +15,7 @@ const steps = [
     file: "start-hackathon.html",
     label: "Start",
     description: "Register and set up your Codex flow",
-    headline: "Welcome to [Hackathon name]",
+    headline: "Welcome to {{event.name}}",
     subcopy: "Register on Devpost, then continue here in Codex.",
     nextAction: "Register on Devpost, then run $review-rules.",
     fallback: ["State initialized or loaded.", "Register on Devpost.", "Next command: $review-rules."]
@@ -170,7 +170,7 @@ async function readState() {
       project: { name: "", summary: "", openai_usage: "", codex_usage: "" },
       learning: { status: "not-started", current_step: "", completed_steps: [] },
       submission: { draft_file: "devpost-submission.md", status: "not-started", browser_handoff_ready: false },
-      deadlines: { next_display: "TODO official date", official_dates_confirmed: false },
+      deadlines: { next_display: "Official deadline to be confirmed", official_dates_confirmed: false },
       artifacts: {},
       next_command: "start-hackathon"
     };
@@ -208,6 +208,12 @@ function inlineMarkdown(value = "") {
   html = html.replace(/`([^`]+)`/g, "<code>$1</code>");
   html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
   return html;
+}
+
+function interpolateCopy(value = "", config = {}) {
+  return String(value)
+    .replaceAll("[Hackathon name]", config.event?.name || "Hackathon")
+    .replaceAll("{{event.name}}", config.event?.name || "Hackathon");
 }
 
 function markdownToHtml(markdown) {
@@ -374,15 +380,41 @@ ${rows}
         </section>`;
 }
 
+function renderPersonalization(state) {
+  const participantName = state.participant?.display_name || state.participant?.name || "";
+  const projectName = state.project?.name || "";
+  const projectSummary = state.project?.summary || "";
+  const rows = [];
+  if (participantName) rows.push(["Participant", participantName]);
+  if (projectName) rows.push(["Project", projectName]);
+  if (projectSummary) rows.push(["Idea", projectSummary]);
+  if (!rows.length) return "";
+
+  return `
+        <section class="artifact-context" data-slot="personalization">
+          <h3>Your working context</h3>
+${rows.map(([label, value]) => `          <p><strong>${escapeHtml(label)}:</strong> ${escapeHtml(value)}</p>`).join("\n")}
+        </section>`;
+}
+
+function renderCopySource(contentPath) {
+  if (!contentPath) return "";
+  return `
+        <section class="artifact-copy-source" data-slot="copy-source">
+          <h3>Edit this page copy</h3>
+          <p>Main body copy comes from <code>${escapeHtml(contentPath)}</code>.</p>
+        </section>`;
+}
+
 async function renderPage(config, state, activeStep, options = {}) {
   const contentPath = options.contentPath || config.content?.[activeStep.key];
-  const markdown = contentPath ? await readFile(path.join(root, contentPath), "utf8") : "";
+  const markdown = contentPath ? interpolateCopy(await readFile(path.join(root, contentPath), "utf8"), config) : "";
   const body = markdownToHtml(markdown);
   const securityScan = activeStep.id === "submission-check" ? await readOptionalJson(securityScanPath) : null;
   const participantName = state.participant?.display_name || state.participant?.name || "";
   const projectName = state.project?.name || "";
   const personalized = projectName ? `Project: ${escapeHtml(projectName)}` : participantName ? `Participant: ${escapeHtml(participantName)}` : "";
-  const deadline = state.deadlines?.next_display || config.dates?.submission_deadline?.display || "TODO official date";
+  const deadline = state.deadlines?.next_display || config.dates?.submission_deadline?.display || "Official deadline to be confirmed";
   const completedStages = state.__preview_state
     ? steps.slice(0, steps.indexOf(activeStep)).map((step) => step.id)
     : state.completed_stages || [];
@@ -442,9 +474,11 @@ ${renderStepper(activeStep, state)}
 ${learningFlow}
 
         <section class="artifact-hero" data-slot="page-intro">
-          <h2>${escapeHtml(options.headline || activeStep.headline)}</h2>
-          <p>${escapeHtml(options.subcopy || activeStep.subcopy)}</p>
+          <h2>${escapeHtml(interpolateCopy(options.headline || activeStep.headline, config))}</h2>
+          <p>${escapeHtml(interpolateCopy(options.subcopy || activeStep.subcopy, config))}</p>
         </section>
+
+${renderPersonalization(state)}
 
         <section class="artifact-layout" data-slot="page-body">
           <div class="artifact-panel" data-slot="primary-content">
@@ -457,8 +491,9 @@ ${renderSecurityScan(securityScan)}
         <section class="artifact-footer">
           <div class="artifact-next-action" data-slot="next-action">
             <h3>Next action</h3>
-            <p>${inlineMarkdown(options.nextAction || activeStep.nextAction)}</p>
+            <p>${inlineMarkdown(interpolateCopy(options.nextAction || activeStep.nextAction, config))}</p>
           </div>
+${renderCopySource(contentPath)}
         </section>
       </div>
     </div>
