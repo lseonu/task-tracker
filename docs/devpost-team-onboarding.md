@@ -1,90 +1,208 @@
-# Devpost Team Onboarding
+# Devpost Team Handoff README
 
-## Purpose
+This document is for Devpost product managers, designers, event owners, and developers who need to configure this Codex plugin for the OpenAI Codex Hackathon or a future customer hackathon.
 
-This plugin is meant to be forked or configured for a specific Devpost-hosted hackathon. The current repo is set up for an OpenAI Codex Hackathon demo, but event owners should treat all event metadata, official URLs, dates, rules, resources, and submission requirements as launch configuration.
+The plugin gives participants a guided hackathon flow inside Codex Desktop. Participants talk with Codex in chat, and Codex renders dynamic HTML artifacts in the in-app browser for the current step.
 
-## Current URL Caveat
+## Start Here
 
-`config/hackathon.json` currently uses:
+The first participant command is:
 
-```json
-"landing_page": "https://openai.devpost.com/",
-"submission_page": "https://openai.devpost.com/"
+```text
+$start-hackathon
 ```
 
-That URL is real, but as of May 15, 2026 it resolves publicly to the ended **OpenAI Open Model Hackathon** page, not verified final Codex Hackathon copy. Before any customer or public launch, replace these URLs with the exact live Devpost event URL for the target hackathon.
+Use a dollar sign. These are Codex plugin skills, not terminal commands and not slash commands.
 
-## Configuration Files
+The main flow is:
 
-Update these files for a new vendor or customer event:
+1. `$start-hackathon`
+2. `$review-rules`
+3. `$resources`
+4. `$prepare-submission`
+5. `$submission-check`
 
-- `config/hackathon.json`: event identity, official URLs, deadline display, asset paths, and Markdown content paths.
-- `content/steps/start.md`: welcome, registration handoff, and high-level flow.
-- `content/steps/rules.md`: eligibility, deadlines, requirements, judging, and official disclaimers.
-- `content/steps/resources.md`: event resources, examples, guidance, and optional learning-path explanation.
-- `content/steps/prepare.md`: Devpost submission-prep guidance.
-- `content/steps/check.md`: final review and handoff guidance.
-- `content/steps/map.md`: recovery-page copy.
-- `content/learning/*.md`: optional guided planning copy.
-- `assets/logos/`: official Devpost logo variants.
-- `assets/banners/`: event-specific banner art.
+The optional learning path starts from Step 3 and stays nested inside Resources:
 
-The generated HTML pages do not show maintainer notes to participants. Copy owners should use this document and the maintainer-only comments inside the Markdown files to find the right source file quickly during QA.
+1. `$learning-onboard`
+2. `$learning-scope`
+3. `$learning-prd`
+4. `$learning-spec`
+5. `$learning-checklist`
+6. `$learning-build`
 
-## Minimum Event Data
+Use `$hackathon-map` anytime to show the current state and recommended next command.
 
-Before launch, confirm:
+## What Product And Event Owners Edit
 
-- Event display name.
-- Devpost landing page URL.
-- Devpost submission page URL, if different.
-- Official resources URL, if one exists.
-- Registration or participation requirements.
-- Eligibility rules.
-- Submission deadline and timezone.
-- Judging criteria.
-- Required submission fields.
-- Demo video, repo, screenshot, and public URL expectations.
-- Hackathon manager or support contact.
-- Sponsor/customer-specific language.
+Most event-specific content lives in two places:
 
-## Vendor Setup Pattern
+- `config/hackathon.json` for short structured values, URLs, dates, and asset paths.
+- `content/steps/` and `content/learning/` for participant-facing page copy.
 
-For a future customer hackathon:
+Do not edit generated HTML files directly. Files in `artifacts/generated/` are rebuilt by the renderer.
 
-1. Copy or fork this plugin repo.
-2. Update `config/hackathon.json`.
-3. Replace Markdown copy under `content/steps/` and `content/learning/`.
-4. Replace banner art in `assets/banners/`.
-5. Keep the Devpost logo files in `assets/logos/` unless brand guidance changes.
-6. Run `node "$HOME/.codex/plugins/cache/local-plugins/openai-codex-hackathon/0.1.0/scripts/render-artifacts.mjs" --all`.
-7. Serve the repo locally with `python3 -m http.server 8787`.
-8. Preview generated pages under `http://localhost:8787/artifacts/generated/`.
-9. Run `node "$HOME/.codex/plugins/cache/local-plugins/openai-codex-hackathon/0.1.0/scripts/submission-security-scan.mjs"`.
-10. QA the plugin commands in a fresh Codex Desktop chat.
+## Configure Event Metadata
 
-## What Should Stay Generic
+Edit `config/hackathon.json`.
 
-Do not hardcode one customer’s facts into skill instructions when the same value can live in config or Markdown.
+Important fields:
 
-Keep these generic:
+| Field | What it controls |
+| --- | --- |
+| `event.id` | Stable event identifier used internally. Use lowercase, hyphenated text. |
+| `event.name` | Human-readable event name shown in page titles and headings. |
+| `event.prototype` | Keep `true` for demo/prototype builds. Set deliberately before production launch. |
+| `official_urls.landing_page` | Main Devpost event URL. |
+| `official_urls.resources_page` | Optional official resources URL. Leave empty if not ready. |
+| `official_urls.submission_page` | Devpost submission URL. Often the same as landing page until final routing is known. |
+| `dates.submission_deadline.display` | Human-readable deadline, including timezone. |
+| `dates.submission_deadline.iso` | Optional ISO timestamp for future automation. |
+| `assets.logo_light` | Devpost logo used on light backgrounds. |
+| `assets.logo_dark` | Devpost logo used on dark backgrounds. |
+| `assets.event_banner` | Event-specific banner shown across generated pages. |
+| `content.*` | Paths to Markdown files for each page. Usually leave paths stable and edit the Markdown. |
+| `submission_requirements` | Short fallback requirements used by skills and final review. Keep this concise. |
 
-- Skill command behavior.
-- Artifact renderer logic.
-- Shared CSS and layout.
-- State-file shape.
-- Security scanner.
-- Future MCP integration notes.
+Current caveat: `config/hackathon.json` currently uses `https://openai.devpost.com/`. That URL is real, but as of May 15, 2026 it resolves publicly to the ended OpenAI Open Model Hackathon page, not verified final Codex Hackathon copy. Replace it with the exact live event URL before launch.
 
-Put event-specific content here instead:
+## Configure Header And Banner Art
 
-- `config/hackathon.json` for short structured values.
-- Markdown files for page copy.
-- `assets/` for images and logos.
+The Devpost logo files are:
 
-## Devpost MCP Future
+- `assets/logos/devpost-logo-original.svg`
+- `assets/logos/devpost-logo-white.svg`
 
-The long-term version should not rely on manually copied event metadata forever. A future Devpost MCP can supply official event data, registration state, team identity, rules, submission requirements, and draft readiness.
+The event banner is configured here:
 
-Until that exists, this repo’s config and Markdown files are the source of truth for a configured plugin package.
+```json
+"assets": {
+  "logo_light": "assets/logos/devpost-logo-original.svg",
+  "logo_dark": "assets/logos/devpost-logo-white.svg",
+  "event_banner": "assets/banners/event-banner-placeholder.svg"
+}
+```
+
+To replace the banner:
+
+1. Add the final image to `assets/banners/`.
+2. Update `assets.event_banner` in `config/hackathon.json`.
+3. Regenerate artifacts with `node scripts/render-artifacts.mjs --all`.
+4. Preview pages through localhost.
+
+Use web-safe image formats for V1: SVG, PNG, or JPG. Avoid remote image dependencies unless the event owner explicitly accepts that risk.
+
+## Edit Page Copy
+
+Top-level sequence copy:
+
+| Command | HTML page | Markdown source |
+| --- | --- | --- |
+| `$start-hackathon` | `artifacts/generated/start-hackathon.html` | `content/steps/start.md` |
+| `$review-rules` | `artifacts/generated/review-rules.html` | `content/steps/rules.md` |
+| `$resources` | `artifacts/generated/resources.html` | `content/steps/resources.md` |
+| `$prepare-submission` | `artifacts/generated/prepare-submission.html` | `content/steps/prepare.md` |
+| `$submission-check` | `artifacts/generated/submission-check.html` | `content/steps/check.md` |
+| `$hackathon-map` | `artifacts/generated/hackathon-map.html` | `content/steps/map.md` |
+
+Optional learning path copy:
+
+| Command | HTML page | Markdown source |
+| --- | --- | --- |
+| `$learning-onboard` | `artifacts/generated/learning-onboard.html` | `content/learning/onboard.md` |
+| `$learning-scope` | `artifacts/generated/learning-scope.html` | `content/learning/scope.md` |
+| `$learning-prd` | `artifacts/generated/learning-prd.html` | `content/learning/prd.md` |
+| `$learning-spec` | `artifacts/generated/learning-spec.html` | `content/learning/spec.md` |
+| `$learning-checklist` | `artifacts/generated/learning-checklist.html` | `content/learning/checklist.md` |
+| `$learning-build` | `artifacts/generated/learning-build.html` | `content/learning/build.md` |
+
+Markdown comments at the top of those files identify the source path for maintainers. Those comments do not render into participant-facing HTML.
+
+For V1, keep Markdown copy to rich text only: headings, paragraphs, bullets, and inline code. Do not depend on inline images inside Markdown. Use `assets.event_banner` for the shared event image.
+
+## What Developers Edit
+
+Developer-owned files:
+
+- `skills/*/SKILL.md`: command behavior and chat instructions.
+- `scripts/render-artifacts.mjs`: deterministic HTML artifact renderer.
+- `scripts/submission-security-scan.mjs`: local final-check scanner.
+- `artifacts/templates/shared-artifact.css`: shared visual system.
+- `artifacts/templates/shared-artifact-template.html`: static template preview.
+- `.codex-plugin/plugin.json`: plugin metadata shown by Codex.
+
+Generated or runtime files:
+
+- `artifacts/generated/*.html`: generated previews checked into this prototype repo for QA.
+- `.openai-codex-hackathon-state.json`: participant-local state file created in the active project.
+- `.openai-codex-hackathon/`: participant-local copied templates/assets used by generated pages.
+- `artifacts/generated/submission-security-scan.json`: generated security scan result.
+
+Do not put customer-specific event facts directly into `skills/*/SKILL.md` unless there is no config or Markdown alternative.
+
+## Regenerate And Preview
+
+From the plugin repo:
+
+```bash
+node scripts/render-artifacts.mjs --all
+python3 -m http.server 8787
+```
+
+Open generated pages through localhost:
+
+```text
+http://localhost:8787/artifacts/generated/start-hackathon.html
+```
+
+Do not rely on `file://` previews. During QA, Codex in-app browser behavior was reliable through localhost and unreliable through direct file navigation.
+
+## Install And Refresh In Codex
+
+Official OpenAI Codex plugin docs:
+
+- [Build plugins: local install](https://developers.openai.com/codex/plugins/build#install-a-local-plugin-manually)
+- [Build plugins: how Codex uses marketplaces](https://developers.openai.com/codex/plugins/build#how-codex-uses-marketplaces)
+- [Build plugins: add a marketplace from the CLI](https://developers.openai.com/codex/plugins/build#add-a-marketplace-from-the-cli)
+- [Codex CLI reference: plugin marketplace](https://developers.openai.com/codex/cli/reference#codex-plugin-marketplace)
+
+The important operational detail: Codex installs plugins into a cache under `~/.codex/plugins/cache/...` and loads the installed copy. If you change the source plugin, refresh the installed copy and restart or reload Codex as needed.
+
+For local QA in this repo, the currently used installed path is:
+
+```text
+~/.codex/plugins/cache/local-plugins/openai-codex-hackathon/0.1.0/
+```
+
+After changing this repo, refresh that cache copy before testing in a fresh chat:
+
+```bash
+rsync -a --delete --exclude .git --exclude .openai-codex-hackathon-state.json \
+  /path/to/codex-hackathon/ \
+  ~/.codex/plugins/cache/local-plugins/openai-codex-hackathon/0.1.0/
+```
+
+For a production handoff, package this as a Codex plugin marketplace entry instead of relying on a developer-local cache path.
+
+## Participant QA Checklist
+
+In a fresh Codex Desktop chat, from an empty test project folder:
+
+1. Run `$start-hackathon`.
+2. Confirm the welcome message explains chat plus dynamic HTML artifacts.
+3. Confirm the generated page opens through localhost and shows the Devpost logo plus event banner.
+4. Run `$review-rules`.
+5. Confirm the participant must explicitly agree before moving on.
+6. Run `$resources`.
+7. Confirm the page explains the normal path and optional learning path.
+8. Run `$learning-onboard` only if testing the optional learning path.
+9. Continue through `$learning-scope`, `$learning-prd`, `$learning-spec`, `$learning-checklist`, and `$learning-build`.
+10. Return to `$prepare-submission`.
+11. Run `$submission-check`.
+12. Confirm the security scan renders clearly in both light and dark mode.
+
+## Future Devpost MCP
+
+The long-term version should not rely on manually copied event metadata forever. A future Devpost MCP can provide official event data, registration state, team identity, rules, submission requirements, and draft readiness.
+
+Until that exists, this repo's config and Markdown files are the source of truth for a configured plugin package.

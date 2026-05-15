@@ -127,4 +127,4 @@ See [`docs/future-devpost-mcp.md`](docs/future-devpost-mcp.md) for the current i
 
 ## Devpost Team Handoff
 
-For configuring this plugin for OpenAI or a future customer hackathon, start with [`docs/devpost-team-onboarding.md`](docs/devpost-team-onboarding.md).
+For configuring this plugin for OpenAI or a future customer hackathon, start with [`docs/devpost-team-onboarding.md`](docs/devpost-team-onboarding.md). It covers product copy, JSON configuration, banner assets, Codex plugin install docs, QA, and the required first participant command: `$start-hackathon`.
