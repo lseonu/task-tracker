@@ -29,6 +29,14 @@ If `devpost-submission.md` does not exist, direct the user to `$prepare-submissi
 
 ## Review Standard
 
+Before assigning the final readiness result, run the local security scanner:
+
+```bash
+node scripts/submission-security-scan.mjs
+```
+
+Read `artifacts/generated/submission-security-scan.json`.
+
 Run a concrete pass-fail review across:
 - rules acknowledgment recorded
 - project brief present
@@ -43,10 +51,24 @@ Run a concrete pass-fail review across:
 - browser handoff checklist present
 - unresolved legal or sponsor placeholders clearly labeled
 - no obvious contradiction between the build and the submission copy
+- no high-confidence exposed secrets from the local security scan
+- no risky credential-looking files that need user review
 
 Keep the review practical. Focus on completeness, clarity of required assets, and browser handoff readiness.
 
 Do not spend time on broad product critique here unless it directly affects submission readiness.
+
+## Security Scan Policy
+
+The local scanner is a lightweight MVP. It scans likely text files, including tracked and untracked files when safe, and writes a redacted JSON report.
+
+Treat scan results this way:
+
+- `block`: high-confidence secret or risky credential file found. The submission cannot be marked `ready`.
+- `review`: no high-confidence secret, but warning findings need user review. The submission can be `close`, not `ready`, unless the user has explicitly verified the warnings are benign.
+- `pass`: no high-confidence findings or warnings from the scanner.
+
+Never paste raw secret values in chat or artifacts. Use only the redacted evidence from the scanner.
 
 ## Output Format
 
@@ -67,6 +89,19 @@ When practical:
 - make the result feel like a polished preflight check, not just a dumped checklist
 
 Keep the text terse. The visual scorecard and checklist should do most of the work.
+
+## HTML Artifact Output
+
+After running the readiness review and updating state, regenerate the Check artifact:
+
+```bash
+node scripts/submission-security-scan.mjs
+node scripts/render-artifacts.mjs --page check
+```
+
+The generated page is `artifacts/generated/submission-check.html`.
+
+In chat, keep the response compact: give the readiness result, the shortest useful fix-now list if needed, and the Devpost browser handoff when ready.
 
 ## Handoff Behavior
 

@@ -26,6 +26,10 @@ The state file should remain intentionally small. Expect keys in this shape:
 {
   "plugin": "openai-codex-hackathon",
   "version": 1,
+  "participant": {
+    "name": "",
+    "display_name": ""
+  },
   "current_stage": "review-rules",
   "completed_stages": ["start-hackathon"],
   "rules_acknowledged": false,
@@ -40,18 +44,12 @@ The state file should remain intentionally small. Expect keys in this shape:
     "openai_usage": "",
     "codex_usage": ""
   },
-  "dashboard": {
-    "completion_percent": 0,
-    "registration_status": "not-started",
-    "deadline_label": "Official deadline pending",
-    "deadline_display": "TODO official date",
-    "last_rendered_at": ""
-  },
-  "reminders": {
-    "last_checked_at": "",
-    "next_deadline_label": "",
-    "next_deadline_display": "",
-    "official_dates_confirmed": false
+  "learning": {
+    "status": "not-started",
+    "current_step": "",
+    "completed_steps": [],
+    "plan_file": "",
+    "checklist_file": ""
   },
   "submission": {
     "draft_file": "devpost-submission.md",
@@ -60,6 +58,17 @@ The state file should remain intentionally small. Expect keys in this shape:
     "repo_url": "",
     "video_url": "",
     "browser_handoff_ready": false
+  },
+  "deadlines": {
+    "next_label": "",
+    "next_display": "TODO official date",
+    "official_dates_confirmed": false,
+    "last_checked_at": ""
+  },
+  "artifacts": {
+    "last_rendered": "",
+    "last_rendered_at": "",
+    "preview_base_url": ""
   },
   "next_command": "review-rules"
 }
@@ -155,6 +164,16 @@ Always render these commands in order:
 - `resources`
 - `prepare-submission`
 - `submission-check`
+
+When `learning.status` is `active` or `completed`, also show the optional nested Step 3 sequence:
+- `learning-onboard`
+- `learning-scope`
+- `learning-prd`
+- `learning-spec`
+- `learning-checklist`
+- `learning-build`
+
+Keep that sequence visually subordinate to the top-level five-step flow.
 
 Derive status from state:
 - `complete` if the command appears in `completed_stages`

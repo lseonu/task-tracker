@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en" data-artifact="resources" data-theme="system">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Resources | OpenAI Codex Hackathon</title>
+  <script>
+    (() => {
+      const theme = new URLSearchParams(window.location.search).get("theme");
+      if (theme === "light" || theme === "dark" || theme === "system") {
+        document.documentElement.dataset.theme = theme;
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../templates/shared-artifact.css?v=template-workshop-1">
+</head>
+<body>
+  <main class="artifact-shell" data-current-stage="resources" data-next-command="After the spec is saved, run $learning-checklist.">
+    <header class="artifact-header" aria-label="Hackathon plugin header">
+      <a class="artifact-brand-mark" data-slot="devpost-logo" href="https://devpost.com/" aria-label="Devpost">
+        <img class="artifact-logo artifact-logo-light" src="../../assets/logos/devpost-logo-original.svg" alt="Devpost">
+        <img class="artifact-logo artifact-logo-dark" src="../../assets/logos/devpost-logo-white.svg" alt="" aria-hidden="true">
+      </a>
+      <h1 class="artifact-brand-title">OpenAI Codex Hackathon</h1>
+    </header>
+
+    <section class="artifact-progress-meta" aria-label="Current status">
+      <span>Step 3 of 5: Resources</span>
+      <span>Completed: Start, Rules</span>
+      <span>Next: After the spec is saved, run $learning-checklist.</span>
+      <span>Deadline: TODO official date</span>
+    </section>
+
+    <div class="artifact-workspace">
+      <aside class="artifact-sidebar">
+        <nav class="artifact-stepper" aria-label="Hackathon progress">
+          <ol class="artifact-stepper-list">
+        <li class="artifact-step" data-step="start-hackathon" data-state="complete">
+          <span class="artifact-step-marker" aria-hidden="true">✓</span>
+          <span>
+            <span class="artifact-step-label">Step 1</span>
+            <span class="artifact-step-description">Start</span>
+          </span>
+        </li>
+        <li class="artifact-step" data-step="review-rules" data-state="complete">
+          <span class="artifact-step-marker" aria-hidden="true">✓</span>
+          <span>
+            <span class="artifact-step-label">Step 2</span>
+            <span class="artifact-step-description">Rules</span>
+          </span>
+        </li>
+        <li class="artifact-step" data-step="resources" data-state="active">
+          <span class="artifact-step-marker" aria-hidden="true"></span>
+          <span>
+            <span class="artifact-step-label">Step 3</span>
+            <span class="artifact-step-description">Resources</span>
+          </span>
+        </li>
+        <li class="artifact-step" data-step="prepare-submission" data-state="pending">
+          <span class="artifact-step-marker" aria-hidden="true"></span>
+          <span>
+            <span class="artifact-step-label">Step 4</span>
+            <span class="artifact-step-description">Prepare</span>
+          </span>
+        </li>
+        <li class="artifact-step" data-step="submission-check" data-state="pending">
+          <span class="artifact-step-marker" aria-hidden="true"></span>
+          <span>
+            <span class="artifact-step-label">Step 5</span>
+            <span class="artifact-step-description">Check</span>
+          </span>
+        </li>
+          </ol>
+        </nav>
+      </aside>
+
+      <div class="artifact-main">
+    <section class="artifact-nested-flow" data-slot="optional-learning-flow">
+      <h2>Optional guided planning - <span>Learning path</span></h2>
+      <ol class="artifact-nested-list">
+        <li class="artifact-nested-step" data-learning-step="onboard" data-state="complete" data-connector="complete">
+          <span class="artifact-nested-marker" aria-hidden="true">✓</span>
+          <span class="artifact-nested-label">Ideate</span>
+        </li>
+        <li class="artifact-nested-step" data-learning-step="scope" data-state="complete" data-connector="complete">
+          <span class="artifact-nested-marker" aria-hidden="true">✓</span>
+          <span class="artifact-nested-label">Scope</span>
+        </li>
+        <li class="artifact-nested-step" data-learning-step="prd" data-state="complete" data-connector="complete">
+          <span class="artifact-nested-marker" aria-hidden="true">✓</span>
+          <span class="artifact-nested-label">PRD</span>
+        </li>
+        <li class="artifact-nested-step" data-learning-step="spec" data-state="active" data-connector="active">
+          <span class="artifact-nested-marker" aria-hidden="true">4</span>
+          <span class="artifact-nested-label">Spec</span>
+        </li>
+        <li class="artifact-nested-step" data-learning-step="checklist" data-state="pending" data-connector="pending">
+          <span class="artifact-nested-marker" aria-hidden="true">5</span>
+          <span class="artifact-nested-label">Checklist</span>
+        </li>
+        <li class="artifact-nested-step" data-learning-step="build" data-state="pending" data-connector="pending">
+          <span class="artifact-nested-marker" aria-hidden="true">6</span>
+          <span class="artifact-nested-label">Build</span>
+        </li>
+        <li class="artifact-nested-step" data-learning-step="return" data-state="pending" data-connector="pending">
+          <span class="artifact-nested-marker" aria-hidden="true">7</span>
+          <span class="artifact-nested-label">Return</span>
+        </li>
+      </ol>
+    </section>
+
+        <section class="artifact-hero" data-slot="page-intro">
+          <h2>Plan the implementation</h2>
+          <p>Translate the PRD into technical structure, risks, and verification notes.</p>
+        </section>
+
+        <section class="artifact-layout" data-slot="page-body">
+          <div class="artifact-panel" data-slot="primary-content">
+<h3>Plan the implementation</h3>
+<p>Codex will translate the PRD into a practical technical plan: stack, architecture, files, data flow, OpenAI usage, risks, and verification notes.</p>
+<p>Output: <code>docs/hackathon-learning/spec.md</code> and the next command, <code>$learning-checklist</code>.</p>
+
+
+          </div>
+        </section>
+
+        <section class="artifact-footer">
+          <div class="artifact-next-action" data-slot="next-action">
+            <h3>Next action</h3>
+            <p>After the spec is saved, run $learning-checklist.</p>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

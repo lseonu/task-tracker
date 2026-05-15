@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenAI Codex Hackathon Plugin Overview</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0f1215;
+      --surface: #171b20;
+      --surface-2: #20262d;
+      --line: #303842;
+      --text: #f4f7fb;
+      --muted: #a9b3bf;
+      --soft: #d6dde6;
+      --green: #19c37d;
+      --blue: #75a7ff;
+      --pink: #f05aa6;
+      --gold: #f4bf4f;
+      --red: #ff7b72;
+      --shadow: rgba(0, 0, 0, .28);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    main {
+      width: min(1240px, calc(100vw - 40px));
+      margin: 0 auto;
+      padding: 24px 0 40px;
+    }
+
+    .topbar {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 16px;
+      align-items: stretch;
+      margin-bottom: 16px;
+    }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 16px 40px var(--shadow);
+    }
+
+    .hero {
+      padding: 26px;
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 10px 0 10px;
+      max-width: 780px;
+      font-size: 40px;
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .summary {
+      padding: 22px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .stat {
+      display: grid;
+      grid-template-columns: 76px 1fr;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .num {
+      width: 66px;
+      height: 44px;
+      border-radius: 7px;
+      display: grid;
+      place-items: center;
+      color: #061510;
+      background: var(--green);
+      font-weight: 900;
+      font-size: 20px;
+    }
+
+    .stat strong,
+    .card strong,
+    .branch strong {
+      display: block;
+      color: var(--text);
+      font-size: 15px;
+      margin-bottom: 3px;
+    }
+
+    .stat span,
+    .card span,
+    .branch span {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 22px 0 10px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 19px;
+      letter-spacing: 0;
+    }
+
+    .tag {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 10px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      min-height: 248px;
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 4px;
+      background: var(--line);
+    }
+
+    .card.required::before { background: var(--green); }
+    .card.gate::before { background: var(--gold); }
+    .card.draft::before { background: var(--blue); }
+    .card.final::before { background: var(--pink); }
+
+    .step-index {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .command {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      color: var(--soft);
+      font-size: 13px;
+      margin: 10px 0;
+      padding: 8px 9px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(255, 255, 255, .06);
+    }
+
+    .outputs {
+      margin-top: 12px;
+      display: grid;
+      gap: 7px;
+    }
+
+    .pill {
+      color: var(--muted);
+      font-size: 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 8px;
+      width: fit-content;
+    }
+
+    .lower-grid {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .state {
+      padding: 18px;
+    }
+
+    .state-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .state-item {
+      padding: 12px;
+      border-radius: 7px;
+      background: rgba(255, 255, 255, .035);
+      border: 1px solid rgba(255, 255, 255, .06);
+    }
+
+    .state-item code {
+      color: var(--soft);
+      font-size: 12px;
+    }
+
+    .state-item span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 5px;
+      line-height: 1.4;
+    }
+
+    .branches {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .branch {
+      padding: 16px;
+      min-height: 176px;
+    }
+
+    .branch .label {
+      display: inline-block;
+      margin-bottom: 12px;
+      color: #061510;
+      background: var(--gold);
+      border-radius: 999px;
+      padding: 5px 8px;
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .branch.learning .label { background: var(--blue); color: #07111f; }
+    .branch.mcp .label { background: var(--pink); color: #210614; }
+    .branch.security .label { background: var(--red); color: #220605; }
+
+    .notes {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .note {
+      display: grid;
+      grid-template-columns: 10px 1fr;
+      gap: 9px;
+      align-items: start;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      margin-top: 5px;
+      background: var(--green);
+    }
+
+    @media (max-width: 1100px) {
+      .flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .lower-grid,
+      .topbar { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 760px) {
+      main { width: min(100vw - 24px, 680px); padding-top: 14px; }
+      h1 { font-size: 32px; }
+      .flow,
+      .branches,
+      .state-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="topbar">
+      <div class="panel hero">
+        <div class="eyebrow">Current plugin structure</div>
+        <h1>Codex-native Devpost journey, from registration handoff to final submission check.</h1>
+        <p>This view summarizes the plugin as it exists now: five required participant steps, one always-available map, a small state file, and a set of placeholder visuals that can evolve into branded HTML artifacts.</p>
+      </div>
+      <div class="panel summary">
+        <div class="stat">
+          <div class="num">6</div>
+          <div>
+            <strong>Skills in the bundle</strong>
+            <span>Five flow steps plus the persistent hackathon map.</span>
+          </div>
+        </div>
+        <div class="stat">
+          <div class="num">1</div>
+          <div>
+            <strong>State file</strong>
+            <span><code>.openai-codex-hackathon-state.json</code> powers continuity.</span>
+          </div>
+        </div>
+        <div class="stat">
+          <div class="num">9</div>
+          <div>
+            <strong>Placeholder visuals</strong>
+            <span>Static SVGs for welcome, resources, rules, handoff, and scorecards.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-title">
+      <h2>Required Flow</h2>
+      <span class="tag">Current linear participant path</span>
+    </div>
+
+    <section class="flow">
+      <article class="panel card required">
+        <div class="step-index">Step 01</div>
+        <strong>Start Hackathon</strong>
+        <div class="command">$start-hackathon</div>
+        <span>Initializes the state file, presents the welcome surface, points users to Devpost registration, and sets rules review as the first gate.</span>
+        <div class="outputs">
+          <div class="pill">Creates state</div>
+          <div class="pill">Shows zero-state map</div>
+          <div class="pill">Registration handoff</div>
+        </div>
+      </article>
+
+      <article class="panel card gate">
+        <div class="step-index">Step 02</div>
+        <strong>Review Rules</strong>
+        <div class="command">$review-rules</div>
+        <span>Mandatory fairness and legal gate. It now asks users to reply yes or no before unlocking the rest of the flow.</span>
+        <div class="outputs">
+          <div class="pill">Rules gate</div>
+          <div class="pill">Yes/no confirmation</div>
+          <div class="pill">Unlocks resources</div>
+        </div>
+      </article>
+
+      <article class="panel card required">
+        <div class="step-index">Step 03</div>
+        <strong>Resources</strong>
+        <div class="command">$resources</div>
+        <span>Mirrors a Devpost Resources tab inside Codex: docs, videos, strong project archetypes, inspiration, and anti-pattern guidance.</span>
+        <div class="outputs">
+          <div class="pill">Resource hub</div>
+          <div class="pill">Anti-patterns</div>
+          <div class="pill">Optional branch candidate</div>
+        </div>
+      </article>
+
+      <article class="panel card draft">
+        <div class="step-index">Step 04</div>
+        <strong>Prepare Submission</strong>
+        <div class="command">$prepare-submission</div>
+        <span>Inspects the project and drafts <code>devpost-submission.md</code> with honest product copy, testing notes, assets, and handoff checklist.</span>
+        <div class="outputs">
+          <div class="pill">Writes draft</div>
+          <div class="pill">Revision checklist</div>
+          <div class="pill">May loop here</div>
+        </div>
+      </article>
+
+      <article class="panel card final">
+        <div class="step-index">Step 05</div>
+        <strong>Submission Check</strong>
+        <div class="command">$submission-check</div>
+        <span>Final pass/fail readiness check before Devpost browser handoff. Planned v1 upgrade: local minimum viable secrets scan.</span>
+        <div class="outputs">
+          <div class="pill">Scorecard</div>
+          <div class="pill">Ready / close / not ready</div>
+          <div class="pill">Browser handoff</div>
+        </div>
+      </article>
+    </section>
+
+    <section class="lower-grid">
+      <div class="panel state">
+        <div class="section-title" style="margin-top:0">
+          <h2>State Model</h2>
+          <span class="tag">Small by design</span>
+        </div>
+        <p>The state file is the continuity layer. Skills read and update it, then re-render the map so the participant always knows where they are.</p>
+        <div class="state-grid">
+          <div class="state-item">
+            <code>current_stage</code>
+            <span>Current command stage shown in the map.</span>
+          </div>
+          <div class="state-item">
+            <code>completed_stages</code>
+            <span>Progress markers for the required flow.</span>
+          </div>
+          <div class="state-item">
+            <code>rules_acknowledged</code>
+            <span>Legal/fairness gate. Now only `yes` unlocks.</span>
+          </div>
+          <div class="state-item">
+            <code>registration</code>
+            <span>Currently browser handoff; future Devpost MCP can sync it.</span>
+          </div>
+          <div class="state-item">
+            <code>project</code>
+            <span>Name, summary, OpenAI usage, Codex usage.</span>
+          </div>
+          <div class="state-item">
+            <code>submission</code>
+            <span>Draft file, URLs, status, and handoff readiness.</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-title" style="margin-top:0">
+          <h2>V1 Decision Areas</h2>
+          <span class="tag">Where the next work lands</span>
+        </div>
+        <section class="branches">
+          <article class="panel branch learning">
+            <div class="label">Optional</div>
+            <strong>Guided Planning Track</strong>
+            <span>Offer after resources, and again if prepare-submission finds the project too vague. Exit by writing a plan/project brief, then resume at submission prep.</span>
+          </article>
+          <article class="panel branch mcp">
+            <div class="label">Deferred</div>
+            <strong>Devpost MCP</strong>
+            <span>When Benoit's authenticated MCP is ready, add connection status, registration/submission sync, and write-capable handoff upgrades.</span>
+          </article>
+          <article class="panel branch security">
+            <div class="label">Upgrade</div>
+            <strong>Secrets Scan</strong>
+            <span>Minimum local scan inside submission-check: obvious key patterns, env files, redacted findings, and readiness blocking for high-confidence leaks.</span>
+          </article>
+        </section>
+
+        <div class="panel state" style="margin-top:16px">
+          <h2>Artifact Question</h2>
+          <div class="notes">
+            <div class="note"><span class="dot"></span><span>Desktop app is the required participant surface, so HTML artifact previews can be treated as the primary experience.</span></div>
+            <div class="note"><span class="dot"></span><span>Each skill can still emit a compact chat fallback, but rich local HTML can carry the main visual structure.</span></div>
+            <div class="note"><span class="dot"></span><span>A shared template should probably live at the plugin root, with per-skill content sections and references to branded assets.</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

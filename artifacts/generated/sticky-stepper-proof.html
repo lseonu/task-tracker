@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en" data-artifact="sticky-stepper-proof" data-theme="system">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sticky Stepper Proof | OpenAI Codex Hackathon</title>
+  <link rel="stylesheet" href="../templates/shared-artifact.css?v=template-workshop-1">
+  <style>
+    .sticky-proof-stepper {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      padding: 8px 0;
+      background: var(--artifact-bg);
+    }
+
+    .sticky-proof-section {
+      min-height: 520px;
+      border: 1px solid var(--artifact-line);
+      padding: 20px;
+      margin: 18px 0;
+      background: var(--artifact-surface);
+    }
+
+    .sticky-proof-section h3 {
+      margin-top: 0;
+    }
+  </style>
+</head>
+<body>
+  <main class="artifact-shell" data-current-stage="resources" data-next-command="prepare-submission">
+    <header class="artifact-header" aria-label="Hackathon plugin header">
+      <a class="artifact-brand-mark" data-slot="devpost-logo" href="https://devpost.com/" aria-label="Devpost">
+        <img class="artifact-logo artifact-logo-light" src="../../assets/logos/devpost-logo-original.svg" alt="Devpost">
+        <img class="artifact-logo artifact-logo-dark" src="../../assets/logos/devpost-logo-white.svg" alt="" aria-hidden="true">
+      </a>
+      <h1 class="artifact-brand-title">Sticky stepper proof</h1>
+    </header>
+
+    <div class="sticky-proof-stepper">
+      <nav class="artifact-stepper" aria-label="Hackathon progress">
+        <ol class="artifact-stepper-list">
+          <li class="artifact-step" data-step="start-hackathon" data-state="complete">
+            <span class="artifact-step-marker" aria-hidden="true">✓</span>
+            <span>
+              <span class="artifact-step-label">Start</span>
+              <span class="artifact-step-description">Register and set up your Codex flow</span>
+            </span>
+          </li>
+          <li class="artifact-step" data-step="review-rules" data-state="complete">
+            <span class="artifact-step-marker" aria-hidden="true">✓</span>
+            <span>
+              <span class="artifact-step-label">Rules</span>
+              <span class="artifact-step-description">Review requirements and confirm eligibility</span>
+            </span>
+          </li>
+          <li class="artifact-step" data-step="resources" data-state="active">
+            <span class="artifact-step-marker" aria-hidden="true">3</span>
+            <span>
+              <span class="artifact-step-label">Resources</span>
+              <span class="artifact-step-description">Explore guides, examples, and project planning</span>
+            </span>
+          </li>
+          <li class="artifact-step" data-step="prepare-submission" data-state="pending">
+            <span class="artifact-step-marker" aria-hidden="true">4</span>
+            <span>
+              <span class="artifact-step-label">Prepare</span>
+              <span class="artifact-step-description">Draft your Devpost submission</span>
+            </span>
+          </li>
+          <li class="artifact-step" data-step="submission-check" data-state="pending">
+            <span class="artifact-step-marker" aria-hidden="true">5</span>
+            <span>
+              <span class="artifact-step-label">Check</span>
+              <span class="artifact-step-description">Run final review before submitting</span>
+            </span>
+          </li>
+        </ol>
+      </nav>
+    </div>
+
+    <section class="artifact-hero" data-slot="page-intro">
+      <h2>Sticky CSS test</h2>
+      <p>The stepper above uses <code>position: sticky</code>. It should remain pinned while the long content scrolls underneath.</p>
+    </section>
+
+    <section class="sticky-proof-section">
+      <h3>Section 1</h3>
+      <p>Scroll down. The progression component should stay visible at the top of the artifact viewport.</p>
+    </section>
+
+    <section class="sticky-proof-section">
+      <h3>Section 2</h3>
+      <p>This block simulates a longer artifact page with prompts, guidance, and generated content.</p>
+    </section>
+
+    <section class="sticky-proof-section">
+      <h3>Section 3</h3>
+      <p>If the stepper is still pinned here, sticky positioning is viable for V1.</p>
+    </section>
+  </main>
+</body>
+</html>

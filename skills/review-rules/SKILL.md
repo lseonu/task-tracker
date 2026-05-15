@@ -38,19 +38,17 @@ When practical:
 
 ## Strict Gate
 
-Do not unlock the rest of the plugin flow until the user explicitly acknowledges the rules review.
+Do not unlock the rest of the plugin flow until the user explicitly agrees to the rules review.
 
 Use this exact standard:
 - If `rules_acknowledged` is `true`, give a short summary and point to the next command
-- If `rules_acknowledged` is `false`, present the required sections and ask for an explicit acknowledgment message
+- If `rules_acknowledged` is `false`, present the required sections and ask: `Do you agree to these terms? Reply yes or no.`
 
-Do not require a sentence-form response.
+Require a simple yes/no response for the legal confirmation.
 
-Accept compact confirmations such as:
-- `confirm`
-- `acknowledge`
-- `continue`
-- `reviewed`
+Accept `yes` as the affirmative confirmation. Treat `no` as a stop: keep the flow locked, do not update the state file, and explain that the participant can ask questions or return later if they are not ready to agree.
+
+Do not accept longer or ambiguous acknowledgments such as `confirm`, `acknowledge`, `continue`, or `reviewed` for the legal confirmation. If the participant gives one of those, ask them to reply with `yes` or `no`.
 
 If the user asks substantive questions, answer them from the placeholder reference and clearly label provisional areas as `TODO official copy`.
 
@@ -77,11 +75,23 @@ Use this order when practical:
 - one small visual or media placeholder
 - the required rule sections in a compact scannable layout
 - a short blocker box covering what could stop the user later
-- a short acknowledgment prompt telling the user which keyword to reply with
+- a short legal confirmation prompt: `Do you agree to these terms? Reply yes or no.`
 
 Aim for one compact screenful, or close to it.
 
 Do not repeat the `start-hackathon` onboarding copy. Assume the participant has already seen that step.
+
+## HTML Artifact Output
+
+When presenting the rules gate or after recording a `yes` response, regenerate the Rules artifact:
+
+```bash
+node scripts/render-artifacts.mjs --page rules
+```
+
+The generated page is `artifacts/generated/review-rules.html`.
+
+In chat, keep the response compact: point to the artifact, preserve the exact `yes`/`no` confirmation requirement when locked, and give `$resources` as the next command only after the state is unlocked.
 
 ## Blocker Guidance
 
@@ -98,7 +108,7 @@ This should feel like practical risk-reduction, not fear-based warning copy.
 
 ## State Update
 
-When the user explicitly acknowledges:
+When the user explicitly replies `yes` to the legal confirmation:
 - Set `rules_acknowledged` to `true`
 - Set `registration.devpost_registered` to `true` if it is still `false`
 - Add `review-rules` to `completed_stages` if needed

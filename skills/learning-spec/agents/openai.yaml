@@ -1,0 +1,4 @@
+interface:
+  display_name: "Guided Learning: Spec"
+  short_description: "Plan the technical implementation"
+  default_prompt: "Use $learning-spec to turn the PRD into a technical plan."

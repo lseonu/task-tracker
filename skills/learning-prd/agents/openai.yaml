@@ -1,0 +1,4 @@
+interface:
+  display_name: "Guided Learning: PRD"
+  short_description: "Write user-facing product requirements"
+  default_prompt: "Use $learning-prd to turn your scope into product requirements."

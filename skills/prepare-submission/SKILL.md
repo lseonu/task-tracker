@@ -103,6 +103,18 @@ The revision checklist should be the centerpiece of the response.
 
 If the project is still missing major information, make that obvious and direct the user to improve the packet before attempting `$submission-check`.
 
+## HTML Artifact Output
+
+After drafting or updating `devpost-submission.md` and state, regenerate the Prepare artifact:
+
+```bash
+node scripts/render-artifacts.mjs --page prepare
+```
+
+The generated page is `artifacts/generated/prepare-submission.html`.
+
+In chat, keep the response compact: confirm whether the draft was updated, summarize the revision checklist, and recommend either another `$prepare-submission` pass or `$submission-check` depending on readiness.
+
 ## Revision Handoff
 
 End this skill like a revision round, not a final approval.

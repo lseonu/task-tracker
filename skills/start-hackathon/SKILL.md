@@ -29,6 +29,10 @@ Use this initial payload:
 {
   "plugin": "openai-codex-hackathon",
   "version": 1,
+  "participant": {
+    "name": "",
+    "display_name": ""
+  },
   "current_stage": "review-rules",
   "completed_stages": ["start-hackathon"],
   "rules_acknowledged": false,
@@ -43,18 +47,12 @@ Use this initial payload:
     "openai_usage": "",
     "codex_usage": ""
   },
-  "dashboard": {
-    "completion_percent": 0,
-    "registration_status": "not-started",
-    "deadline_label": "Official deadline pending",
-    "deadline_display": "TODO official date",
-    "last_rendered_at": ""
-  },
-  "reminders": {
-    "last_checked_at": "",
-    "next_deadline_label": "",
-    "next_deadline_display": "",
-    "official_dates_confirmed": false
+  "learning": {
+    "status": "not-started",
+    "current_step": "",
+    "completed_steps": [],
+    "plan_file": "",
+    "checklist_file": ""
   },
   "submission": {
     "draft_file": "devpost-submission.md",
@@ -63,6 +61,17 @@ Use this initial payload:
     "repo_url": "",
     "video_url": "",
     "browser_handoff_ready": false
+  },
+  "deadlines": {
+    "next_label": "",
+    "next_display": "TODO official date",
+    "official_dates_confirmed": false,
+    "last_checked_at": ""
+  },
+  "artifacts": {
+    "last_rendered": "",
+    "last_rendered_at": "",
+    "preview_base_url": ""
   },
   "next_command": "review-rules"
 }
@@ -108,6 +117,18 @@ Use this order when practical:
 
 Keep the whole response to about one compact screenful.
 
+## HTML Artifact Output
+
+After creating or loading `.openai-codex-hackathon-state.json`, regenerate the Start artifact:
+
+```bash
+node scripts/render-artifacts.mjs --page start
+```
+
+The generated page is `artifacts/generated/start-hackathon.html`.
+
+In chat, keep the response compact: say the artifact was updated, remind the user to preview generated HTML through localhost, and give the next command `$review-rules`.
+
 ## Command Chain
 
 Do not render the flow as plain inline text unless you have no other option.
@@ -134,8 +155,9 @@ When practical, render these local placeholder assets in the response:
 - `../../assets/placeholders/start-hackathon-landing.svg` as the compact start screen visual
 - `../../assets/placeholders/devpost-registration-handoff.svg` as the browser registration handoff visual
 
-Also render one remote Devpost brand image as a lightweight cue when practical:
-- `https://logo.clearbit.com/devpost.com`
+Also render the bundled Devpost logo as a lightweight cue when practical:
+- `../../assets/logos/devpost-logo-original.svg` for light backgrounds
+- `../../assets/logos/devpost-logo-white.svg` for dark backgrounds
 
 Important rendering rule for Codex desktop:
 - use Markdown image syntax for every local or remote image
@@ -144,7 +166,7 @@ Important rendering rule for Codex desktop:
 
 Example pattern:
 - `![Hackathon landing](/absolute/path/to/start-hackathon-landing.svg)`
-- `![Devpost](https://logo.clearbit.com/devpost.com)`
+- `![Devpost](/absolute/path/to/assets/logos/devpost-logo-original.svg)`
 
 The opening view should ideally include:
 - a compact welcome hero

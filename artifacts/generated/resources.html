@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en" data-artifact="resources" data-theme="system">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Resources | OpenAI Codex Hackathon</title>
+  <script>
+    (() => {
+      const theme = new URLSearchParams(window.location.search).get("theme");
+      if (theme === "light" || theme === "dark" || theme === "system") {
+        document.documentElement.dataset.theme = theme;
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../templates/shared-artifact.css?v=template-workshop-1">
+</head>
+<body>
+  <main class="artifact-shell" data-current-stage="resources" data-next-command="Continue to $prepare-submission or enter guided planning from Step 3.">
+    <header class="artifact-header" aria-label="Hackathon plugin header">
+      <a class="artifact-brand-mark" data-slot="devpost-logo" href="https://devpost.com/" aria-label="Devpost">
+        <img class="artifact-logo artifact-logo-light" src="../../assets/logos/devpost-logo-original.svg" alt="Devpost">
+        <img class="artifact-logo artifact-logo-dark" src="../../assets/logos/devpost-logo-white.svg" alt="" aria-hidden="true">
+      </a>
+      <h1 class="artifact-brand-title">OpenAI Codex Hackathon</h1>
+    </header>
+
+    <section class="artifact-progress-meta" aria-label="Current status">
+      <span>Step 3 of 5: Resources</span>
+      <span>Completed: Start, Rules</span>
+      <span>Next: Continue to $prepare-submission or enter guided planning from Step 3.</span>
+      <span>Deadline: TODO official date</span>
+    </section>
+
+    <div class="artifact-workspace">
+      <aside class="artifact-sidebar">
+        <nav class="artifact-stepper" aria-label="Hackathon progress">
+          <ol class="artifact-stepper-list">
+        <li class="artifact-step" data-step="start-hackathon" data-state="complete">
+          <span class="artifact-step-marker" aria-hidden="true">✓</span>
+          <span>
+            <span class="artifact-step-label">Step 1</span>
+            <span class="artifact-step-description">Start</span>
+          </span>
+        </li>
+        <li class="artifact-step" data-step="review-rules" data-state="complete">
+          <span class="artifact-step-marker" aria-hidden="true">✓</span>
+          <span>
+            <span class="artifact-step-label">Step 2</span>
+            <span class="artifact-step-description">Rules</span>
+          </span>
+        </li>
+        <li class="artifact-step" data-step="resources" data-state="active">
+          <span class="artifact-step-marker" aria-hidden="true"></span>
+          <span>
+            <span class="artifact-step-label">Step 3</span>
+            <span class="artifact-step-description">Resources</span>
+          </span>
+        </li>
+        <li class="artifact-step" data-step="prepare-submission" data-state="pending">
+          <span class="artifact-step-marker" aria-hidden="true"></span>
+          <span>
+            <span class="artifact-step-label">Step 4</span>
+            <span class="artifact-step-description">Prepare</span>
+          </span>
+        </li>
+        <li class="artifact-step" data-step="submission-check" data-state="pending">
+          <span class="artifact-step-marker" aria-hidden="true"></span>
+          <span>
+            <span class="artifact-step-label">Step 5</span>
+            <span class="artifact-step-description">Check</span>
+          </span>
+        </li>
+          </ol>
+        </nav>
+      </aside>
+
+      <div class="artifact-main">
+
+
+        <section class="artifact-hero" data-slot="page-intro">
+          <h2>Choose your build path</h2>
+          <p>Use the resources or start the optional guided learning path.</p>
+        </section>
+
+        <section class="artifact-layout" data-slot="page-body">
+          <div class="artifact-panel" data-slot="primary-content">
+<h3>Choose your build path</h3>
+<p>Use the resources, or start the optional guided learning path.</p>
+<p>If you already know what you want to build, keep moving toward submission prep. If you want more structure, the guided path helps you move from a spark of an idea into scope, requirements, a technical spec, a build checklist, and implementation.</p>
+<p>The guided path is optional. It is best for participants who want to practice a more durable AI-assisted development workflow while still building something they care about.</p>
+<p>[TODO: replace with official resource links and final launch copy.]</p>
+
+        <div class="artifact-card-grid" aria-label="Step 3 choices">
+          <div class="artifact-choice">
+            <strong>I have my project idea</strong>
+            <span>Run <code>$prepare-submission</code> when you are ready.</span>
+          </div>
+          <div class="artifact-choice">
+            <strong>Use the learning path</strong>
+            <span>Run <code>$learning-onboard</code> to brainstorm your project idea.</span>
+          </div>
+        </div>
+
+          </div>
+        </section>
+
+        <section class="artifact-footer">
+          <div class="artifact-next-action" data-slot="next-action">
+            <h3>Next action</h3>
+            <p>Continue to $prepare-submission or enter guided planning from Step 3.</p>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

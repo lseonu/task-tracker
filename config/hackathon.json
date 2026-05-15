@@ -2,60 +2,46 @@
   "event": {
     "id": "openai-codex-hackathon",
     "name": "OpenAI Codex Hackathon",
-    "prototype": true,
-    "sponsor": "OpenAI",
-    "platform": "Devpost"
+    "prototype": true
   },
   "official_urls": {
     "landing_page": "https://openai.devpost.com/",
-    "resources_page": "[TODO: official hackathon resources page]",
+    "resources_page": "",
     "submission_page": "https://openai.devpost.com/"
   },
   "dates": {
-    "start": {
-      "display": "[TODO: official start date and time]",
-      "iso": ""
-    },
     "submission_deadline": {
-      "display": "[TODO: official submission deadline]",
-      "iso": ""
-    },
-    "judging_period": {
-      "display": "[TODO: official judging period]",
-      "iso": ""
-    },
-    "winner_announcement": {
-      "display": "[TODO: official winner announcement date]",
+      "display": "",
       "iso": ""
     }
   },
-  "legal": {
-    "fairness_notice": "This plugin is a companion to the official hackathon materials. Participants should review the official Devpost pages for complete rules, requirements, and updates.",
-    "assistant_disclaimer": "This prototype summarizes hackathon information inside Codex but does not replace the official rules or submission flow."
+  "assets": {
+    "logo_light": "assets/logos/devpost-logo-original.svg",
+    "logo_dark": "assets/logos/devpost-logo-white.svg",
+    "event_banner": "assets/banners/event-banner-placeholder.svg"
+  },
+  "content": {
+    "start": "content/steps/start.md",
+    "rules": "content/steps/rules.md",
+    "resources": "content/steps/resources.md",
+    "prepare": "content/steps/prepare.md",
+    "check": "content/steps/check.md",
+    "learning": {
+      "onboard": "content/learning/onboard.md",
+      "scope": "content/learning/scope.md",
+      "prd": "content/learning/prd.md",
+      "spec": "content/learning/spec.md",
+      "checklist": "content/learning/checklist.md",
+      "build": "content/learning/build.md"
+    }
   },
   "submission_requirements": [
-    "A short text write-up explaining how OpenAI capabilities are central to the project",
-    "A public product or demo link when available",
-    "A public code repository link or [TODO: official repo rule]",
-    "A short demo video or [TODO: official video requirement]",
-    "Testing instructions when a judge needs setup context"
-  ],
-  "resource_links": [
-    "[TODO: official hackathon landing page]",
-    "[TODO: official hackathon resources page]",
-    "https://openai.com/codex/",
-    "https://platform.openai.com/docs/",
-    "https://platform.openai.com/docs/quickstart",
-    "https://help.devpost.com/article/122-how-to-enter-a-submission",
-    "https://help.devpost.com/article/126-know-your-submission-steps",
-    "https://help.devpost.com/article/85-uploading-a-demo-video"
-  ],
-  "launch_media": [
-    "[TODO: official OpenAI or Codex launch/session video]",
-    "[TODO: official hackathon kickoff recording]"
+    "[TODO: official submission requirement]",
+    "[TODO: official submission requirement]",
+    "[TODO: official submission requirement]"
   ],
   "notes": {
-    "prototype_scope": "No direct Devpost API submission or auth flow yet. This prototype focuses on rules, resources, live progress tracking, submission prep, and browser handoff.",
-    "reuse": "To support another hackathon, duplicate this file, swap the event metadata, deadlines, links, requirements, and sponsor copy, then point the plugin copy at the new config."
+    "configuration_owner": "Event owner or lead engineer should fill in official event details before launch.",
+    "mcp_future": "This config is a lightweight V1 fallback. The future Devpost MCP should become the source of truth for event, registration, team, and submission data when available."
   }
 }

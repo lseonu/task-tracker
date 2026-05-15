@@ -28,6 +28,9 @@ Use this checklist before the user leaves Codex to submit on Devpost.
 - Draft does not hide unresolved placeholders
 - Build claims do not overstate what the project does
 - Obvious anti-pattern issues have been addressed or acknowledged
+- Local security scan has no high-confidence exposed secrets
+- Credential-looking files are not tracked or are explicitly confirmed safe placeholders
+- Submission copy does not claim auth, privacy, or data handling guarantees the app cannot support
 
 ## Suggested Rubric
 
@@ -36,4 +39,4 @@ When practical, score the review out of 100 using a lightweight rubric:
 - 25 points for honesty and specificity
 - 20 points for demo and repo readiness
 - 15 points for testing and judge usability
-- 10 points for compliance and anti-pattern avoidance
+- 10 points for compliance, security, and anti-pattern avoidance

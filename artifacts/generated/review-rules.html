@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en" data-artifact="review-rules" data-theme="system">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rules | OpenAI Codex Hackathon</title>
+  <script>
+    (() => {
+      const theme = new URLSearchParams(window.location.search).get("theme");
+      if (theme === "light" || theme === "dark" || theme === "system") {
+        document.documentElement.dataset.theme = theme;
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../templates/shared-artifact.css?v=template-workshop-1">
+</head>
+<body>
+  <main class="artifact-shell" data-current-stage="review-rules" data-next-command="Reply yes or no in chat to unlock the rest of the flow.">
+    <header class="artifact-header" aria-label="Hackathon plugin header">
+      <a class="artifact-brand-mark" data-slot="devpost-logo" href="https://devpost.com/" aria-label="Devpost">
+        <img class="artifact-logo artifact-logo-light" src="../../assets/logos/devpost-logo-original.svg" alt="Devpost">
+        <img class="artifact-logo artifact-logo-dark" src="../../assets/logos/devpost-logo-white.svg" alt="" aria-hidden="true">
+      </a>
+      <h1 class="artifact-brand-title">OpenAI Codex Hackathon</h1>
+    </header>
+
+    <section class="artifact-progress-meta" aria-label="Current status">
+      <span>Step 2 of 5: Rules</span>
+      <span>Completed: Start</span>
+      <span>Next: Reply yes or no in chat to unlock the rest of the flow.</span>
+      <span>Deadline: TODO official date</span>
+    </section>
+
+    <div class="artifact-workspace">
+      <aside class="artifact-sidebar">
+        <nav class="artifact-stepper" aria-label="Hackathon progress">
+          <ol class="artifact-stepper-list">
+        <li class="artifact-step" data-step="start-hackathon" data-state="complete">
+          <span class="artifact-step-marker" aria-hidden="true">✓</span>
+          <span>
+            <span class="artifact-step-label">Step 1</span>
+            <span class="artifact-step-description">Start</span>
+          </span>
+        </li>
+        <li class="artifact-step" data-step="review-rules" data-state="active">
+          <span class="artifact-step-marker" aria-hidden="true"></span>
+          <span>
+            <span class="artifact-step-label">Step 2</span>
+            <span class="artifact-step-description">Rules</span>
+          </span>
+        </li>
+        <li class="artifact-step" data-step="resources" data-state="pending">
+          <span class="artifact-step-marker" aria-hidden="true"></span>
+          <span>
+            <span class="artifact-step-label">Step 3</span>
+            <span class="artifact-step-description">Resources</span>
+          </span>
+        </li>
+        <li class="artifact-step" data-step="prepare-submission" data-state="pending">
+          <span class="artifact-step-marker" aria-hidden="true"></span>
+          <span>
+            <span class="artifact-step-label">Step 4</span>
+            <span class="artifact-step-description">Prepare</span>
+          </span>
+        </li>
+        <li class="artifact-step" data-step="submission-check" data-state="pending">
+          <span class="artifact-step-marker" aria-hidden="true"></span>
+          <span>
+            <span class="artifact-step-label">Step 5</span>
+            <span class="artifact-step-description">Check</span>
+          </span>
+        </li>
+          </ol>
+        </nav>
+      </aside>
+
+      <div class="artifact-main">
+
+
+        <section class="artifact-hero" data-slot="page-intro">
+          <h2>Review the rules</h2>
+          <p>Confirm the requirements before you start building.</p>
+        </section>
+
+        <section class="artifact-layout" data-slot="page-body">
+          <div class="artifact-panel" data-slot="primary-content">
+<h3>Review the rules</h3>
+<p>Confirm the requirements before you start building.</p>
+<p>This page should summarize eligibility, deadlines, deliverables, judging notes, and any official disclaimers. Keep the final confirmation simple: the participant must reply <code>yes</code> or <code>no</code>.</p>
+<p>[TODO: replace with official rules and eligibility copy.]</p>
+
+
+          </div>
+        </section>
+
+        <section class="artifact-footer">
+          <div class="artifact-next-action" data-slot="next-action">
+            <h3>Next action</h3>
+            <p>Reply yes or no in chat to unlock the rest of the flow.</p>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

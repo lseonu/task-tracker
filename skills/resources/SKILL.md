@@ -64,6 +64,20 @@ The overall feel should be closer to a polished in-app event resources page than
 
 Aim for a no-scroll or near-no-scroll layout inside the Codex desktop chat when practical.
 
+## HTML Artifact Output
+
+After reading references and updating state, regenerate the Resources artifact:
+
+```bash
+node scripts/render-artifacts.mjs --page resources
+```
+
+The generated page is `artifacts/generated/resources.html`.
+
+In chat, keep the response compact: say the artifact was updated, note that guided planning is optional and nested inside Step 3, and recommend `$prepare-submission` unless the user chooses the learning path.
+
+If the user chooses guided planning, explain that the path stays inside Step 3 and starts with the Ideate phase via `$learning-onboard`. The visible sequence is Ideate, Scope, PRD, Spec, Checklist, Build, and Return. The command sequence is `$learning-onboard`, `$learning-scope`, `$learning-prd`, `$learning-spec`, `$learning-checklist`, and `$learning-build`.
+
 ## Content Guidance
 
 Prioritize useful in-app resources over outbound hackathon links.

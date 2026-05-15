@@ -1,0 +1,4 @@
+interface:
+  display_name: "Next V1 Item"
+  short_description: "Advance the V1 checklist one item at a time"
+  default_prompt: "Use $next to continue the V1 checklist."
