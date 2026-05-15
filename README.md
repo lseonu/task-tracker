@@ -2,6 +2,8 @@
 
 Prototype Codex plugin for guiding participants through a Devpost hackathon flow inside Codex Desktop.
 
+Devpost team handoff: start with [`docs/devpost-team-onboarding.md`](docs/devpost-team-onboarding.md) for configuration, copy editing, banner assets, plugin installation, QA, and the required first participant command, `$start-hackathon`.
+
 ## Event Configuration
 
 The plugin should avoid hardcoding event-specific details in skills or generated HTML.
