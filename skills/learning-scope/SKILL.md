@@ -7,7 +7,7 @@ description: Help the participant turn a rough hackathon idea into a focused sco
 
 Read `../learning-guide/SKILL.md`, then follow this command.
 
-This is the Codex port of the Claude curriculum `/scope` command.
+This is the Codex version of the learning curriculum's scope command.
 
 ## Goal
 

@@ -7,7 +7,7 @@ description: Break the technical spec into sequenced build tasks with verificati
 
 Read `../learning-guide/SKILL.md`, then follow this command.
 
-This is the Codex port of the Claude curriculum `/checklist` command.
+This is the Codex version of the learning curriculum's checklist command.
 
 ## Goal
 

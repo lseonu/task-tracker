@@ -28,6 +28,7 @@ Current top-level content files:
 - `content/steps/resources.md`
 - `content/steps/prepare.md`
 - `content/steps/check.md`
+- `content/steps/map.md`
 
 Optional learning-path content lives in:
 

@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en" data-artifact="submission-check" data-theme="system">
+<html lang="en" data-artifact="hackathon-map" data-theme="system">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Check | OpenAI Codex Hackathon</title>
+  <title>Map | OpenAI Codex Hackathon</title>
   <script>
     (() => {
       const theme = new URLSearchParams(window.location.search).get("theme");
@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="../templates/shared-artifact.css?v=template-workshop-1">
 </head>
 <body>
-  <main class="artifact-shell" data-current-stage="submission-check" data-next-command="If ready, complete the official submission in Devpost.">
+  <main class="artifact-shell" data-current-stage="start-hackathon" data-next-command="Continue with $start-hackathon.">
     <header class="artifact-header" aria-label="Hackathon plugin header">
       <a class="artifact-brand-mark" data-slot="devpost-logo" href="https://devpost.com/" aria-label="Devpost">
         <img class="artifact-logo artifact-logo-light" src="../../assets/logos/devpost-logo-original.svg" alt="Devpost">
@@ -25,9 +25,9 @@
     </header>
 
     <section class="artifact-progress-meta" aria-label="Current status">
-      <span>Step 5 of 5: Check</span>
-      <span>Completed: Start, Rules, Resources, Prepare</span>
-      <span>Next: If ready, complete the official submission in Devpost.</span>
+      <span>Step 1 of 5: Start</span>
+      <span>Completed: None yet</span>
+      <span>Next: Continue with $start-hackathon.</span>
       <span>Deadline: Official deadline to be confirmed</span>
     </section>
 
@@ -35,35 +35,35 @@
       <aside class="artifact-sidebar">
         <nav class="artifact-stepper" aria-label="Hackathon progress">
           <ol class="artifact-stepper-list">
-        <li class="artifact-step" data-step="start-hackathon" data-state="complete">
-          <span class="artifact-step-marker" aria-hidden="true">✓</span>
+        <li class="artifact-step" data-step="start-hackathon" data-state="active">
+          <span class="artifact-step-marker" aria-hidden="true"></span>
           <span>
             <span class="artifact-step-label">Step 1</span>
             <span class="artifact-step-description">Start</span>
           </span>
         </li>
-        <li class="artifact-step" data-step="review-rules" data-state="complete">
-          <span class="artifact-step-marker" aria-hidden="true">✓</span>
+        <li class="artifact-step" data-step="review-rules" data-state="pending">
+          <span class="artifact-step-marker" aria-hidden="true"></span>
           <span>
             <span class="artifact-step-label">Step 2</span>
             <span class="artifact-step-description">Rules</span>
           </span>
         </li>
-        <li class="artifact-step" data-step="resources" data-state="complete">
-          <span class="artifact-step-marker" aria-hidden="true">✓</span>
+        <li class="artifact-step" data-step="resources" data-state="pending">
+          <span class="artifact-step-marker" aria-hidden="true"></span>
           <span>
             <span class="artifact-step-label">Step 3</span>
             <span class="artifact-step-description">Resources</span>
           </span>
         </li>
-        <li class="artifact-step" data-step="prepare-submission" data-state="complete">
-          <span class="artifact-step-marker" aria-hidden="true">✓</span>
+        <li class="artifact-step" data-step="prepare-submission" data-state="pending">
+          <span class="artifact-step-marker" aria-hidden="true"></span>
           <span>
             <span class="artifact-step-label">Step 4</span>
             <span class="artifact-step-description">Prepare</span>
           </span>
         </li>
-        <li class="artifact-step" data-step="submission-check" data-state="active">
+        <li class="artifact-step" data-step="submission-check" data-state="pending">
           <span class="artifact-step-marker" aria-hidden="true"></span>
           <span>
             <span class="artifact-step-label">Step 5</span>
@@ -78,40 +78,33 @@
 
 
         <section class="artifact-hero" data-slot="page-intro">
-          <h2>Run your final check</h2>
-          <p>Review completeness, security, and handoff readiness.</p>
+          <h2>Hackathon map</h2>
+          <p>Use this page to recover your place in the workflow.</p>
         </section>
 
 
 
         <section class="artifact-layout" data-slot="page-body">
           <div class="artifact-panel" data-slot="primary-content">
-<h3>Run your final check</h3>
-<p>Review completeness, security, and handoff readiness.</p>
-<p>This page should summarize whether the participant is ready, close, or not ready to leave Codex and complete the official submission in Devpost.</p>
-<p>It should include the local security scan result, with redacted findings only.</p>
-<p>Before launch, the event owner can add final check criteria that match the official Devpost requirements.</p>
+<h3>Find your place</h3>
+<p>This recovery page shows where you are in the OpenAI Codex Hackathon flow and which command should come next.</p>
+<p>Use <code>$hackathon-map</code> any time you lose track, switch chats, or want to confirm whether the optional learning path is active.</p>
+<p>The five required steps are Start, Rules, Resources, Prepare, and Check. The optional learning path stays nested inside Resources and returns to Prepare when the build is ready for submission work.</p>
+<p>Codex does not submit to Devpost automatically. The final handoff still happens in the browser.</p>
 
 
-        <section class="artifact-security-scan" data-security-status="pass">
-          <h3>Security scan</h3>
-          <p><strong>Pass</strong>: scanned 98 files. High-confidence findings: 0. Warnings: 0.</p>
-          <ul>
-          <li>No high-confidence secrets or credential-looking files found.</li>
-          </ul>
-        </section>
           </div>
         </section>
 
         <section class="artifact-footer">
           <div class="artifact-next-action" data-slot="next-action">
             <h3>Next action</h3>
-            <p>If ready, complete the official submission in Devpost.</p>
+            <p>Continue with $start-hackathon.</p>
           </div>
 
         <section class="artifact-copy-source" data-slot="copy-source">
           <h3>Edit this page copy</h3>
-          <p>Main body copy comes from <code>content/steps/check.md</code>.</p>
+          <p>Main body copy comes from <code>content/steps/map.md</code>.</p>
         </section>
         </section>
       </div>

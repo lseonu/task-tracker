@@ -20,10 +20,11 @@ Honor that promise everywhere:
 - Do not add video structure to the plugin templates until this proof passes.
 
 Status note:
-- Created standalone proof pages in `artifacts/media-embed-proof/`.
+- Created standalone proof pages during the media investigation.
 - MP4 proof uses a representative public placeholder until a Devpost-owned CDN MP4 is available.
 - Manual Codex Desktop preview result: direct MP4 embed worked; YouTube iframe did not.
 - Media decision for V1: direct MP4 is technically feasible, but video and per-step art are not dependencies for this sprint. Do not use YouTube iframe embeds in participant-facing templates.
+- Removed the proof pages after recording the result so demo/install surfaces do not include stale test artifacts.
 
 ## 2. [x] Define HTML Artifact Inventory
 
@@ -61,7 +62,7 @@ Status note:
 
 Status note:
 - Created raw shared template files in `artifacts/templates/`.
-- Created a plain Step 3 Resources sample in `artifacts/generated/resources-sample.html`.
+- Created and then removed a plain Step 3 Resources sample after replacing it with the real generated `artifacts/generated/resources.html`.
 - Documented template slots, state attributes, and the nested learning stepper in `docs/shared-artifact-template.md`.
 - Kept styling intentionally minimal so the final Devpost design kit can be applied later.
 - Preview rule: serve generated artifacts over localhost for the Codex in-app browser; direct `file://` navigation was rejected during testing.
@@ -277,3 +278,10 @@ Status note:
 - Verify the optional learning branch exits cleanly back to submission prep.
 - Verify final submission handoff is clear and does not imply automatic Devpost submission unless MCP write support exists.
 - Verify the latest design decisions: `Ideate` label, light/dark logo variants, split-pane responsive layout, and Markdown copy ownership comments not appearing in rendered pages.
+
+Status note:
+- Internal cleanup pass removed obsolete proof/demo HTML and unused placeholder SVG assets from install/demo surfaces.
+- Added the missing generated `$hackathon-map` recovery artifact.
+- Verified all generated HTML command pages over localhost for event name, visible Markdown copy source, and absence of stale placeholder/demo copy.
+- Local submission security scan passes with no findings.
+- Remaining work: second fresh-chat Codex Desktop QA pass through the installed plugin commands.

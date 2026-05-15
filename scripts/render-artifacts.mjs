@@ -133,6 +133,17 @@ const learningPages = [
   }
 ];
 
+const mapPage = {
+  id: "hackathon-map",
+  key: "map",
+  file: "hackathon-map.html",
+  map: true,
+  label: "Map",
+  headline: "Hackathon map",
+  subcopy: "Use this page to recover your place in the workflow.",
+  nextAction: "Continue with the next recommended command."
+};
+
 const learningByKey = new Map(learningPages.flatMap((page) => [[page.key, page], [page.id, page], [page.learningId, page]]));
 
 function parseArgs() {
@@ -422,7 +433,7 @@ async function renderPage(config, state, activeStep, options = {}) {
   const next = options.nextAction || (state.__preview_state ? activeStep.nextAction : state.next_command || activeStep.nextAction);
   const learningFlow = renderLearningFlow(state, activeStep);
   const bannerPath = generatedAssetPath(config.assets?.event_banner);
-  const showBanner = Boolean(bannerPath) && activeStep.id === "start-hackathon";
+  const showBanner = Boolean(bannerPath) && (options.artifactId || activeStep.id) === "start-hackathon";
   const meta = [
     `Step ${steps.indexOf(activeStep) + 1} of 5: ${activeStep.label}`,
     `Completed: ${completed}`,
@@ -432,11 +443,11 @@ async function renderPage(config, state, activeStep, options = {}) {
   ].filter(Boolean);
 
   return `<!doctype html>
-<html lang="en" data-artifact="${activeStep.id}" data-theme="system">
+<html lang="en" data-artifact="${options.artifactId || activeStep.id}" data-theme="system">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${activeStep.label} | ${escapeHtml(config.event?.name || "Hackathon plugin")}</title>
+  <title>${escapeHtml(options.documentTitle || activeStep.label)} | ${escapeHtml(config.event?.name || "Hackathon plugin")}</title>
   <script>
     (() => {
       const theme = new URLSearchParams(window.location.search).get("theme");
@@ -533,22 +544,42 @@ async function renderLearningPage(config, state, page) {
   });
 }
 
+async function renderMapPage(config, state) {
+  const activeStep =
+    stepById.get(state.current_stage) ||
+    stepByKey.get(state.next_command) ||
+    stepById.get(state.next_command) ||
+    steps[0];
+  const nextCommand = state.next_command ? `$${state.next_command}` : "$start-hackathon";
+  return renderPage(config, state, activeStep, {
+    artifactId: mapPage.id,
+    documentTitle: mapPage.label,
+    contentPath: config.content?.map,
+    headline: mapPage.headline,
+    subcopy: mapPage.subcopy,
+    nextAction: `Continue with ${nextCommand}.`,
+    hideChoices: true
+  });
+}
+
 async function main() {
   const args = parseArgs();
   const config = await readJson(configPath);
   const state = await readState();
   const pages = args.all
-    ? [...steps, ...learningPages]
-    : [stepByKey.get(args.page) || stepById.get(args.page) || learningByKey.get(args.page)].filter(Boolean);
+    ? [...steps, mapPage, ...learningPages]
+    : [stepByKey.get(args.page) || stepById.get(args.page) || learningByKey.get(args.page) || (args.page === "map" || args.page === "hackathon-map" ? mapPage : null)].filter(Boolean);
 
   if (!pages.length) {
     throw new Error(`Unknown page: ${args.page}`);
   }
 
   for (const step of pages) {
-    const html = step.learningId
-      ? await renderLearningPage(config, state, step)
-      : await renderPage(config, state, step);
+    const html = step.map
+      ? await renderMapPage(config, state)
+      : step.learningId
+        ? await renderLearningPage(config, state, step)
+        : await renderPage(config, state, step);
     const outPath = path.join(generatedDir, step.file);
     await writeFile(outPath, html, "utf8");
     console.log(path.relative(root, outPath));

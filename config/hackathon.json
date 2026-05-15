@@ -26,6 +26,7 @@
     "resources": "content/steps/resources.md",
     "prepare": "content/steps/prepare.md",
     "check": "content/steps/check.md",
+    "map": "content/steps/map.md",
     "learning": {
       "onboard": "content/learning/onboard.md",
       "scope": "content/learning/scope.md",

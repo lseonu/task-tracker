@@ -7,7 +7,7 @@ description: Convert the scoped hackathon idea into user-facing product requirem
 
 Read `../learning-guide/SKILL.md`, then follow this command.
 
-This is the Codex port of the Claude curriculum `/prd` command.
+This is the Codex version of the learning curriculum's PRD command.
 
 ## Goal
 

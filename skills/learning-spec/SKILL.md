@@ -7,7 +7,7 @@ description: Translate the PRD into a practical technical implementation plan.
 
 Read `../learning-guide/SKILL.md`, then follow this command.
 
-This is the Codex port of the Claude curriculum `/spec` command.
+This is the Codex version of the learning curriculum's spec command.
 
 ## Goal
 

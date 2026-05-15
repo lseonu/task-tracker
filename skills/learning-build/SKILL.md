@@ -7,7 +7,7 @@ description: Execute the guided learning checklist with Codex while preserving v
 
 Read `../learning-guide/SKILL.md`, then follow this command.
 
-This is the Codex port of the Claude curriculum `/build` command.
+This is the Codex version of the learning curriculum's build command.
 
 ## Goal
 

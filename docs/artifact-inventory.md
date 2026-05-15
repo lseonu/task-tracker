@@ -34,7 +34,7 @@ Use `.openai-codex-hackathon-state.json` as the source of truth for progress and
 
 ## Media Policy
 
-V1 media support is based on the proof in `artifacts/media-embed-proof/`.
+V1 media support is based on completed manual Codex Desktop proof work. The standalone proof pages were removed after the result was recorded so production previews do not expose test artifacts.
 
 - Direct MP4 embed worked in Codex Desktop preview.
 - YouTube iframe did not work reliably.
@@ -84,11 +84,11 @@ Stepper state:
 
 Required content:
 - Fairness and equal-information notice
-- Eligibility placeholders until official copy lands
-- Contest dates and deadline placeholders
+- Provisional eligibility summary until official copy lands
+- Contest dates and deadline summary
 - What to build
 - What to submit
-- Judging criteria placeholders
+- Judging criteria summary
 - Originality, third-party usage, testing, and content restrictions
 - Common blockers
 - Official-pages disclaimer
@@ -115,7 +115,7 @@ Stepper state:
 
 Required content:
 - Build toolbox links
-- Official or placeholder launch media
+- Official launch resources when available
 - Strong project archetypes
 - Anti-patterns
 - Optional learning/planning branch entry point
@@ -149,7 +149,7 @@ Required content:
 - Missing required submission materials
 - Revision checklist
 - Project positioning feedback
-- Repo/demo/video/screenshot placeholders
+- Repo/demo/video/screenshot fields
 - Re-offer learning branch if the project is vague or underspecified
 - Next command when ready: `$submission-check`
 
@@ -220,21 +220,6 @@ Fallback chat summary:
 The learning module is first-class, but nested inside Step 3: Resources.
 
 When active, the top-level stepper still highlights Step 3. The learning module may show its own smaller internal progress sequence.
-
-### Learning On-Ramp
-
-File: `artifacts/generated/learning-on-ramp.html`
-
-Purpose:
-- Help the participant choose whether to enter guided planning
-- Make clear that confident builders can skip it
-
-Required content:
-- Two choices:
-  - Continue with my project idea by running `$prepare-submission`
-  - Help me shape the project by running `$learning-onboard`
-- Expected outputs from the learning path
-- Return path to Step 4
 
 ### Ideate
 
@@ -314,9 +299,9 @@ Required content:
 Output:
 - `spec.md` or equivalent technical plan
 
-### Build Checklist
+### Checklist
 
-File: `artifacts/generated/learning-build-checklist.html`
+File: `artifacts/generated/learning-checklist.html`
 
 Command: `$learning-checklist`
 
@@ -351,25 +336,6 @@ Output:
 - Working app changes
 - Verification notes
 
-### Learning Off-Ramp
-
-File: `artifacts/generated/learning-off-ramp.html`
-
-Purpose:
-- Return the participant from guided planning/building back to the core hackathon flow
-
-Required content:
-- Project summary
-- OpenAI usage summary
-- Codex usage summary
-- Generated planning artifacts
-- Remaining build or submission gaps
-- CTA to `$prepare-submission`
-
-Output:
-- Updated project fields in `.openai-codex-hackathon-state.json`
-- Next command set to `$prepare-submission`
-
 ## Draft UI Copy For Design Team
 
 Top-level stepper labels:
@@ -386,7 +352,7 @@ Top-level step headlines:
 
 | Step | Headline | Subcopy |
 | --- | --- | --- |
-| Step 1 | Welcome to [Hackathon name] | Register on Devpost, then continue here in Codex. |
+| Step 1 | Welcome to OpenAI Codex Hackathon | Register on Devpost, then continue here in Codex. |
 | Step 2 | Review the rules | Confirm the requirements before you start building. |
 | Step 3 | Choose your build path | Use the resources or start the optional guided learning path. |
 | Step 4 | Prepare your submission | Turn your project into a clear Devpost-ready draft. |

@@ -7,7 +7,7 @@ description: Start the optional guided learning path inside Step 3 Resources. Us
 
 Read `../learning-guide/SKILL.md`, then follow this command.
 
-This is the Codex port of the Claude curriculum `/onboard` command. In the participant UI, this phase is labeled `Ideate`.
+This is the Codex version of the learning curriculum's onboarding command. In the participant UI, this phase is labeled `Ideate`.
 
 ## Goal
 

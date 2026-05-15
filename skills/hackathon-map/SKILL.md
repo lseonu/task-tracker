@@ -45,29 +45,20 @@ If an older state file references removed prototype fields like `dashboard`, `re
 
 ## Artifact Refresh
 
-When state exists, regenerate the artifact for the current stage or the most useful next stage:
+When state exists, regenerate the recovery artifact:
 
-- `start-hackathon` -> `node scripts/render-artifacts.mjs --page start`
-- `review-rules` -> `node scripts/render-artifacts.mjs --page rules`
-- `resources` -> `node scripts/render-artifacts.mjs --page resources`
-- `prepare-submission` -> `node scripts/render-artifacts.mjs --page prepare`
-- `submission-check` -> `node scripts/render-artifacts.mjs --page check`
+```bash
+node scripts/render-artifacts.mjs --page map
+```
 
-If `learning.status` is `active`, prefer the matching learning page:
-
-- `onboard` -> `node scripts/render-artifacts.mjs --page learning-onboard`
-- `scope` -> `node scripts/render-artifacts.mjs --page learning-scope`
-- `prd` -> `node scripts/render-artifacts.mjs --page learning-prd`
-- `spec` -> `node scripts/render-artifacts.mjs --page learning-spec`
-- `checklist` -> `node scripts/render-artifacts.mjs --page learning-checklist`
-- `build` -> `node scripts/render-artifacts.mjs --page learning-build`
+The generated page is `artifacts/generated/hackathon-map.html`. It should show the current top-level stage, completed stages, optional learning state, and next command without marking anything complete.
 
 Generated HTML must be opened through localhost, not `file://`.
 
 Expected URL pattern when the repo is served on port 8787:
 
 ```text
-http://localhost:8787/artifacts/generated/<artifact-file>.html
+http://localhost:8787/artifacts/generated/hackathon-map.html
 ```
 
 ## Chat Output

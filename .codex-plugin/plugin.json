@@ -4,11 +4,11 @@
   "description": "Prototype Codex-native hackathon experience for rules, resources, progress tracking, and submission prep before final Devpost handoff.",
   "author": {
     "name": "Devpost Prototype",
-    "email": "[TODO: plugin-owner@example.com]",
-    "url": "[TODO: internal repo or docs URL]"
+    "email": "support@devpost.com",
+    "url": "https://github.com/bathrobe/codex-hackathon"
   },
-  "homepage": "[TODO: official plugin landing page]",
-  "repository": "[TODO: official source repository]",
+  "homepage": "https://openai.devpost.com/",
+  "repository": "https://github.com/bathrobe/codex-hackathon",
   "license": "UNLICENSED",
   "keywords": [
     "hackathon",

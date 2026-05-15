@@ -80,11 +80,9 @@ The common preview shape behaves more like a narrow tablet than a wide desktop. 
 
 ## Sticky Stepper Proof
 
-Test page: `artifacts/generated/sticky-stepper-proof.html`
+Result from manual Codex Desktop testing: `position: sticky` works in the in-app browser when the artifact is served over localhost. After scrolling the proof page, the progression component remained pinned at the top of the artifact viewport.
 
-Result: `position: sticky` works in the Codex in-app browser when the artifact is served over localhost. After scrolling the proof page, the progression component remained pinned at the top of the artifact viewport.
-
-Use sticky positioning as an available enhancement, not as the only way to understand progress.
+The proof page was removed after the result was recorded so production artifact previews only contain command pages. Use sticky positioning as an available enhancement, not as the only way to understand progress.
 
 ## Rendering Rule
 

@@ -56,7 +56,7 @@ It should stay small, human-readable, and easy to regenerate artifacts from. It 
   },
   "deadlines": {
     "next_label": "",
-    "next_display": "TODO official date",
+    "next_display": "Official deadline to be confirmed",
     "official_dates_confirmed": false,
     "last_checked_at": ""
   },

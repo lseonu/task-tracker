@@ -6,7 +6,7 @@ user-invocable: false
 
 # Learning Guide
 
-This guide adapts the Devpost Claude Code curriculum for the Codex hackathon plugin.
+This guide adapts the Devpost learning curriculum for the Codex hackathon plugin.
 
 The path is nested inside Step 3: Resources and uses Codex commands:
 
