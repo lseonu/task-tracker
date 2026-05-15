@@ -440,7 +440,7 @@ async function renderPage(config, state, activeStep, options = {}) {
   const next = options.nextAction || (state.__preview_state ? activeStep.nextAction : state.next_command || activeStep.nextAction);
   const learningFlow = renderLearningFlow(state, activeStep);
   const bannerPath = generatedAssetPath(config.assets?.event_banner);
-  const showBanner = Boolean(bannerPath) && (options.artifactId || activeStep.id) === "start-hackathon";
+  const showBanner = Boolean(bannerPath);
   const meta = [
     `Step ${steps.indexOf(activeStep) + 1} of 5: ${activeStep.label}`,
     `Completed: ${completed}`,
