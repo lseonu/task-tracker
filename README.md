@@ -9,6 +9,16 @@ The duplication is deliberate for this early prototype. It keeps each surface ea
 
 Devpost team handoff: start with [`docs/devpost-team-onboarding.md`](docs/devpost-team-onboarding.md) for configuration, copy editing, banner assets, plugin installation, QA, and the required first participant command, `$start-hackathon`.
 
+## Intentionally Unresolved For Now
+
+This is a Monday prototype, not final production packaging. The following items are intentionally still open:
+
+- Final Devpost event URL, dates, rules, eligibility, and judging copy need the official event source of truth.
+- Desktop main-step visuals are waiting on art-team PNG exports for `start`, `rules`, `resources`, `prepare`, and `check`.
+- The optional learning path does not have its own visual treatment yet.
+- The repo marketplace needs one real install smoke test in Codex Desktop and one in Codex CLI before team-wide handoff.
+- Future Devpost MCP/auth behavior is documented as a later integration, not implemented in this V1 prototype.
+
 ## Installable Packages
 
 The repository root is a marketplace/prototype workspace, not the plugin itself. Install one of the plugin folders through the repo marketplace:
