@@ -1,8 +1,13 @@
 # Devpost Team Handoff README
 
-This document is for Devpost product managers, designers, event owners, and developers who need to configure this Codex plugin for the OpenAI Codex Hackathon or a future customer hackathon.
+This document is for Devpost product managers, designers, event owners, and developers who need to configure these Codex plugin prototypes for the OpenAI Codex Hackathon or a future customer hackathon.
 
-The plugin gives participants a guided hackathon flow inside Codex Desktop. Participants talk with Codex in chat, and Codex renders dynamic HTML artifacts in the in-app browser for the current step.
+This repo contains two intentionally separate plugin packages:
+
+- `plugins/devpost-hackathon-desktop`: Codex Desktop flow with inline progress images.
+- `plugins/devpost-hackathon-cli`: Codex CLI flow with text-only progress.
+
+The duplicated content is intentional for this early prototype. Update both packages when the shared hackathon copy changes.
 
 ## Start Here
 
@@ -35,23 +40,23 @@ Use `$hackathon-map` anytime to show the current state and recommended next comm
 
 ## What Product And Event Owners Edit
 
-Most event-specific content lives in two places:
+Most event-specific content lives inside each plugin package in two places:
 
 - `config/hackathon.json` for short structured values, URLs, dates, and asset paths.
-- `content/steps/` and `content/learning/` for participant-facing page copy.
+- `content/steps/` and `content/learning/` for participant-facing step copy.
 
-Do not edit generated HTML files directly. Files in `artifacts/generated/` are rebuilt by the renderer.
+There is no normal localhost or side-pane HTML experience in this prototype. The Desktop package renders chat-first Markdown with optional inline stepper PNGs; the CLI package renders chat-first text only.
 
 ## Configure Event Metadata
 
-Edit `config/hackathon.json`.
+Edit `config/hackathon.json` in each plugin package you are preparing.
 
 Important fields:
 
 | Field | What it controls |
 | --- | --- |
 | `event.id` | Stable event identifier used internally. Use lowercase, hyphenated text. |
-| `event.name` | Human-readable event name shown in page titles and headings. |
+| `event.name` | Human-readable event name shown in headings. |
 | `event.prototype` | Keep `true` for demo/prototype builds. Set deliberately before production launch. |
 | `official_urls.landing_page` | Main Devpost event URL. |
 | `official_urls.resources_page` | Optional official resources URL. Leave empty if not ready. |
@@ -60,102 +65,100 @@ Important fields:
 | `dates.submission_deadline.iso` | Optional ISO timestamp for future automation. |
 | `assets.logo_light` | Devpost logo used on light backgrounds. |
 | `assets.logo_dark` | Devpost logo used on dark backgrounds. |
-| `assets.event_banner` | Event-specific banner shown across generated pages. |
-| `content.*` | Paths to Markdown files for each page. Usually leave paths stable and edit the Markdown. |
+| `assets.event_banner` | Optional event-specific banner path if the team decides to use one in chat. |
+| `assets.main_stepper_images` | Desktop-only paths for the art-team main-step PNGs. |
+| `content.*` | Paths to Markdown files for each step. Usually leave paths stable and edit the Markdown. |
 | `submission_requirements` | Short fallback requirements used by skills and final review. Keep this concise. |
 
 Current caveat: `config/hackathon.json` currently uses `https://openai.devpost.com/`. That URL is real, but as of May 15, 2026 it resolves publicly to the ended OpenAI Open Model Hackathon page, not verified final Codex Hackathon copy. Replace it with the exact live event URL before launch.
 
-## Configure Header And Banner Art
+## Configure Visual Assets
 
 The Devpost logo files are:
 
 - `assets/logos/devpost-logo-original.svg`
 - `assets/logos/devpost-logo-white.svg`
 
-The event banner is configured here:
+The optional event banner is configured here:
 
 ```json
 "assets": {
   "logo_light": "assets/logos/devpost-logo-original.svg",
   "logo_dark": "assets/logos/devpost-logo-white.svg",
-  "event_banner": "assets/banners/event-banner-placeholder.svg"
+  "event_banner": "assets/banners/event-banner-placeholder.svg",
+  "main_stepper_images": {
+    "start": "assets/steppers/main-light/start.png",
+    "rules": "assets/steppers/main-light/rules.png",
+    "resources": "assets/steppers/main-light/resources.png",
+    "prepare": "assets/steppers/main-light/prepare.png",
+    "check": "assets/steppers/main-light/check.png"
+  }
 }
 ```
 
-To replace the banner:
+For the current Desktop visual direction, the art team should provide one light-mode PNG for each main step:
 
-1. Add the final image to `assets/banners/`.
-2. Update `assets.event_banner` in `config/hackathon.json`.
-3. Regenerate artifacts with `node scripts/render-artifacts.mjs --all`.
-4. Preview pages through localhost.
+1. Add the final PNG files to `plugins/devpost-hackathon-desktop/assets/steppers/main-light/`.
+2. Keep the configured filenames stable unless there is a reason to change `assets.main_stepper_images`.
+3. Run `node plugins/devpost-hackathon-desktop/scripts/compose-response.mjs --page start` to verify the composed response still works.
 
-Use web-safe image formats for V1: SVG, PNG, or JPG. Avoid remote image dependencies unless the event owner explicitly accepts that risk.
+Do not put Devpost and OpenAI as a single co-branded headline. If Devpost needs attribution in future visual work, prefer a small "Powered by Devpost" treatment or another secondary placement approved by design.
 
-## Edit Page Copy
+## Edit Step Copy
 
 Top-level sequence copy:
 
-| Command | HTML page | Markdown source |
+| Command | Composer page | Markdown source |
 | --- | --- | --- |
-| `$start-hackathon` | `artifacts/generated/start-hackathon.html` | `content/steps/start.md` |
-| `$review-rules` | `artifacts/generated/review-rules.html` | `content/steps/rules.md` |
-| `$resources` | `artifacts/generated/resources.html` | `content/steps/resources.md` |
-| `$prepare-submission` | `artifacts/generated/prepare-submission.html` | `content/steps/prepare.md` |
-| `$submission-check` | `artifacts/generated/submission-check.html` | `content/steps/check.md` |
-| `$hackathon-map` | `artifacts/generated/hackathon-map.html` | `content/steps/map.md` |
+| `$start-hackathon` | `start` | `content/steps/start.md` |
+| `$review-rules` | `rules` | `content/steps/rules.md` |
+| `$resources` | `resources` | `content/steps/resources.md` |
+| `$prepare-submission` | `prepare` | `content/steps/prepare.md` |
+| `$submission-check` | `check` | `content/steps/check.md` |
+| `$hackathon-map` | `map` | `content/steps/map.md` |
 
 Optional learning path copy:
 
-| Command | HTML page | Markdown source |
+| Command | Composer page | Markdown source |
 | --- | --- | --- |
-| `$learning-onboard` | `artifacts/generated/learning-onboard.html` | `content/learning/onboard.md` |
-| `$learning-scope` | `artifacts/generated/learning-scope.html` | `content/learning/scope.md` |
-| `$learning-prd` | `artifacts/generated/learning-prd.html` | `content/learning/prd.md` |
-| `$learning-spec` | `artifacts/generated/learning-spec.html` | `content/learning/spec.md` |
-| `$learning-checklist` | `artifacts/generated/learning-checklist.html` | `content/learning/checklist.md` |
-| `$learning-build` | `artifacts/generated/learning-build.html` | `content/learning/build.md` |
+| `$learning-onboard` | `learning-onboard` | `content/learning/onboard.md` |
+| `$learning-scope` | `learning-scope` | `content/learning/scope.md` |
+| `$learning-prd` | `learning-prd` | `content/learning/prd.md` |
+| `$learning-spec` | `learning-spec` | `content/learning/spec.md` |
+| `$learning-checklist` | `learning-checklist` | `content/learning/checklist.md` |
+| `$learning-build` | `learning-build` | `content/learning/build.md` |
 
-Markdown comments at the top of those files identify the source path for maintainers. Those comments do not render into participant-facing HTML.
+Markdown comments at the top of those files identify the source path for maintainers. Those comments do not render into participant-facing responses.
 
-For V1, keep Markdown copy to rich text only: headings, paragraphs, bullets, and inline code. Do not depend on inline images inside Markdown. Use `assets.event_banner` for the shared event image.
+For V1, keep Markdown copy to rich text only: headings, paragraphs, bullets, and inline code. Desktop images come from configured assets, not from Markdown copy.
 
 ## What Developers Edit
 
-Developer-owned files:
+Developer-owned files inside each plugin package:
 
 - `skills/*/SKILL.md`: command behavior and chat instructions.
-- `scripts/render-artifacts.mjs`: deterministic HTML artifact renderer.
+- `scripts/compose-response.mjs`: deterministic chat response composer.
 - `scripts/submission-security-scan.mjs`: local final-check scanner.
-- `artifacts/templates/shared-artifact.css`: shared visual system.
-- `artifacts/templates/shared-artifact-template.html`: static template preview.
 - `.codex-plugin/plugin.json`: plugin metadata shown by Codex.
 
 Generated or runtime files:
 
-- `artifacts/generated/*.html`: generated previews checked into this prototype repo for QA.
 - `.openai-codex-hackathon-state.json`: participant-local state file created in the active project.
-- `.openai-codex-hackathon/`: participant-local copied templates/assets used by generated pages.
-- `artifacts/generated/submission-security-scan.json`: generated security scan result.
+- `.openai-codex-hackathon/`: participant-local support directory.
+- `.openai-codex-hackathon/submission-security-scan.json`: generated security scan result.
 
 Do not put customer-specific event facts directly into `skills/*/SKILL.md` unless there is no config or Markdown alternative.
 
-## Regenerate And Preview
+## Compose And Preview
 
 From the plugin repo:
 
 ```bash
-node scripts/render-artifacts.mjs --all
-python3 -m http.server 8787
+node plugins/devpost-hackathon-desktop/scripts/compose-response.mjs --page start
+node plugins/devpost-hackathon-cli/scripts/compose-response.mjs --page start
 ```
 
-Open generated pages through localhost:
-
-```text
-http://localhost:8787/artifacts/generated/start-hackathon.html
-```
-
-Do not rely on `file://` previews. During QA, Codex in-app browser behavior was reliable through localhost and unreliable through direct file navigation.
+Desktop output should include local image references only after the configured stepper PNGs exist. CLI output should not include Markdown image syntax.
 
 ## Install And Refresh In Codex
 
@@ -168,38 +171,37 @@ Official OpenAI Codex plugin docs:
 
 The important operational detail: Codex installs plugins into a cache under `~/.codex/plugins/cache/...` and loads the installed copy. If you change the source plugin, refresh the installed copy and restart or reload Codex as needed.
 
-For local QA in this repo, the currently used installed path is:
-
-```text
-~/.codex/plugins/cache/local-plugins/openai-codex-hackathon/0.1.0/
-```
-
-After changing this repo, refresh that cache copy before testing in a fresh chat:
+For local QA in this repo, use the repo marketplace:
 
 ```bash
-rsync -a --delete --exclude .git --exclude .openai-codex-hackathon-state.json \
-  /path/to/codex-hackathon/ \
-  ~/.codex/plugins/cache/local-plugins/openai-codex-hackathon/0.1.0/
+codex plugin marketplace add /Users/joe/Developer/devpost/codex-hackathon
 ```
+
+The marketplace file at `.agents/plugins/marketplace.json` exposes both packages. Install whichever surface you are testing:
+
+- `devpost-hackathon-desktop`
+- `devpost-hackathon-cli`
 
 For a production handoff, package this as a Codex plugin marketplace entry instead of relying on a developer-local cache path.
 
 ## Participant QA Checklist
 
-In a fresh Codex Desktop chat, from an empty test project folder:
+In a fresh Codex Desktop chat with the Desktop plugin installed, from an empty test project folder:
 
 1. Run `$start-hackathon`.
-2. Confirm the welcome message explains chat plus dynamic HTML artifacts.
-3. Confirm the generated page opens through localhost and shows the Devpost logo plus event banner.
+2. Confirm the welcome message explains chat-first guidance.
+3. Confirm the inline stepper image renders.
 4. Run `$review-rules`.
 5. Confirm the participant must explicitly agree before moving on.
 6. Run `$resources`.
-7. Confirm the page explains the normal path and optional learning path.
+7. Confirm the inline response explains the normal path and optional learning path.
 8. Run `$learning-onboard` only if testing the optional learning path.
 9. Continue through `$learning-scope`, `$learning-prd`, `$learning-spec`, `$learning-checklist`, and `$learning-build`.
 10. Return to `$prepare-submission`.
 11. Run `$submission-check`.
-12. Confirm the security scan renders clearly in both light and dark mode.
+12. Confirm the security scan renders clearly.
+
+In Codex CLI with the CLI plugin installed, repeat the same command sequence and confirm no Markdown image syntax appears.
 
 ## Future Devpost MCP
 

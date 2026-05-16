@@ -1,19 +1,39 @@
-# OpenAI Codex Hackathon Plugin
+# Devpost Hackathon Plugin Prototypes
 
-Prototype Codex plugin for guiding participants through a Devpost hackathon flow inside Codex Desktop.
+Prototype Codex plugins for guiding participants through a Devpost hackathon flow. This repo intentionally contains two separate installable plugin packages:
+
+- `plugins/devpost-hackathon-desktop`: Codex Desktop version with inline progress visuals.
+- `plugins/devpost-hackathon-cli`: Codex CLI version with terminal-native text progress.
+
+The duplication is deliberate for this early prototype. It keeps each surface easy to inspect, demo, and discard while OpenAI and Devpost decide what they want the final hackathon experience to be.
 
 Devpost team handoff: start with [`docs/devpost-team-onboarding.md`](docs/devpost-team-onboarding.md) for configuration, copy editing, banner assets, plugin installation, QA, and the required first participant command, `$start-hackathon`.
 
+## Installable Packages
+
+The repository root is a marketplace/prototype workspace, not the plugin itself. Install one of the plugin folders through the repo marketplace:
+
+```text
+.agents/plugins/marketplace.json
+```
+
+That marketplace exposes:
+
+- `devpost-hackathon-desktop`
+- `devpost-hackathon-cli`
+
+During local development, update the plugin folder you are testing and refresh/restart Codex so the installed cache sees the new files.
+
 ## Event Configuration
 
-The plugin should avoid hardcoding event-specific details in skills or generated HTML.
+Each plugin package should avoid hardcoding event-specific details in skills or generated response output.
 
-Use `config/hackathon.json` for lightweight event configuration:
+Each package has its own `config/hackathon.json` for lightweight event configuration:
 
 - event id and display name
 - official Devpost URLs
 - submission deadline display/cache
-- logo asset paths
+- logo and stepper asset paths
 - paths to per-step Markdown content
 - minimal submission requirement defaults
 
@@ -21,9 +41,9 @@ Keep this file small. It is a V1 fallback configuration surface, not the final s
 
 ## Step Content
 
-Longer page copy should live in Markdown files, not JSON strings.
+Longer step copy should live in Markdown files, not JSON strings.
 
-Current top-level content files:
+Each plugin package has duplicated content files:
 
 - `content/steps/start.md`
 - `content/steps/rules.md`
@@ -41,72 +61,54 @@ Optional learning-path content lives in:
 - `content/learning/checklist.md`
 - `content/learning/build.md`
 
-For V1, treat these as rich text only. Do not depend on inline images in Markdown. Use the config `assets` section only for shared logo paths.
+For V1, treat these as rich text only. The Desktop plugin references art-team PNG stepper images when present; the CLI plugin keeps progress text-only.
 
 The bundled Devpost logo files live in `assets/logos/`:
 
 - `assets/logos/devpost-logo-original.svg` for light backgrounds
 - `assets/logos/devpost-logo-white.svg` for dark backgrounds
 
-Generated artifacts use the light or white logo automatically based on the artifact theme.
+The event banner slot is configured at `assets.event_banner`. V1 includes `assets/banners/event-banner-placeholder.svg`; replace it with final hackathon banner art only if the team decides to use a banner in chat.
 
-The event banner slot is configured at `assets.event_banner`. V1 includes `assets/banners/event-banner-placeholder.svg`; replace it with the final hackathon banner art when the design team provides it.
+Desktop main-step PNG slots live in `assets/steppers/main-light/` and are configured by `assets.main_stepper_images`:
 
-## Previewing Artifacts
+- `start.png`
+- `rules.png`
+- `resources.png`
+- `prepare.png`
+- `check.png`
 
-Serve the repo over localhost before opening generated HTML in the Codex in-app browser.
+## Composing Chat Responses
 
-Example:
+Chat is the primary participant surface. Each package has its own response composer.
 
-```bash
-python3 -m http.server 8787
-```
-
-Then open:
-
-```text
-http://localhost:8787/artifacts/generated/resources.html
-```
-
-Direct `file://` navigation was rejected during testing, while localhost previews worked.
-
-## Rendering Artifacts
-
-Generate the top-level HTML artifacts with:
+Desktop:
 
 ```bash
-node "$HOME/.codex/plugins/cache/local-plugins/openai-codex-hackathon/0.1.0/scripts/render-artifacts.mjs" --all
+node plugins/devpost-hackathon-desktop/scripts/compose-response.mjs --page resources
 ```
 
-Or generate one page:
+CLI:
 
 ```bash
-node "$HOME/.codex/plugins/cache/local-plugins/openai-codex-hackathon/0.1.0/scripts/render-artifacts.mjs" --page resources
+node plugins/devpost-hackathon-cli/scripts/compose-response.mjs --page resources
 ```
 
-Learning-path pages can be generated the same way:
+The package-local composer reads:
 
-```bash
-node "$HOME/.codex/plugins/cache/local-plugins/openai-codex-hackathon/0.1.0/scripts/render-artifacts.mjs" --page learning-onboard
-```
-
-The renderer reads:
-
-- `config/hackathon.json`
+- package-local `config/hackathon.json`
 - `.openai-codex-hackathon-state.json` when present
-- `content/steps/*.md`
-- `content/learning/*.md`
-- `artifacts/templates/shared-artifact.css`
+- package-local `content/steps/*.md`
+- package-local `content/learning/*.md`
+- `.openai-codex-hackathon/submission-security-scan.json` when present for final checks
 
-Participants should not need to know this machinery exists. Skills should render or refresh the right artifact automatically when the user runs commands such as `$resources` or `$submission-check`.
+The Desktop composer references configured PNG stepper files with absolute local image paths when those files exist. It does not generate placeholder art. The CLI composer emits no image Markdown.
 
-Event, product, and design owners can revise copy in `content/steps/` or `content/learning/` without editing the renderer or skill files. The Markdown files include maintainer-only comments with their source paths; generated participant pages should not display copy-editing instructions.
-
-The renderer is deterministic, not an AI page writer. It combines shared HTML/CSS, `config/hackathon.json`, Markdown copy, and the small local state file. Dynamic values such as participant name, project idea, current learning step, readiness status, and security scan results come from state or generated JSON files, while long-form instructional copy stays in Markdown.
+Event, product, and design owners can revise copy in each package's `content/steps/` or `content/learning/` without editing the composer or skill files. The Markdown files include maintainer-only comments with their source paths; participant responses should not display copy-editing instructions.
 
 ## Optional Learning Path
 
-The optional learning path stays nested inside Step 3: Resources. It is command-driven, not clickable routing inside the artifact.
+The optional learning path stays nested inside Step 3: Resources. It is command-driven, not clickable routing inside a separate page.
 
 V1 command sequence:
 

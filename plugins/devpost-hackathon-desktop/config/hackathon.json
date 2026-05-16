@@ -1,0 +1,55 @@
+{
+  "event": {
+    "id": "openai-codex-hackathon",
+    "name": "OpenAI Codex Hackathon",
+    "prototype": true
+  },
+  "official_urls": {
+    "landing_page": "https://openai.devpost.com/",
+    "resources_page": "",
+    "submission_page": "https://openai.devpost.com/"
+  },
+  "dates": {
+    "submission_deadline": {
+      "display": "",
+      "iso": ""
+    }
+  },
+  "assets": {
+    "logo_light": "assets/logos/devpost-logo-original.svg",
+    "logo_dark": "assets/logos/devpost-logo-white.svg",
+    "event_banner": "assets/banners/event-banner-placeholder.svg",
+    "main_stepper_images": {
+      "start": "assets/steppers/main-light/start.png",
+      "rules": "assets/steppers/main-light/rules.png",
+      "resources": "assets/steppers/main-light/resources.png",
+      "prepare": "assets/steppers/main-light/prepare.png",
+      "check": "assets/steppers/main-light/check.png"
+    }
+  },
+  "content": {
+    "start": "content/steps/start.md",
+    "rules": "content/steps/rules.md",
+    "resources": "content/steps/resources.md",
+    "prepare": "content/steps/prepare.md",
+    "check": "content/steps/check.md",
+    "map": "content/steps/map.md",
+    "learning": {
+      "onboard": "content/learning/onboard.md",
+      "scope": "content/learning/scope.md",
+      "prd": "content/learning/prd.md",
+      "spec": "content/learning/spec.md",
+      "checklist": "content/learning/checklist.md",
+      "build": "content/learning/build.md"
+    }
+  },
+  "submission_requirements": [
+    "Submit through the official Devpost event page.",
+    "Explain clearly how OpenAI tools or APIs are used.",
+    "Include the project evidence required by the official event page."
+  ],
+  "notes": {
+    "configuration_owner": "Event owner or lead engineer should fill in official event details before launch.",
+    "mcp_future": "This config is a lightweight V1 fallback. The future Devpost MCP should become the source of truth for event, registration, team, and submission data when available."
+  }
+}

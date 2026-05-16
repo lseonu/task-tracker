@@ -1,0 +1,43 @@
+{
+  "name": "devpost-hackathon-desktop",
+  "version": "0.1.0",
+  "description": "Prototype Devpost hackathon guide for Codex Desktop with inline progress visuals.",
+  "author": {
+    "name": "Devpost Prototype",
+    "email": "support@devpost.com",
+    "url": "https://github.com/bathrobe/codex-hackathon"
+  },
+  "homepage": "https://openai.devpost.com/",
+  "repository": "https://github.com/bathrobe/codex-hackathon",
+  "license": "UNLICENSED",
+  "keywords": [
+    "hackathon",
+    "devpost",
+    "codex",
+    "desktop",
+    "openai",
+    "submission"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Devpost Hackathon Guide - Desktop",
+    "shortDescription": "A Codex Desktop hackathon guide with inline progress visuals",
+    "longDescription": "Prototype Devpost hackathon plugin for Codex Desktop: orientation, rules review, resources, optional guided learning, submission drafting, and final preflight with inline progress images. It intentionally stops short of direct Devpost submission while sponsor, legal, and event copy are still being finalized.",
+    "developerName": "Devpost Prototype",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://openai.com/codex/",
+    "privacyPolicyURL": "https://openai.com/policies/row-privacy-policy/",
+    "termsOfServiceURL": "https://openai.com/policies/row-terms-of-use/",
+    "defaultPrompt": [
+      "Start my Devpost hackathon flow in Codex Desktop.",
+      "Show my hackathon map and next step.",
+      "Show the next deadline and what I should do before submitting."
+    ],
+    "brandColor": "#003954"
+  }
+}

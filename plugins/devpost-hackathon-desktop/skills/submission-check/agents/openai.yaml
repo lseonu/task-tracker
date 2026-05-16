@@ -1,0 +1,4 @@
+interface:
+  display_name: "Submission Check"
+  short_description: "Run the final pre-submission review"
+  default_prompt: "Use $submission-check to run the final review before I submit on Devpost."

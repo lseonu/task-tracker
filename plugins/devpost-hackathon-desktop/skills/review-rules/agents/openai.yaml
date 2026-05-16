@@ -1,0 +1,4 @@
+interface:
+  display_name: "Review Rules"
+  short_description: "Review requirements, judging, and fairness"
+  default_prompt: "Use $review-rules to review the hackathon rules, judging criteria, and submission requirements."

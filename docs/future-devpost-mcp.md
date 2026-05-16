@@ -2,7 +2,7 @@
 
 This is an integration memo, not an implementation plan for the current V1 prototype.
 
-For V1, the plugin should keep using `config/hackathon.json`, Markdown content files, local state, generated HTML artifacts, and browser/manual Devpost handoff. A Devpost MCP should become the source of truth only after the authenticated server, transport, scopes, and data model are settled.
+For V1, the plugin should keep using `config/hackathon.json`, Markdown content files, local state, chat-native response output, and browser/manual Devpost handoff. A Devpost MCP should become the source of truth only after the authenticated server, transport, scopes, and data model are settled.
 
 ## OpenAI Docs Notes
 
@@ -44,7 +44,7 @@ Write tools should not be part of the first integration unless Product, Legal, a
 
 The likely clean path is Devpost account OAuth with narrow scopes. Codex supports MCP OAuth-related configuration, so the participant should authenticate through the MCP/Codex flow rather than pasting tokens into chat.
 
-If Devpost chooses a bearer-token or internal gateway model instead, Codex supports environment-variable based bearer tokens and headers. Tokens should stay out of plugin config, local state files, generated HTML, and model-visible logs.
+If Devpost chooses a bearer-token or internal gateway model instead, Codex supports environment-variable based bearer tokens and headers. Tokens should stay out of plugin config, local state files, generated files, and model-visible logs.
 
 Likely scopes:
 
@@ -54,11 +54,11 @@ Likely scopes:
 - `submissions:read`
 - later, possibly `submissions:write`
 
-## State And Artifact Integration
+## State And Response Integration
 
-The MCP should not replace the HTML artifact system. It should feed it.
+The MCP should not replace the response composer. It should feed it.
 
-`config/hackathon.json` should continue to define local defaults, copy paths, and asset paths. When MCP data exists, the renderer and skills can prefer MCP-derived event data for official dates, rules, registration status, team status, and submission requirements.
+`config/hackathon.json` should continue to define local defaults, copy paths, and asset paths. When MCP data exists, the composer and skills can prefer MCP-derived event data for official dates, rules, registration status, team status, and submission requirements.
 
 `.openai-codex-hackathon-state.json` should cache only small derived values:
 

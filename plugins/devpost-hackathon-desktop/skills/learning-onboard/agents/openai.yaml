@@ -1,0 +1,4 @@
+interface:
+  display_name: "Guided Learning: Ideate"
+  short_description: "Start the optional project-shaping path"
+  default_prompt: "Use $learning-onboard to start the optional Ideate phase."
