@@ -12,5 +12,4 @@ The guided path is optional. It is best for participants who want to practice a 
 
 Codex Desktop can also preview local web apps as you build. Later in the flow, when your project has something visual to inspect, you can ask Codex to open the local dev server in the in-app browser so you can review your own app alongside this hackathon guidance.
 
-Before launch, the event owner can add final resource links, kickoff videos, examples, and sponsor-specific notes here.
 <!-- Copy maintainers: edit this page copy in content/steps/resources.md. -->

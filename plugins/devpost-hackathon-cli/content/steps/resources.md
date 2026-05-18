@@ -12,5 +12,4 @@ The guided path is optional. It is best for participants who want to practice a 
 
 When your project has something visual to inspect, Codex can still help you start the local dev server and describe how to open it from your browser. If you later switch to Codex Desktop, you can use the in-app browser for side-by-side preview.
 
-Before launch, the event owner can add final resource links, kickoff videos, examples, and sponsor-specific notes here.
 <!-- Copy maintainers: edit this page copy in content/steps/resources.md. -->
