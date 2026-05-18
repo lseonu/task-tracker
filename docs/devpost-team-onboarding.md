@@ -60,7 +60,7 @@ Important fields:
 | `event.prototype` | Keep `true` for demo/prototype builds. Set deliberately before production launch. |
 | `official_urls.landing_page` | Main Devpost event URL. |
 | `official_urls.resources_page` | Optional official resources URL. Leave empty if not ready. |
-| `official_urls.submission_page` | Devpost submission URL. Often the same as landing page until final routing is known. |
+| `official_urls.submission_page` | Devpost submission URL. Often the same as the main event URL until final routing is known. |
 | `dates.submission_deadline.display` | Human-readable deadline, including timezone. |
 | `dates.submission_deadline.iso` | Optional ISO timestamp for future automation. |
 | `assets.logo_light` | Devpost logo used on light backgrounds. |
@@ -71,7 +71,7 @@ Important fields:
 | `content.*` | Paths to Markdown files for each step. Usually leave paths stable and edit the Markdown. |
 | `submission_requirements` | Short fallback requirements used by skills and final review. Keep this concise. |
 
-Current caveat: `config/hackathon.json` currently uses `https://openai.devpost.com/`. That URL is real, but as of May 15, 2026 it resolves publicly to the ended OpenAI Open Model Hackathon page, not verified final Codex Hackathon copy. Replace it with the exact live event URL before launch.
+Current caveat: `config/hackathon.json` currently uses `TBD` for the Devpost event and submission URLs. Replace those values with the exact live event URL before launch.
 
 ## Configure Visual Assets
 

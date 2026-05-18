@@ -40,7 +40,7 @@ Use this initial payload:
   "rules_acknowledged": false,
   "registration": {
     "devpost_registered": false,
-    "registration_url": "https://openai.devpost.com/",
+    "registration_url": "TBD",
     "last_prompted_at": ""
   },
   "project": {
@@ -82,7 +82,7 @@ Do not create sample project content, draft submission files, or example hackath
 
 If `participant.name`/`participant.display_name` and `project.summary` are empty, ask a short optional personalization question in chat after composing the Start response:
 
-`If you want, tell me your name and a one-sentence project idea. I can store that locally so later pages feel specific to you and your project.`
+`If you want, tell me your name and a one-sentence project idea. I can store that locally so later guidance feels specific to you and your project.`
 
 Do not block the flow on this. The participant can continue to `$review-rules` without answering.
 
@@ -108,7 +108,7 @@ Use the composer output as the participant-facing response. In this CLI plugin, 
 
 Keep chat output minimal.
 
-Do not hand-write a separate dashboard or landing page. Let the CLI composer render the response.
+Do not hand-write a separate dashboard or landing experience. Let the CLI composer render the response.
 
 In normal operation, respond with:
 

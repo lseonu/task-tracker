@@ -16,7 +16,7 @@ When the learning path is active, Step 3 stays highlighted in the top-level prog
 
 ## On-Ramp
 
-The Resources page should offer two clear choices:
+The Resources step should offer two clear choices:
 
 - `I have my project idea`: run `$prepare-submission`
 - `Help me shape the project`: run `$learning-onboard`

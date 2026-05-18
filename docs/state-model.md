@@ -30,7 +30,7 @@ It should stay small, human-readable, and easy to compose participant-facing res
   "rules_acknowledged": false,
   "registration": {
     "devpost_registered": false,
-    "registration_url": "https://openai.devpost.com/",
+    "registration_url": "TBD",
     "last_prompted_at": ""
   },
   "project": {

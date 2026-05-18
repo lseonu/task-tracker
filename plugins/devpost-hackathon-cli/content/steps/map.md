@@ -1,6 +1,6 @@
 # Find your place
 
-This recovery page shows where you are in the OpenAI Codex Hackathon flow and which command should come next.
+This recovery response shows where you are in the OpenAI Codex Hackathon flow and which command should come next.
 
 Use `$hackathon-map` any time you lose track, switch chats, or want to confirm whether the optional learning path is active.
 

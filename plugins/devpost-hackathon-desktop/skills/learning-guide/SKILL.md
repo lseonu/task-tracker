@@ -28,7 +28,7 @@ After `$learning-build`, return to the main flow with `$prepare-submission`.
 - Keep `.openai-codex-hackathon-state.json` small: progress, file paths, and confirmed project metadata only.
 - After each learning command, run the response composer for the matching learning page.
 - Chat is the primary participant interface. This Desktop plugin uses generated progress SVGs when image output is enabled.
-- Do not hand-write separate dashboards, Mermaid diagrams, or long duplicate pages in chat.
+- Do not hand-write separate dashboards, Mermaid diagrams, or long duplicate writeups in chat.
 
 ## Documents
 

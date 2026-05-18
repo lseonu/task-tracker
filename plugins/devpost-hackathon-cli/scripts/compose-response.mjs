@@ -67,7 +67,7 @@ async function readState() {
       current_stage: "start-hackathon",
       completed_stages: [],
       rules_acknowledged: false,
-      registration: { devpost_registered: false, registration_url: "https://openai.devpost.com/" },
+      registration: { devpost_registered: false, registration_url: "TBD" },
       project: { name: "", summary: "", openai_usage: "", codex_usage: "" },
       learning: { status: "not-started", current_step: "", completed_steps: [] },
       submission: { draft_file: "devpost-submission.md", status: "not-started", browser_handoff_ready: false },
@@ -111,7 +111,7 @@ async function readPageMarkdown(config, page) {
 function resolvePage(pageName, state) {
   const normalized = pageName === "map" ? "hackathon-map" : pageName;
   const learning = learningByPage.get(normalized);
-  if (learning && learning.id !== "return") {
+  if (learning) {
     return { kind: "learning", learning, step: mainByKey.get("resources") };
   }
   if (normalized === "hackathon-map") {
@@ -137,9 +137,17 @@ function mainStepState(step, activeStep, state) {
 
 function learningStepState(step, activeLearning, state) {
   const completed = new Set(state.learning?.completed_steps || []);
+  if (state.learning?.status === "completed") return "done";
   if (step.id === activeLearning?.id || step.id === state.learning?.current_step) return "current";
   if (completed.has(step.id)) return "done";
   return "todo";
+}
+
+function effectiveMainStep(page, state) {
+  if (page.kind === "learning" && state.learning?.status === "completed" && state.next_command === "prepare-submission") {
+    return mainByKey.get("prepare-submission");
+  }
+  return page.step;
 }
 
 function asciiStepper(items) {
@@ -152,9 +160,10 @@ function asciiStepper(items) {
 }
 
 function stepperItems(page, state) {
+  const activeMainStep = effectiveMainStep(page, state);
   const mainItems = mainSteps.map((step) => ({
     label: step.label,
-    state: mainStepState(step, page.step, state)
+    state: mainStepState(step, activeMainStep, state)
   }));
   const activeLearning = page.learning || learningByPage.get(state.learning?.current_step || "");
   const learningItems = learningSteps.map((step) => ({
@@ -177,6 +186,7 @@ function summaryLines(state, config) {
 }
 
 function nextCommandFor(page, state) {
+  if (page.kind === "learning" && state.learning?.status === "completed" && state.next_command) return `Continue with $${state.next_command}.`;
   if (page.kind === "learning") return page.learning.nextAction;
   if (page.kind === "map") return state.next_command ? `Continue with $${state.next_command}.` : "Run $start-hackathon.";
   return page.step.nextAction;
