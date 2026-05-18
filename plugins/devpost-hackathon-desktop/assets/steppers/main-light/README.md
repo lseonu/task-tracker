@@ -8,4 +8,4 @@ The art-team light-mode PNG exports use these exact names:
 - `prepare.png`
 - `check.png`
 
-The Desktop composer reads these paths from `config/hackathon.json` and places the matching image at the start of each main command response. If a PNG is missing, the response still renders without a placeholder image.
+The Desktop composer reads these paths from `config/hackathon.json` and places the matching image at the start of each main command response. If a PNG is missing, the response falls back to text progress.

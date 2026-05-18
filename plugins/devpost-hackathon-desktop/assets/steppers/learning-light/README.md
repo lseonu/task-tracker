@@ -10,4 +10,4 @@ The art-team light-mode secondary stepper exports use these exact names:
 - `build.png`
 - `return.png`
 
-The Desktop composer reads these paths from `config/hackathon.json` and places the matching image at the start of each optional learning-path response. If a PNG is missing, the response still renders without a placeholder image.
+The Desktop composer reads these paths from `config/hackathon.json` and places the matching image at the start of each optional learning-path response. If a PNG is missing, the response falls back to text progress.

@@ -22,6 +22,7 @@ Desktop:
 - References a configured main-step PNG at the start of each main command when that PNG exists.
 - Does not generate branded stepper SVGs.
 - References a configured secondary learning-path PNG at the start of each learning command when that PNG exists.
+- Falls back to text progress when images are disabled or missing.
 
 CLI:
 
@@ -68,7 +69,7 @@ Those files live at:
 plugins/devpost-hackathon-desktop/assets/steppers/learning-light/
 ```
 
-If a configured PNG is missing, the Desktop composer omits the image rather than creating a placeholder. That keeps the prototype honest if any art asset is removed or renamed.
+If `assets.progress_images_enabled` is `false`, or if a configured PNG is missing, the Desktop composer uses text progress rather than failing or creating a placeholder. This keeps the prototype easy to switch back to a text-only presentation if the images do not survive QA.
 
 ## State Boundary
 

@@ -66,6 +66,7 @@ Important fields:
 | `assets.logo_light` | Devpost logo used on light backgrounds. |
 | `assets.logo_dark` | Devpost logo used on dark backgrounds. |
 | `assets.event_banner` | Optional event-specific banner path if the team decides to use one in chat. |
+| `assets.progress_images_enabled` | Desktop-only kill switch for all inline progress PNGs. Set `false` to use text progress. |
 | `assets.main_stepper_images` | Desktop-only paths for the art-team main-step PNGs. |
 | `assets.learning_stepper_images` | Desktop-only paths for the art-team secondary learning-step PNGs. |
 | `content.*` | Paths to Markdown files for each step. Usually leave paths stable and edit the Markdown. |
@@ -87,6 +88,7 @@ The optional event banner is configured here:
   "logo_light": "assets/logos/devpost-logo-original.svg",
   "logo_dark": "assets/logos/devpost-logo-white.svg",
   "event_banner": "assets/banners/event-banner-placeholder.svg",
+  "progress_images_enabled": true,
   "main_stepper_images": {
     "start": "assets/steppers/main-light/start.png",
     "rules": "assets/steppers/main-light/rules.png",
@@ -114,6 +116,8 @@ For the current Desktop visual direction, the checked-in art-team PNGs cover the
 4. Run `node plugins/devpost-hackathon-desktop/scripts/compose-response.mjs --page start` and one learning page to verify the composed responses still work.
 
 Do not put Devpost and OpenAI as a single co-branded headline. If Devpost needs attribution in future visual work, prefer a small "Powered by Devpost" treatment or another secondary placement approved by design.
+
+To remove all Desktop images quickly, set `assets.progress_images_enabled` to `false`. The Desktop composer will switch to text progress without touching skills or command copy.
 
 ## Edit Step Copy
 

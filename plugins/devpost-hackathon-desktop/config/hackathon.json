@@ -19,6 +19,7 @@
     "logo_light": "assets/logos/devpost-logo-original.svg",
     "logo_dark": "assets/logos/devpost-logo-white.svg",
     "event_banner": "assets/banners/event-banner-placeholder.svg",
+    "progress_images_enabled": true,
     "main_stepper_images": {
       "start": "assets/steppers/main-light/start.png",
       "rules": "assets/steppers/main-light/rules.png",

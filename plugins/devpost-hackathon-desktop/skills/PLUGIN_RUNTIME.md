@@ -37,7 +37,7 @@ node "$HOME/.codex/plugins/cache/local-plugins/devpost-hackathon-desktop/0.1.0/s
 
 Do not attempt to detect or switch to CLI mode here; the CLI experience lives in the separate `devpost-hackathon-cli` plugin.
 
-The composer reads main-step PNG paths from `config/hackathon.json` under `assets.main_stepper_images` and learning-step PNG paths under `assets.learning_stepper_images`. If the PNG for the current step is missing, the composer omits the image instead of generating a placeholder.
+The composer reads main-step PNG paths from `config/hackathon.json` under `assets.main_stepper_images` and learning-step PNG paths under `assets.learning_stepper_images`. If `assets.progress_images_enabled` is `false`, or if the PNG for the current step is missing, the composer uses text progress instead of an image.
 
 If composer generation fails, provide a compact text fallback with:
 

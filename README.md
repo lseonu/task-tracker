@@ -97,6 +97,8 @@ Desktop learning-path PNG slots live in `assets/steppers/learning-light/` and ar
 - `build.png`
 - `return.png`
 
+To remove all Desktop images without changing code, set `assets.progress_images_enabled` to `false` in `plugins/devpost-hackathon-desktop/config/hackathon.json`. The Desktop composer will then use text progress, matching the CLI-style fallback. Deleting or renaming an individual PNG also falls back to text for that response instead of breaking.
+
 ## Composing Chat Responses
 
 Chat is the primary participant surface. Each package has its own response composer.

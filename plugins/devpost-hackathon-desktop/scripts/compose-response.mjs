@@ -124,6 +124,48 @@ function resolvePage(pageName, state) {
   return { kind: "main", step };
 }
 
+function mainStepState(step, activeStep, state) {
+  if (state.__preview_state) {
+    if (step.id === activeStep.id) return "current";
+    if (mainSteps.indexOf(step) < mainSteps.indexOf(activeStep)) return "done";
+    return "todo";
+  }
+  if ((state.completed_stages || []).includes(step.id)) return "done";
+  if (step.id === activeStep.id) return "current";
+  if ((step.id === "prepare-submission" || step.id === "submission-check") && state.rules_acknowledged !== true) return "blocked";
+  return "todo";
+}
+
+function learningStepState(step, activeLearning, state) {
+  const completed = new Set(state.learning?.completed_steps || []);
+  if (completed.has(step.id)) return "done";
+  if (step.id === activeLearning?.id || step.id === state.learning?.current_step) return "current";
+  if (step.id === "return" && state.learning?.status === "completed") return "current";
+  return "todo";
+}
+
+function asciiStepper(items) {
+  return items.map((item) => {
+    if (item.state === "done") return `${item.label} [done]`;
+    if (item.state === "current") return `${item.label} [current]`;
+    if (item.state === "blocked") return `${item.label} [blocked]`;
+    return item.label;
+  }).join(" -> ");
+}
+
+function stepperItems(page, state) {
+  const mainItems = mainSteps.map((step) => ({
+    label: step.label,
+    state: mainStepState(step, page.step, state)
+  }));
+  const activeLearning = page.learning || learningByPage.get(state.learning?.current_step || "");
+  const learningItems = learningSteps.map((step) => ({
+    label: step.label,
+    state: learningStepState(step, activeLearning, state)
+  }));
+  return { mainItems, learningItems };
+}
+
 function summaryLines(state, config) {
   const lines = [];
   const participant = state.participant?.display_name || state.participant?.name || "";
@@ -142,11 +184,26 @@ function configuredImagePath(relativePath = "") {
   return existsSync(absolutePath) ? absolutePath : "";
 }
 
+function progressImagesEnabled(config) {
+  if (process.env.CODEX_HACKATHON_PROGRESS_IMAGES === "0") return false;
+  return config.assets?.progress_images_enabled !== false;
+}
+
 function stepperImage(page, config) {
+  if (!progressImagesEnabled(config)) return "";
   if (page.kind === "learning") {
     return configuredImagePath(config.assets?.learning_stepper_images?.[page.learning.key] || "");
   }
   return configuredImagePath(config.assets?.main_stepper_images?.[page.step.key] || "");
+}
+
+function progressFallback(page, state) {
+  const { mainItems, learningItems } = stepperItems(page, state);
+  const blocks = [`Progress: ${asciiStepper(mainItems)}`];
+  if (page.kind === "learning" || state.learning?.status === "active") {
+    blocks.push(`Learning: ${asciiStepper(learningItems)}`);
+  }
+  return blocks.join("\n\n");
 }
 
 function nextCommandFor(page, state) {
@@ -171,7 +228,9 @@ async function securityScanBlock(page) {
 
 async function composeDesktop(page, state, config, markdown) {
   const imagePath = stepperImage(page, config);
-  const blocks = imagePath ? [`![${config.event?.name || "Hackathon"} progress](${imagePath})`] : [];
+  const blocks = imagePath
+    ? [`![${config.event?.name || "Hackathon"} progress](${imagePath})`]
+    : [progressFallback(page, state)];
   blocks.push(`## ${interpolate(page.learning?.headline || page.step.headline, config)}`);
   const summary = summaryLines(state, config);
   if (summary.length) blocks.push(summary.join("\n"));
