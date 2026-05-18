@@ -14,8 +14,7 @@ Devpost team handoff: start with [`docs/devpost-team-onboarding.md`](docs/devpos
 This is a Monday prototype, not final production packaging. The following items are intentionally still open:
 
 - Final Devpost event URL, dates, rules, eligibility, and judging copy need the official event source of truth.
-- Desktop main-step visuals are waiting on art-team PNG exports for `start`, `rules`, `resources`, `prepare`, and `check`.
-- The optional learning path does not have its own visual treatment yet.
+- Desktop visual assets are now checked in for the top-level flow and optional learning path, but they still need human QA in Codex Desktop.
 - The repo marketplace needs one real install smoke test in Codex Desktop and one in Codex CLI before team-wide handoff.
 - Future Devpost MCP/auth behavior is documented as a later integration, not implemented in this V1 prototype.
 
@@ -87,6 +86,16 @@ Desktop main-step PNG slots live in `assets/steppers/main-light/` and are config
 - `resources.png`
 - `prepare.png`
 - `check.png`
+
+Desktop learning-path PNG slots live in `assets/steppers/learning-light/` and are configured by `assets.learning_stepper_images`:
+
+- `onboard.png`
+- `scope.png`
+- `prd.png`
+- `spec.png`
+- `checklist.png`
+- `build.png`
+- `return.png`
 
 ## Composing Chat Responses
 

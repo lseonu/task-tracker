@@ -67,6 +67,7 @@ Important fields:
 | `assets.logo_dark` | Devpost logo used on dark backgrounds. |
 | `assets.event_banner` | Optional event-specific banner path if the team decides to use one in chat. |
 | `assets.main_stepper_images` | Desktop-only paths for the art-team main-step PNGs. |
+| `assets.learning_stepper_images` | Desktop-only paths for the art-team secondary learning-step PNGs. |
 | `content.*` | Paths to Markdown files for each step. Usually leave paths stable and edit the Markdown. |
 | `submission_requirements` | Short fallback requirements used by skills and final review. Keep this concise. |
 
@@ -92,15 +93,25 @@ The optional event banner is configured here:
     "resources": "assets/steppers/main-light/resources.png",
     "prepare": "assets/steppers/main-light/prepare.png",
     "check": "assets/steppers/main-light/check.png"
+  },
+  "learning_stepper_images": {
+    "onboard": "assets/steppers/learning-light/onboard.png",
+    "scope": "assets/steppers/learning-light/scope.png",
+    "prd": "assets/steppers/learning-light/prd.png",
+    "spec": "assets/steppers/learning-light/spec.png",
+    "checklist": "assets/steppers/learning-light/checklist.png",
+    "build": "assets/steppers/learning-light/build.png",
+    "return": "assets/steppers/learning-light/return.png"
   }
 }
 ```
 
-For the current Desktop visual direction, the art team should provide one light-mode PNG for each main step:
+For the current Desktop visual direction, the checked-in art-team PNGs cover the five main steps and the optional learning path:
 
-1. Add the final PNG files to `plugins/devpost-hackathon-desktop/assets/steppers/main-light/`.
-2. Keep the configured filenames stable unless there is a reason to change `assets.main_stepper_images`.
-3. Run `node plugins/devpost-hackathon-desktop/scripts/compose-response.mjs --page start` to verify the composed response still works.
+1. Keep main-step PNG files in `plugins/devpost-hackathon-desktop/assets/steppers/main-light/`.
+2. Keep learning-step PNG files in `plugins/devpost-hackathon-desktop/assets/steppers/learning-light/`.
+3. Keep the configured filenames stable unless there is a reason to change `assets.main_stepper_images` or `assets.learning_stepper_images`.
+4. Run `node plugins/devpost-hackathon-desktop/scripts/compose-response.mjs --page start` and one learning page to verify the composed responses still work.
 
 Do not put Devpost and OpenAI as a single co-branded headline. If Devpost needs attribution in future visual work, prefer a small "Powered by Devpost" treatment or another secondary placement approved by design.
 

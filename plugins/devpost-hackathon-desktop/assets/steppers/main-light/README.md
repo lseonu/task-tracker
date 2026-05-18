@@ -1,6 +1,6 @@
 # Main Stepper PNG Slots
 
-Drop the art-team light-mode PNG exports here with these exact names:
+The art-team light-mode PNG exports use these exact names:
 
 - `start.png`
 - `rules.png`

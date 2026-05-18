@@ -136,12 +136,17 @@ function summaryLines(state, config) {
   return lines;
 }
 
-function mainStepperImage(page, config) {
-  if (page.kind === "learning") return "";
-  const relativePath = config.assets?.main_stepper_images?.[page.step.key] || "";
+function configuredImagePath(relativePath = "") {
   if (!relativePath) return "";
   const absolutePath = path.join(configRoot, relativePath);
   return existsSync(absolutePath) ? absolutePath : "";
+}
+
+function stepperImage(page, config) {
+  if (page.kind === "learning") {
+    return configuredImagePath(config.assets?.learning_stepper_images?.[page.learning.key] || "");
+  }
+  return configuredImagePath(config.assets?.main_stepper_images?.[page.step.key] || "");
 }
 
 function nextCommandFor(page, state) {
@@ -165,7 +170,7 @@ async function securityScanBlock(page) {
 }
 
 async function composeDesktop(page, state, config, markdown) {
-  const imagePath = mainStepperImage(page, config);
+  const imagePath = stepperImage(page, config);
   const blocks = imagePath ? [`![${config.event?.name || "Hackathon"} progress](${imagePath})`] : [];
   blocks.push(`## ${interpolate(page.learning?.headline || page.step.headline, config)}`);
   const summary = summaryLines(state, config);

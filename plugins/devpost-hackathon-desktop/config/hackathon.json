@@ -25,6 +25,15 @@
       "resources": "assets/steppers/main-light/resources.png",
       "prepare": "assets/steppers/main-light/prepare.png",
       "check": "assets/steppers/main-light/check.png"
+    },
+    "learning_stepper_images": {
+      "onboard": "assets/steppers/learning-light/onboard.png",
+      "scope": "assets/steppers/learning-light/scope.png",
+      "prd": "assets/steppers/learning-light/prd.png",
+      "spec": "assets/steppers/learning-light/spec.png",
+      "checklist": "assets/steppers/learning-light/checklist.png",
+      "build": "assets/steppers/learning-light/build.png",
+      "return": "assets/steppers/learning-light/return.png"
     }
   },
   "content": {

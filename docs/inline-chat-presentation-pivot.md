@@ -21,7 +21,7 @@ Desktop:
 - Emits normal Markdown responses in the main chat body.
 - References a configured main-step PNG at the start of each main command when that PNG exists.
 - Does not generate branded stepper SVGs.
-- Does not show a learning-path visual until the team explicitly adds learning PNGs.
+- References a configured secondary learning-path PNG at the start of each learning command when that PNG exists.
 
 CLI:
 
@@ -32,7 +32,7 @@ CLI:
 
 ## Main Visual Slots
 
-The current art-team request is one light-mode PNG per top-level step:
+The current art-team assets include one light-mode PNG per top-level step:
 
 - `start.png`
 - `rules.png`
@@ -52,7 +52,23 @@ The paths are configured in:
 plugins/devpost-hackathon-desktop/config/hackathon.json
 ```
 
-If a configured PNG is missing, the Desktop composer omits the image rather than creating a placeholder. That keeps the prototype honest while design work is still pending.
+The current art-team assets also include one light-mode secondary PNG per learning step:
+
+- `onboard.png`
+- `scope.png`
+- `prd.png`
+- `spec.png`
+- `checklist.png`
+- `build.png`
+- `return.png`
+
+Those files live at:
+
+```text
+plugins/devpost-hackathon-desktop/assets/steppers/learning-light/
+```
+
+If a configured PNG is missing, the Desktop composer omits the image rather than creating a placeholder. That keeps the prototype honest if any art asset is removed or renamed.
 
 ## State Boundary
 
