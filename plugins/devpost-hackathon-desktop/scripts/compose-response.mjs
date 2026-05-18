@@ -205,21 +205,24 @@ function stateSlug(items) {
 
 function mainStepperSvg(items, config) {
   const width = 1200;
-  const height = 174;
+  const height = 208;
   const x = 28;
-  const y = 42;
+  const y = 60;
   const stepWidth = 228;
   const stepHeight = 90;
   const arrow = 30;
   const title = xmlEscape(config.event?.name || "Hackathon");
   const font = "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
-  const segments = items.map((item, index) => {
+  const segmentShapes = [];
+  const segmentContent = [];
+  items.forEach((item, index) => {
     const left = x + index * stepWidth;
     const right = left + stepWidth;
-    const chevronTip = index === items.length - 1 ? right : right + arrow;
+    const isLast = index === items.length - 1;
+    const chevronTip = isLast ? right : right + arrow;
     const leftInset = index === 0 ? left : left + arrow;
-    const points = index === items.length - 1
-      ? `${left},${y} ${right},${y} ${right},${y + stepHeight} ${left},${y + stepHeight} ${left + arrow},${y + stepHeight / 2}`
+    const points = isLast
+      ? `${left},${y} ${right},${y} ${right},${y + stepHeight} ${left},${y + stepHeight}`
       : index === 0
         ? `${left},${y} ${right},${y} ${chevronTip},${y + stepHeight / 2} ${right},${y + stepHeight} ${left},${y + stepHeight}`
         : `${left},${y} ${right},${y} ${chevronTip},${y + stepHeight / 2} ${right},${y + stepHeight} ${left},${y + stepHeight} ${left + arrow},${y + stepHeight / 2}`;
@@ -232,25 +235,31 @@ function mainStepperSvg(items, config) {
     const icon = state === "complete"
       ? `<path d="M${leftInset + 29} ${y + 43} l8 8 l17 -20" fill="none" stroke="#1D64D6" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>`
       : "";
-    return `
-      <polygon points="${points}" fill="${fill}" stroke="#8C8C8C" stroke-width="1.5"/>
+    const shape = `<polygon points="${points}" fill="${fill}" stroke="#8C8C8C" stroke-width="1.5"/>`;
+    if (isLast) {
+      segmentShapes.unshift(shape);
+    } else {
+      segmentShapes.push(shape);
+    }
+    segmentContent.push(`
       <circle cx="${leftInset + 38}" cy="${y + 39}" r="17" fill="${iconFill}" stroke="${iconStroke}" stroke-width="2"/>
       ${icon}
       <text x="${leftInset + 76}" y="${y + 38}" font-family="${font}" font-size="24" font-weight="700" fill="${primary}">Step ${index + 1}</text>
-      <text x="${leftInset + 76}" y="${y + 68}" font-family="${font}" font-size="23" fill="${secondary}">${xmlEscape(item.label)}</text>`;
-  }).join("");
+      <text x="${leftInset + 76}" y="${y + 68}" font-family="${font}" font-size="23" fill="${secondary}">${xmlEscape(item.label)}</text>`);
+  });
   return `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${title} progress">
   <rect width="${width}" height="${height}" rx="14" fill="#FFFFFF"/>
   <text x="${x}" y="28" font-family="${font}" font-size="18" font-weight="700" fill="#005271">${title}</text>
-  ${segments}
+  ${segmentShapes.join("\n")}
+  ${segmentContent.join("\n")}
 </svg>
 `;
 }
 
 function learningStepperSvg(items, config) {
   const width = 1200;
-  const height = 168;
-  const centerY = 64;
+  const height = 212;
+  const centerY = 96;
   const startX = 160;
   const gap = 146;
   const font = "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
@@ -275,12 +284,12 @@ function learningStepperSvg(items, config) {
     return `
       <circle cx="${x}" cy="${centerY}" r="29" fill="${fill}" stroke="${stroke}" stroke-width="2"/>
       ${marker}
-      <text x="${x}" y="${centerY + 70}" text-anchor="middle" font-family="${font}" font-size="19" font-weight="700" fill="${labelFill}">${xmlEscape(item.label)}</text>`;
+      <text x="${x}" y="${centerY + 76}" text-anchor="middle" font-family="${font}" font-size="19" font-weight="700" fill="${labelFill}">${xmlEscape(item.label)}</text>`;
   }).join("");
   return `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${title} learning progress">
   <rect width="${width}" height="${height}" rx="14" fill="#FFFFFF"/>
-  <text x="28" y="30" font-family="${font}" font-size="22" font-weight="800" fill="#2C2C2C">Optional guided planning</text>
-  <text x="314" y="30" font-family="${font}" font-size="22" font-weight="800" fill="#1D64D6">Learning path</text>
+  <text x="28" y="40" font-family="${font}" font-size="22" font-weight="800" fill="#2C2C2C">Optional guided planning</text>
+  <text x="314" y="40" font-family="${font}" font-size="22" font-weight="800" fill="#1D64D6">Learning path</text>
   ${lineSegments}
   ${nodes}
 </svg>
