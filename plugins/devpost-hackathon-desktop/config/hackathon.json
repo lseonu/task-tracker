@@ -20,22 +20,7 @@
     "logo_dark": "assets/logos/devpost-logo-white.svg",
     "event_banner": "assets/banners/event-banner-placeholder.svg",
     "progress_images_enabled": true,
-    "main_stepper_images": {
-      "start": "assets/steppers/main-light/start.png",
-      "rules": "assets/steppers/main-light/rules.png",
-      "resources": "assets/steppers/main-light/resources.png",
-      "prepare": "assets/steppers/main-light/prepare.png",
-      "check": "assets/steppers/main-light/check.png"
-    },
-    "learning_stepper_images": {
-      "onboard": "assets/steppers/learning-light/onboard.png",
-      "scope": "assets/steppers/learning-light/scope.png",
-      "prd": "assets/steppers/learning-light/prd.png",
-      "spec": "assets/steppers/learning-light/spec.png",
-      "checklist": "assets/steppers/learning-light/checklist.png",
-      "build": "assets/steppers/learning-light/build.png",
-      "return": "assets/steppers/learning-light/return.png"
-    }
+    "progress_image_format": "svg"
   },
   "content": {
     "start": "content/steps/start.md",

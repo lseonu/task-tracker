@@ -42,10 +42,10 @@ Use `$hackathon-map` anytime to show the current state and recommended next comm
 
 Most event-specific content lives inside each plugin package in two places:
 
-- `config/hackathon.json` for short structured values, URLs, dates, and asset paths.
+- `config/hackathon.json` for short structured values, URLs, dates, and progress image settings.
 - `content/steps/` and `content/learning/` for participant-facing step copy.
 
-There is no normal localhost or side-pane HTML experience in this prototype. The Desktop package renders chat-first Markdown with optional inline stepper PNGs; the CLI package renders chat-first text only.
+There is no normal localhost or side-pane HTML experience in this prototype. The Desktop package renders chat-first Markdown with optional inline generated progress SVGs; the CLI package renders chat-first text only.
 
 ## Configure Event Metadata
 
@@ -66,9 +66,8 @@ Important fields:
 | `assets.logo_light` | Devpost logo used on light backgrounds. |
 | `assets.logo_dark` | Devpost logo used on dark backgrounds. |
 | `assets.event_banner` | Optional event-specific banner path if the team decides to use one in chat. |
-| `assets.progress_images_enabled` | Desktop-only kill switch for all inline progress PNGs. Set `false` to use text progress. |
-| `assets.main_stepper_images` | Desktop-only paths for the art-team main-step PNGs. |
-| `assets.learning_stepper_images` | Desktop-only paths for the art-team secondary learning-step PNGs. |
+| `assets.progress_images_enabled` | Desktop-only kill switch for inline generated progress SVGs. Set `false` to use text progress. |
+| `assets.progress_image_format` | Desktop-only reminder that generated progress visuals are SVG. |
 | `content.*` | Paths to Markdown files for each step. Usually leave paths stable and edit the Markdown. |
 | `submission_requirements` | Short fallback requirements used by skills and final review. Keep this concise. |
 
@@ -89,30 +88,15 @@ The optional event banner is configured here:
   "logo_dark": "assets/logos/devpost-logo-white.svg",
   "event_banner": "assets/banners/event-banner-placeholder.svg",
   "progress_images_enabled": true,
-  "main_stepper_images": {
-    "start": "assets/steppers/main-light/start.png",
-    "rules": "assets/steppers/main-light/rules.png",
-    "resources": "assets/steppers/main-light/resources.png",
-    "prepare": "assets/steppers/main-light/prepare.png",
-    "check": "assets/steppers/main-light/check.png"
-  },
-  "learning_stepper_images": {
-    "onboard": "assets/steppers/learning-light/onboard.png",
-    "scope": "assets/steppers/learning-light/scope.png",
-    "prd": "assets/steppers/learning-light/prd.png",
-    "spec": "assets/steppers/learning-light/spec.png",
-    "checklist": "assets/steppers/learning-light/checklist.png",
-    "build": "assets/steppers/learning-light/build.png",
-    "return": "assets/steppers/learning-light/return.png"
-  }
+  "progress_image_format": "svg"
 }
 ```
 
-For the current Desktop visual direction, the checked-in art-team PNGs cover the five main steps and the optional learning path:
+For the current Desktop visual direction, the composer generates progress SVGs directly from workflow state:
 
-1. Keep main-step PNG files in `plugins/devpost-hackathon-desktop/assets/steppers/main-light/`.
-2. Keep learning-step PNG files in `plugins/devpost-hackathon-desktop/assets/steppers/learning-light/`.
-3. Keep the configured filenames stable unless there is a reason to change `assets.main_stepper_images` or `assets.learning_stepper_images`.
+1. The composer reads the current command and `.openai-codex-hackathon-state.json`.
+2. It writes an opaque-background SVG under `.openai-codex-hackathon/progress/`.
+3. It references that SVG at the top of the Desktop chat response.
 4. Run `node plugins/devpost-hackathon-desktop/scripts/compose-response.mjs --page start` and one learning page to verify the composed responses still work.
 
 Do not put Devpost and OpenAI as a single co-branded headline. If Devpost needs attribution in future visual work, prefer a small "Powered by Devpost" treatment or another secondary placement approved by design.
@@ -173,7 +157,7 @@ node plugins/devpost-hackathon-desktop/scripts/compose-response.mjs --page start
 node plugins/devpost-hackathon-cli/scripts/compose-response.mjs --page start
 ```
 
-Desktop output should include local image references only after the configured stepper PNGs exist. CLI output should not include Markdown image syntax.
+Desktop output should include local image references when generated progress SVGs are enabled. CLI output should not include Markdown image syntax.
 
 ## Install And Refresh In Codex
 

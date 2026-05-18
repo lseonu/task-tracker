@@ -11,7 +11,7 @@ Run the final internal readiness review, run the local security scanner, update 
 
 This does not submit to Devpost. The participant still completes the official submission in the browser.
 
-Chat is the primary participant interface. This Desktop plugin includes the configured main-step PNG when the asset exists.
+Chat is the primary participant interface. This Desktop plugin can include a generated progress SVG.
 
 ## Required References
 

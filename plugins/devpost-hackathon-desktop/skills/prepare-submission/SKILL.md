@@ -11,7 +11,7 @@ Create or update the local Devpost submission prep document, update state, compo
 
 This is not a direct submission tool. It prepares the participant for the real Devpost browser submission.
 
-Chat is the primary participant interface. This Desktop plugin includes the configured main-step PNG when the asset exists.
+Chat is the primary participant interface. This Desktop plugin can include a generated progress SVG.
 
 ## Required Reference
 

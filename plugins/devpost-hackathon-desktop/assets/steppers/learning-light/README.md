@@ -1,13 +1,5 @@
-# Learning Stepper PNG Slots
+# Legacy Learning Stepper PNGs
 
-The art-team light-mode secondary stepper exports use these exact names:
+These PNG files were used by an earlier Desktop prototype. The current Desktop composer no longer reads per-step PNG paths from config. It generates an opaque-background SVG from workflow state and writes it to `.openai-codex-hackathon/progress/` at compose time.
 
-- `onboard.png`
-- `scope.png`
-- `prd.png`
-- `spec.png`
-- `checklist.png`
-- `build.png`
-- `return.png`
-
-The Desktop composer reads these paths from `config/hackathon.json` and places the matching image at the start of each optional learning-path response. If a PNG is missing, the response falls back to text progress.
+Keep these files only as visual reference for the generated learning progress SVG. They can be removed later without changing the composer.

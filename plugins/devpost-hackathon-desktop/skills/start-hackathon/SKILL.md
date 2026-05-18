@@ -9,7 +9,7 @@ description: Start the OpenAI Codex Hackathon workflow in the current project fo
 
 Initialize or resume the local hackathon state, compose the Start chat response, and point the participant to the next command.
 
-Chat is the primary participant interface. This Desktop plugin includes the configured main-step PNG when the asset exists.
+Chat is the primary participant interface. This Desktop plugin can include a generated progress SVG.
 
 ## Required Reference
 
@@ -102,7 +102,7 @@ After creating or loading state, run:
 node "$HOME/.codex/plugins/cache/local-plugins/devpost-hackathon-desktop/0.1.0/scripts/compose-response.mjs" --page start
 ```
 
-Use the composer output as the participant-facing response. In this Desktop plugin, the response can include the configured inline stepper PNG when the asset exists.
+Use the composer output as the participant-facing response. In this Desktop plugin, the response can include the generated inline progress SVG when image output is enabled.
 
 ## Chat Output
 
@@ -113,7 +113,7 @@ Do not hand-write a separate dashboard or landing page. Let the Desktop composer
 In normal operation, respond with:
 
 - a warm welcome that names the event and explains that Codex will guide the participant through the hackathon from this project folder
-- one sentence explaining that Codex will keep the process in chat, with the main-step visual included when the art-team PNG is available
+- one sentence explaining that Codex will keep the process in chat, with the progress visual included when image output is enabled
 - whether state was created or loaded
 - the next command: `$review-rules`
 - an invitation to ask questions about how the flow works before continuing

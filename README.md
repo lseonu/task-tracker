@@ -14,7 +14,7 @@ Devpost team handoff: start with [`docs/devpost-team-onboarding.md`](docs/devpos
 This is a Monday prototype, not final production packaging. The following items are intentionally still open:
 
 - Final Devpost event URL, dates, rules, eligibility, and judging copy need the official event source of truth.
-- Desktop visual assets are now checked in for the top-level flow and optional learning path, but they still need human QA in Codex Desktop.
+- Desktop progress SVGs are generated from workflow state at compose time, but they still need human QA in Codex Desktop.
 - The repo marketplace needs one real install smoke test in Codex Desktop and one in Codex CLI before team-wide handoff.
 - Future Devpost MCP/auth behavior is documented as a later integration, not implemented in this V1 prototype.
 
@@ -42,7 +42,7 @@ Each package has its own `config/hackathon.json` for lightweight event configura
 - event id and display name
 - official Devpost URLs
 - submission deadline display/cache
-- logo and stepper asset paths
+- logo paths and Desktop progress image settings
 - paths to per-step Markdown content
 - minimal submission requirement defaults
 
@@ -70,7 +70,7 @@ Optional learning-path content lives in:
 - `content/learning/checklist.md`
 - `content/learning/build.md`
 
-For V1, treat these as rich text only. The Desktop plugin references art-team PNG stepper images when present; the CLI plugin keeps progress text-only.
+For V1, treat these as rich text only. The Desktop plugin generates inline progress SVGs from workflow state; the CLI plugin keeps progress text-only.
 
 The bundled Devpost logo files live in `assets/logos/`:
 
@@ -79,25 +79,9 @@ The bundled Devpost logo files live in `assets/logos/`:
 
 The event banner slot is configured at `assets.event_banner`. V1 includes `assets/banners/event-banner-placeholder.svg`; replace it with final hackathon banner art only if the team decides to use a banner in chat.
 
-Desktop main-step PNG slots live in `assets/steppers/main-light/` and are configured by `assets.main_stepper_images`:
+Desktop progress visuals are generated SVG files, not hand-managed per-step exports. The composer reads the participant's current progress state, writes an opaque-background SVG under `.openai-codex-hackathon/progress/`, and references that SVG at the top of the response. This keeps the visual readable in both light and dark Codex themes.
 
-- `start.png`
-- `rules.png`
-- `resources.png`
-- `prepare.png`
-- `check.png`
-
-Desktop learning-path PNG slots live in `assets/steppers/learning-light/` and are configured by `assets.learning_stepper_images`:
-
-- `onboard.png`
-- `scope.png`
-- `prd.png`
-- `spec.png`
-- `checklist.png`
-- `build.png`
-- `return.png`
-
-To remove all Desktop images without changing code, set `assets.progress_images_enabled` to `false` in `plugins/devpost-hackathon-desktop/config/hackathon.json`. The Desktop composer will then use text progress, matching the CLI-style fallback. Deleting or renaming an individual PNG also falls back to text for that response instead of breaking.
+To remove all Desktop images without changing code, set `assets.progress_images_enabled` to `false` in `plugins/devpost-hackathon-desktop/config/hackathon.json`. The Desktop composer will then use text progress, matching the CLI-style fallback.
 
 ## Composing Chat Responses
 
@@ -123,7 +107,7 @@ The package-local composer reads:
 - package-local `content/learning/*.md`
 - `.openai-codex-hackathon/submission-security-scan.json` when present for final checks
 
-The Desktop composer references configured PNG stepper files with absolute local image paths when those files exist. It does not generate placeholder art. The CLI composer emits no image Markdown.
+The Desktop composer generates progress SVGs with absolute local image paths when `assets.progress_images_enabled` is true. The CLI composer emits no image Markdown.
 
 Event, product, and design owners can revise copy in each package's `content/steps/` or `content/learning/` without editing the composer or skill files. The Markdown files include maintainer-only comments with their source paths; participant responses should not display copy-editing instructions.
 

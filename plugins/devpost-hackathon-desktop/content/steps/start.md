@@ -2,7 +2,7 @@
 
 Welcome. Codex will guide you through the hackathon from inside this project folder.
 
-You will use chat for questions, decisions, and confirmations. Codex will keep each step inline and show the main-step visual when the art-team PNG is available.
+You will use chat for questions, decisions, and confirmations. Codex will keep each step inline and show progress visually when Desktop image output is enabled.
 
 Devpost remains the official registration and submission surface. Codex guides the rest of the build and preparation flow: reviewing requirements, choosing resources, optionally shaping your idea through a guided learning path, preparing your submission materials, and running a final check before browser handoff.
 

@@ -107,7 +107,7 @@ This repo ships two installable plugin packages:
 
 Both packages read and write the same workflow state shape. The package controls presentation:
 
-- Desktop may reference configured main-step PNGs from its plugin assets.
+- Desktop may generate progress SVGs from state and reference them in chat.
 - CLI emits text progress only.
 
 If a participant switches between Desktop and CLI while working in the same project folder, the same `.openai-codex-hackathon-state.json` should continue to work.

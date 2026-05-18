@@ -9,7 +9,7 @@ description: Show the participant's resource hub for working through the hackath
 
 Update state for Step 3, compose the Resources chat response, and explain the two available paths: continue directly to submission prep or enter the optional learning path.
 
-Chat is the primary participant interface. This Desktop plugin includes the configured main-step PNG when the asset exists.
+Chat is the primary participant interface. This Desktop plugin can include a generated progress SVG.
 
 ## Required References
 
@@ -48,7 +48,7 @@ Command sequence:
 
 `$learning-onboard -> $learning-scope -> $learning-prd -> $learning-spec -> $learning-checklist -> $learning-build`
 
-Do not render local placeholder images or resource posters in chat. The only Desktop visual planned for this pass is the configured main-step stepper PNG.
+Do not render local placeholder images or resource posters in chat. The only Desktop visual planned for this pass is the generated progress SVG.
 
 ## Presentation Output
 

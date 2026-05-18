@@ -1,4 +1,4 @@
-import { readFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -11,6 +11,7 @@ const projectConfigPath = path.join(projectRoot, "config/hackathon.json");
 const pluginConfigPath = path.join(pluginRoot, "config/hackathon.json");
 const configPath = existsSync(projectConfigPath) ? projectConfigPath : pluginConfigPath;
 const configRoot = configPath === projectConfigPath ? projectRoot : pluginRoot;
+const progressAssetDir = path.join(projectRoot, ".openai-codex-hackathon/progress");
 const securityScanPath = path.join(projectRoot, ".openai-codex-hackathon/submission-security-scan.json");
 
 const mainSteps = [
@@ -178,23 +179,129 @@ function summaryLines(state, config) {
   return lines;
 }
 
-function configuredImagePath(relativePath = "") {
-  if (!relativePath) return "";
-  const absolutePath = path.join(configRoot, relativePath);
-  return existsSync(absolutePath) ? absolutePath : "";
-}
-
 function progressImagesEnabled(config) {
   if (process.env.CODEX_HACKATHON_PROGRESS_IMAGES === "0") return false;
   return config.assets?.progress_images_enabled !== false;
 }
 
-function stepperImage(page, config) {
+function xmlEscape(value = "") {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+}
+
+function visualState(item) {
+  if (item.state === "done") return "complete";
+  if (item.state === "current") return "current";
+  if (item.state === "blocked") return "blocked";
+  return "todo";
+}
+
+function stateSlug(items) {
+  return items.map((item) => `${item.label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${visualState(item)}`).join("_");
+}
+
+function mainStepperSvg(items, config) {
+  const width = 1200;
+  const height = 174;
+  const x = 28;
+  const y = 42;
+  const stepWidth = 228;
+  const stepHeight = 90;
+  const arrow = 30;
+  const title = xmlEscape(config.event?.name || "Hackathon");
+  const font = "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+  const segments = items.map((item, index) => {
+    const left = x + index * stepWidth;
+    const right = left + stepWidth;
+    const chevronTip = index === items.length - 1 ? right : right + arrow;
+    const leftInset = index === 0 ? left : left + arrow;
+    const points = index === items.length - 1
+      ? `${left},${y} ${right},${y} ${right},${y + stepHeight} ${left},${y + stepHeight} ${left + arrow},${y + stepHeight / 2}`
+      : index === 0
+        ? `${left},${y} ${right},${y} ${chevronTip},${y + stepHeight / 2} ${right},${y + stepHeight} ${left},${y + stepHeight}`
+        : `${left},${y} ${right},${y} ${chevronTip},${y + stepHeight / 2} ${right},${y + stepHeight} ${left},${y + stepHeight} ${left + arrow},${y + stepHeight / 2}`;
+    const state = visualState(item);
+    const fill = state === "current" ? "#D9E7FF" : state === "blocked" ? "#F1F1F1" : "#FFFFFF";
+    const iconFill = state === "complete" ? "#D9E7FF" : "#FFFFFF";
+    const iconStroke = state === "complete" ? "#7EB0FF" : state === "blocked" ? "#B8B8B8" : "#8C8C8C";
+    const primary = state === "blocked" ? "#5F5F5F" : "#2C2C2C";
+    const secondary = state === "blocked" ? "#757575" : "#7A7A7A";
+    const icon = state === "complete"
+      ? `<path d="M${leftInset + 29} ${y + 43} l8 8 l17 -20" fill="none" stroke="#1D64D6" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>`
+      : "";
+    return `
+      <polygon points="${points}" fill="${fill}" stroke="#8C8C8C" stroke-width="1.5"/>
+      <circle cx="${leftInset + 38}" cy="${y + 39}" r="17" fill="${iconFill}" stroke="${iconStroke}" stroke-width="2"/>
+      ${icon}
+      <text x="${leftInset + 76}" y="${y + 38}" font-family="${font}" font-size="24" font-weight="700" fill="${primary}">Step ${index + 1}</text>
+      <text x="${leftInset + 76}" y="${y + 68}" font-family="${font}" font-size="23" fill="${secondary}">${xmlEscape(item.label)}</text>`;
+  }).join("");
+  return `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${title} progress">
+  <rect width="${width}" height="${height}" rx="14" fill="#FFFFFF"/>
+  <text x="${x}" y="28" font-family="${font}" font-size="18" font-weight="700" fill="#005271">${title}</text>
+  ${segments}
+</svg>
+`;
+}
+
+function learningStepperSvg(items, config) {
+  const width = 1200;
+  const height = 168;
+  const centerY = 64;
+  const startX = 160;
+  const gap = 146;
+  const font = "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+  const title = xmlEscape(config.event?.name || "Hackathon");
+  const activeIndex = Math.max(0, items.findIndex((item) => item.state === "current"));
+  const lineSegments = items.slice(0, -1).map((item, index) => {
+    const x1 = startX + index * gap + 24;
+    const x2 = startX + (index + 1) * gap - 24;
+    const fill = index < activeIndex ? "#D9E7FF" : "#DDE3E6";
+    return `<rect x="${x1}" y="${centerY - 4}" width="${x2 - x1}" height="8" rx="4" fill="${fill}"/>`;
+  }).join("");
+  const nodes = items.map((item, index) => {
+    const x = startX + index * gap;
+    const state = visualState(item);
+    const fill = state === "current" || state === "complete" ? "#D9E7FF" : "#FFFFFF";
+    const stroke = state === "todo" ? "#8C8C8C" : "#D9E7FF";
+    const numberFill = state === "current" ? "#1D64D6" : state === "complete" ? "#1D64D6" : "#8C8C8C";
+    const labelFill = state === "blocked" ? "#757575" : "#2C2C2C";
+    const marker = state === "complete"
+      ? `<path d="M${x - 9} ${centerY + 1} l7 7 l16 -18" fill="none" stroke="#1D64D6" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>`
+      : `<text x="${x}" y="${centerY + 11}" text-anchor="middle" font-family="${font}" font-size="30" font-weight="800" fill="${numberFill}">${index + 1}</text>`;
+    return `
+      <circle cx="${x}" cy="${centerY}" r="29" fill="${fill}" stroke="${stroke}" stroke-width="2"/>
+      ${marker}
+      <text x="${x}" y="${centerY + 70}" text-anchor="middle" font-family="${font}" font-size="19" font-weight="700" fill="${labelFill}">${xmlEscape(item.label)}</text>`;
+  }).join("");
+  return `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${title} learning progress">
+  <rect width="${width}" height="${height}" rx="14" fill="#FFFFFF"/>
+  <text x="28" y="30" font-family="${font}" font-size="22" font-weight="800" fill="#2C2C2C">Optional guided planning</text>
+  <text x="314" y="30" font-family="${font}" font-size="22" font-weight="800" fill="#1D64D6">Learning path</text>
+  ${lineSegments}
+  ${nodes}
+</svg>
+`;
+}
+
+async function stepperImage(page, state, config) {
   if (!progressImagesEnabled(config)) return "";
-  if (page.kind === "learning") {
-    return configuredImagePath(config.assets?.learning_stepper_images?.[page.learning.key] || "");
+  const { mainItems, learningItems } = stepperItems(page, state);
+  const kind = page.kind === "learning" ? "learning" : "main";
+  const items = kind === "learning" ? learningItems : mainItems;
+  const svg = kind === "learning" ? learningStepperSvg(items, config) : mainStepperSvg(items, config);
+  const filename = `${kind}-${stateSlug(items)}.svg`;
+  const outputPath = path.join(progressAssetDir, filename);
+  try {
+    await mkdir(progressAssetDir, { recursive: true });
+    await writeFile(outputPath, svg, "utf8");
+    return outputPath;
+  } catch {
+    return "";
   }
-  return configuredImagePath(config.assets?.main_stepper_images?.[page.step.key] || "");
 }
 
 function progressFallback(page, state) {
@@ -227,7 +334,7 @@ async function securityScanBlock(page) {
 }
 
 async function composeDesktop(page, state, config, markdown) {
-  const imagePath = stepperImage(page, config);
+  const imagePath = await stepperImage(page, state, config);
   const blocks = imagePath
     ? [`![${config.event?.name || "Hackathon"} progress](${imagePath})`]
     : [progressFallback(page, state)];

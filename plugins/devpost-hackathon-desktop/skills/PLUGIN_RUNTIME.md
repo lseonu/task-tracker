@@ -20,7 +20,7 @@ $HOME/.codex/plugins/cache/local-plugins/devpost-hackathon-desktop/0.1.0
 
 ## Primary Interface
 
-Chat is the primary participant interface. This is the Codex Desktop plugin, so normal main-step responses should include the configured inline stepper PNG when that asset exists. Do not tell the participant to open a localhost page during normal operation.
+Chat is the primary participant interface. This is the Codex Desktop plugin, so responses may include a generated inline progress SVG. Do not tell the participant to open a localhost page during normal operation.
 
 Every command should:
 
@@ -37,7 +37,7 @@ node "$HOME/.codex/plugins/cache/local-plugins/devpost-hackathon-desktop/0.1.0/s
 
 Do not attempt to detect or switch to CLI mode here; the CLI experience lives in the separate `devpost-hackathon-cli` plugin.
 
-The composer reads main-step PNG paths from `config/hackathon.json` under `assets.main_stepper_images` and learning-step PNG paths under `assets.learning_stepper_images`. If `assets.progress_images_enabled` is `false`, or if the PNG for the current step is missing, the composer uses text progress instead of an image.
+The composer generates progress SVGs from workflow state and writes them under `.openai-codex-hackathon/progress/` in the participant project. If `assets.progress_images_enabled` is `false`, or SVG generation fails, the composer uses text progress instead of an image.
 
 If composer generation fails, provide a compact text fallback with:
 

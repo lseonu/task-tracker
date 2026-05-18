@@ -9,7 +9,7 @@ description: Show the OpenAI Codex Hackathon command map, current project progre
 
 Read the local state file, tell the participant where they are, and point them to the next command in the main chat body.
 
-Chat is the primary participant interface. This Desktop plugin includes the configured main-step PNG when the asset exists.
+Chat is the primary participant interface. This Desktop plugin can include a generated progress SVG.
 
 Unlike the step commands, `$hackathon-map` does not mark workflow stages complete.
 

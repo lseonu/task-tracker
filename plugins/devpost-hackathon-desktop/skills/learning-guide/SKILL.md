@@ -25,7 +25,7 @@ The path is nested inside Step 3: Resources and uses Codex commands:
 - Use local documents as durable context instead of long JSON state.
 - Keep `.openai-codex-hackathon-state.json` small: progress, file paths, and confirmed project metadata only.
 - After each learning command, run the response composer for the matching learning page.
-- Chat is the primary participant interface. This Desktop plugin uses configured main-step PNGs only; learning-step visuals can be added later if the art team provides them.
+- Chat is the primary participant interface. This Desktop plugin uses generated progress SVGs when image output is enabled.
 - Do not hand-write separate dashboards, Mermaid diagrams, or long duplicate pages in chat.
 
 ## Documents

@@ -1,11 +1,5 @@
-# Main Stepper PNG Slots
+# Legacy Main Stepper PNGs
 
-The art-team light-mode PNG exports use these exact names:
+These PNG files were used by an earlier Desktop prototype. The current Desktop composer no longer reads per-step PNG paths from config. It generates an opaque-background SVG from workflow state and writes it to `.openai-codex-hackathon/progress/` at compose time.
 
-- `start.png`
-- `rules.png`
-- `resources.png`
-- `prepare.png`
-- `check.png`
-
-The Desktop composer reads these paths from `config/hackathon.json` and places the matching image at the start of each main command response. If a PNG is missing, the response falls back to text progress.
+Keep these files only as visual reference for the generated main progress SVG. They can be removed later without changing the composer.

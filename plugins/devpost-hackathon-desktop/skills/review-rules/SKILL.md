@@ -9,7 +9,7 @@ description: Present the hackathon requirements, judging criteria, eligibility p
 
 Act as the mandatory rules gate, update state only after explicit `yes`, compose the Rules chat response, and keep the answer terse.
 
-Chat is the primary participant interface. This Desktop plugin includes the configured main-step PNG when the asset exists.
+Chat is the primary participant interface. This Desktop plugin can include a generated progress SVG.
 
 ## Required References
 

@@ -38,4 +38,4 @@ Use these as broad guide rails, not prescriptions.
 
 ## Media Guidance
 
-Only render the configured main-step stepper PNGs in chat for this Desktop prototype. If official resource media is added later, put it behind an explicit product decision rather than mixing extra images into the default flow.
+Only render the generated progress SVG in chat for this Desktop prototype. If official resource media is added later, put it behind an explicit product decision rather than mixing extra images into the default flow.

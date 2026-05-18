@@ -19,10 +19,9 @@ Desktop:
 
 - Uses the same command sequence as CLI.
 - Emits normal Markdown responses in the main chat body.
-- References a configured main-step PNG at the start of each main command when that PNG exists.
-- Does not generate branded stepper SVGs.
-- References a configured secondary learning-path PNG at the start of each learning command when that PNG exists.
-- Falls back to text progress when images are disabled or missing.
+- Generates an opaque-background SVG from workflow state for the current command.
+- References that SVG at the start of Desktop responses when image output is enabled.
+- Falls back to text progress when images are disabled or SVG generation fails.
 
 CLI:
 
@@ -31,45 +30,17 @@ CLI:
 - Uses ASCII progress for the main flow and the optional learning path.
 - Never emits Markdown image syntax.
 
-## Main Visual Slots
+## Desktop Progress Visuals
 
-The current art-team assets include one light-mode PNG per top-level step:
-
-- `start.png`
-- `rules.png`
-- `resources.png`
-- `prepare.png`
-- `check.png`
-
-The Desktop package expects those files at:
+The Desktop package does not require one checked-in image per step. The composer derives progress from the same state used by the text fallback, then writes a generated SVG to:
 
 ```text
-plugins/devpost-hackathon-desktop/assets/steppers/main-light/
+.openai-codex-hackathon/progress/
 ```
 
-The paths are configured in:
+The SVG includes its own white canvas and high-contrast labels so it stays readable in both light and dark Codex themes.
 
-```text
-plugins/devpost-hackathon-desktop/config/hackathon.json
-```
-
-The current art-team assets also include one light-mode secondary PNG per learning step:
-
-- `onboard.png`
-- `scope.png`
-- `prd.png`
-- `spec.png`
-- `checklist.png`
-- `build.png`
-- `return.png`
-
-Those files live at:
-
-```text
-plugins/devpost-hackathon-desktop/assets/steppers/learning-light/
-```
-
-If `assets.progress_images_enabled` is `false`, or if a configured PNG is missing, the Desktop composer uses text progress rather than failing or creating a placeholder. This keeps the prototype easy to switch back to a text-only presentation if the images do not survive QA.
+If `assets.progress_images_enabled` is `false`, the Desktop composer uses text progress rather than image Markdown. This keeps the prototype easy to switch back to a text-only presentation if images do not survive QA.
 
 ## State Boundary
 
@@ -115,7 +86,7 @@ For visual assets, the event should remain primary. If Devpost attribution is ne
 
 - No normal skill response mentions localhost.
 - No normal skill response says an HTML artifact was regenerated.
-- Desktop output includes image Markdown only when a configured PNG exists.
+- Desktop output includes image Markdown only when generated SVG output is enabled.
 - CLI output contains no Markdown image syntax.
 - Both plugin manifests parse as valid JSON.
 - Both composers run for every configured page.
