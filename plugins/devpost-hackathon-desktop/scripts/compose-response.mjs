@@ -14,7 +14,7 @@ const configRoot = configPath === projectConfigPath ? projectRoot : pluginRoot;
 const progressAssetDir = path.join(projectRoot, ".openai-codex-hackathon/progress");
 const securityScanPath = path.join(projectRoot, ".openai-codex-hackathon/submission-security-scan.json");
 // Codex Desktop can cache local image paths; bump this when SVG geometry changes.
-const progressSvgVersion = "v4";
+const progressSvgVersion = "v5";
 
 const mainSteps = [
   { id: "start-hackathon", key: "start", label: "Start", headline: "Welcome to {{event.name}}", nextAction: "Register on Devpost, then run $review-rules." },
@@ -263,8 +263,8 @@ function mainStepperSvg(items, config) {
 
 function learningStepperSvg(items, config) {
   const width = 1200;
-  const height = 420;
-  const centerY = 250;
+  const height = 340;
+  const centerY = 180;
   const startX = 160;
   const gap = 146;
   const font = "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
@@ -289,7 +289,7 @@ function learningStepperSvg(items, config) {
     return `
       <circle cx="${x}" cy="${centerY}" r="29" fill="${fill}" stroke="${stroke}" stroke-width="2"/>
       ${marker}
-      <text x="${x}" y="${centerY + 90}" text-anchor="middle" font-family="${font}" font-size="19" font-weight="700" fill="${labelFill}">${xmlEscape(item.label)}</text>`;
+      <text x="${x}" y="${centerY + 84}" text-anchor="middle" font-family="${font}" font-size="19" font-weight="700" fill="${labelFill}">${xmlEscape(item.label)}</text>`;
   }).join("");
   return `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${title} learning progress">
   <rect width="${width}" height="${height}" rx="14" fill="#FFFFFF"/>
