@@ -17,7 +17,7 @@ const mainSteps = [
   { id: "start-hackathon", key: "start", label: "Start", headline: "Welcome to {{event.name}}", nextAction: "Register on Devpost, then run $review-rules." },
   { id: "review-rules", key: "rules", label: "Rules", headline: "Review the rules", nextAction: "Reply yes or no in chat to unlock the rest of the flow." },
   { id: "resources", key: "resources", label: "Resources", headline: "Choose your build path", nextAction: "Continue to $prepare-submission or enter guided planning with $learning-onboard." },
-  { id: "prepare-submission", key: "prepare", label: "Prepare", headline: "Prepare your submission", nextAction: "Work through the revision checklist, then run $submission-check." },
+  { id: "prepare-submission", key: "prepare", label: "Prepare", headline: "Prepare your submission", nextAction: "Work through the preparation checklist, then run $submission-check." },
   { id: "submission-check", key: "check", label: "Check", headline: "Run your final check", nextAction: "If ready, complete the official submission in Devpost." }
 ];
 
@@ -129,6 +129,7 @@ function mainStepState(step, activeStep, state) {
     if (mainSteps.indexOf(step) < mainSteps.indexOf(activeStep)) return "done";
     return "todo";
   }
+  if (step.id === "submission-check" && submissionIsReady(state)) return "done";
   if (step.id === activeStep.id) return "current";
   if ((state.completed_stages || []).includes(step.id)) return "done";
   if ((step.id === "prepare-submission" || step.id === "submission-check") && state.rules_acknowledged !== true) return "blocked";
@@ -203,7 +204,34 @@ function resolvedNextCommand(page, state) {
   return fallbackNextCommand(page, state);
 }
 
-function nextInstructionFor(page, state) {
+function submissionIsReady(state) {
+  return state.submission?.status === "ready" || state.submission?.browser_handoff_ready === true;
+}
+
+function officialSubmissionDestination(config) {
+  const url = config.official_urls?.submission_page || "";
+  if (url && url !== "TBD") return `[official Devpost submission page](${url})`;
+  return "the official Devpost submission page (URL TBD in this prototype)";
+}
+
+function readySubmissionHandoff(config) {
+  return [
+    "You're done in Codex. You're ready to submit on Devpost.",
+    "",
+    "Do this now:",
+    `1. Open ${officialSubmissionDestination(config)}.`,
+    "2. Copy the final text from `devpost-submission.md` into the official form.",
+    "3. Add your repository link, demo link, screenshots, and demo video.",
+    "4. Submit on Devpost before the official deadline.",
+    "",
+    "Optional later: type `$hackathon-map` if you want to review the flow again."
+  ].join("\n");
+}
+
+function nextInstructionFor(page, state, config) {
+  if (page.step?.id === "submission-check" && submissionIsReady(state)) {
+    return readySubmissionHandoff(config);
+  }
   const command = resolvedNextCommand(page, state);
   if (page.step?.id === "review-rules" && state.rules_acknowledged !== true && command === "review-rules") {
     return [
@@ -252,7 +280,7 @@ async function composeCli(page, state, config, markdown) {
   if (markdown) blocks.push(markdown);
   const scanBlock = await securityScanBlock(page);
   if (scanBlock) blocks.push(scanBlock);
-  blocks.push(nextInstructionFor(page, state));
+  blocks.push(nextInstructionFor(page, state, config));
   return `${blocks.filter(Boolean).join("\n\n")}\n`;
 }
 

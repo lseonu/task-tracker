@@ -108,11 +108,13 @@ Respond with:
 - readiness result: `ready`, `close`, or `not ready`
 - security scan status
 - the shortest useful fix-now list if needed
-- browser handoff URL only when ready
+- when ready, a clear completion message: "You're done in Codex. You're ready to submit on Devpost."
+- when ready, explicit final submit steps: open Devpost, copy `devpost-submission.md`, add links/screenshots/video, submit the official form before the deadline
+- browser handoff URL only when ready and known
 
 If composer generation fails, use a compact text fallback:
 
 - readiness result
 - security scan status
 - fix-now list
-- next recommended command or Devpost handoff
+- next recommended command or explicit Devpost submit handoff

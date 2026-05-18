@@ -58,7 +58,7 @@ Make the draft honest about what exists today versus what is still placeholder m
 
 ## Review And Feedback
 
-After updating `devpost-submission.md`, give a compact revision checklist that covers:
+After updating `devpost-submission.md`, give a compact "go do these things" checklist that tells the participant what to gather, fix, or verify before `$submission-check`. Cover:
 
 - missing submission components
 - weak or vague claims
@@ -66,7 +66,7 @@ After updating `devpost-submission.md`, give a compact revision checklist that c
 - missing proof points, demo assets, or testing details
 - anything that could make the Devpost submission less convincing
 
-Do not turn this into a long essay. Keep the revision handoff short and actionable.
+Use checklist syntax. Start each action with a verb. Do not turn this into a long essay; keep the handoff short, specific, and actionable.
 
 ## Presentation Output
 
@@ -100,12 +100,12 @@ Do not hand-write a separate dashboard. Let the CLI composer render the response
 Respond with:
 
 - whether `devpost-submission.md` was created or updated
-- the short revision checklist
+- the short "go do these things" checklist
 - next recommendation: either another `$prepare-submission` pass or `$submission-check`
 
 If composer generation fails, use a compact text fallback:
 
 - current stage: Prepare
 - draft file path
-- shortest useful revision checklist
+- shortest useful "go do these things" checklist
 - next recommended command
