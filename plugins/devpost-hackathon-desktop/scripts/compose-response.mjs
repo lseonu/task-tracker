@@ -14,7 +14,7 @@ const configRoot = configPath === projectConfigPath ? projectRoot : pluginRoot;
 const progressAssetDir = path.join(projectRoot, ".openai-codex-hackathon/progress");
 const securityScanPath = path.join(projectRoot, ".openai-codex-hackathon/submission-security-scan.json");
 // Codex Desktop can cache local image paths; bump this when SVG geometry changes.
-const progressSvgVersion = "v7";
+const progressSvgVersion = "v8";
 
 const mainSteps = [
   { id: "start-hackathon", key: "start", label: "Start", headline: "Welcome to {{event.name}}", nextAction: "Register on Devpost, then run $review-rules." },
@@ -205,6 +205,16 @@ function stateSlug(items) {
   return items.map((item) => `${item.label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${visualState(item)}`).join("_");
 }
 
+function checkBadgeSvg(cx, cy, size = 32) {
+  const scale = size / 32;
+  const x = cx - size / 2;
+  const y = cy - size / 2;
+  return `<g transform="translate(${x} ${y}) scale(${scale})">
+      <rect width="32" height="32" rx="16" fill="#D9E7FF"/>
+      <path d="M13.0007 19.4151L22.1082 10.3106C22.3159 10.1035 22.5793 10 22.8985 10C23.2177 10 23.4811 10.1035 23.6888 10.3106C23.8963 10.5179 24 10.7808 24 11.0994C24 11.4179 23.8963 11.6809 23.6888 11.8882L13.9496 21.594C13.6784 21.8647 13.3621 22 13.0007 22C12.6392 22 12.3229 21.8647 12.0517 21.594L8.31118 17.8753C8.10373 17.668 8 17.405 8 17.0865C8 16.7679 8.10373 16.505 8.31118 16.2977C8.51889 16.0906 8.78233 15.9871 9.10151 15.9871C9.42069 15.9871 9.68413 16.0906 9.89184 16.2977L13.0007 19.4151Z" fill="#1D64D6"/>
+    </g>`;
+}
+
 function mainStepperSvg(items, config) {
   const width = 1200;
   const height = 208;
@@ -230,16 +240,15 @@ function mainStepperSvg(items, config) {
         : `${left},${y} ${right},${y} ${chevronTip},${y + stepHeight / 2} ${right},${y + stepHeight} ${left},${y + stepHeight} ${left + arrow},${y + stepHeight / 2}`;
     const state = visualState(item);
     const fill = state === "current" ? "#D9E7FF" : state === "blocked" ? "#F1F1F1" : "#FFFFFF";
-    const iconFill = state === "complete" ? "#D9E7FF" : "#FFFFFF";
-    const iconStroke = state === "complete" ? "#7EB0FF" : state === "blocked" ? "#B8B8B8" : "#8C8C8C";
+    const iconFill = "#FFFFFF";
+    const iconStroke = state === "blocked" ? "#B8B8B8" : "#8C8C8C";
     const primary = state === "blocked" ? "#5F5F5F" : "#2C2C2C";
     const secondary = state === "blocked" ? "#757575" : "#7A7A7A";
-    const icon = state === "complete"
-      ? `<path d="M${leftInset + 29} ${y + 43} l8 8 l17 -20" fill="none" stroke="#1D64D6" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>`
-      : "";
+    const iconCenterX = leftInset + 38;
+    const iconCenterY = y + 39;
+    const icon = state === "complete" ? checkBadgeSvg(iconCenterX, iconCenterY, 36) : `<circle cx="${iconCenterX}" cy="${iconCenterY}" r="17" fill="${iconFill}" stroke="${iconStroke}" stroke-width="2"/>`;
     segmentFills.push(`<polygon points="${points}" fill="${fill}"/>`);
     segmentContent.push(`
-      <circle cx="${leftInset + 38}" cy="${y + 39}" r="17" fill="${iconFill}" stroke="${iconStroke}" stroke-width="2"/>
       ${icon}
       <text x="${leftInset + 76}" y="${y + 38}" font-family="${font}" font-size="24" font-weight="700" fill="${primary}">Step ${index + 1}</text>
       <text x="${leftInset + 76}" y="${y + 68}" font-family="${font}" font-size="23" fill="${secondary}">${xmlEscape(item.label)}</text>`);
