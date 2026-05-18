@@ -235,7 +235,10 @@ function mainStepperSvg(items, config) {
     const icon = state === "complete"
       ? `<path d="M${leftInset + 29} ${y + 43} l8 8 l17 -20" fill="none" stroke="#1D64D6" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>`
       : "";
-    const shape = `<polygon points="${points}" fill="${fill}" stroke="#8C8C8C" stroke-width="1.5"/>`;
+    const shape = isLast
+      ? `<rect x="${left}" y="${y}" width="${stepWidth}" height="${stepHeight}" fill="${fill}"/>
+      <path d="M${left} ${y}H${right}V${y + stepHeight}H${left}" fill="none" stroke="#8C8C8C" stroke-width="1.5"/>`
+      : `<polygon points="${points}" fill="${fill}" stroke="#8C8C8C" stroke-width="1.5"/>`;
     if (isLast) {
       segmentShapes.unshift(shape);
     } else {
@@ -258,8 +261,8 @@ function mainStepperSvg(items, config) {
 
 function learningStepperSvg(items, config) {
   const width = 1200;
-  const height = 212;
-  const centerY = 96;
+  const height = 300;
+  const centerY = 150;
   const startX = 160;
   const gap = 146;
   const font = "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
@@ -284,12 +287,12 @@ function learningStepperSvg(items, config) {
     return `
       <circle cx="${x}" cy="${centerY}" r="29" fill="${fill}" stroke="${stroke}" stroke-width="2"/>
       ${marker}
-      <text x="${x}" y="${centerY + 76}" text-anchor="middle" font-family="${font}" font-size="19" font-weight="700" fill="${labelFill}">${xmlEscape(item.label)}</text>`;
+      <text x="${x}" y="${centerY + 84}" text-anchor="middle" font-family="${font}" font-size="19" font-weight="700" fill="${labelFill}">${xmlEscape(item.label)}</text>`;
   }).join("");
   return `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${title} learning progress">
   <rect width="${width}" height="${height}" rx="14" fill="#FFFFFF"/>
-  <text x="28" y="40" font-family="${font}" font-size="22" font-weight="800" fill="#2C2C2C">Optional guided planning</text>
-  <text x="314" y="40" font-family="${font}" font-size="22" font-weight="800" fill="#1D64D6">Learning path</text>
+  <text x="28" y="44" font-family="${font}" font-size="22" font-weight="800" fill="#2C2C2C">Optional guided planning</text>
+  <text x="314" y="44" font-family="${font}" font-size="22" font-weight="800" fill="#1D64D6">Learning path</text>
   ${lineSegments}
   ${nodes}
 </svg>
