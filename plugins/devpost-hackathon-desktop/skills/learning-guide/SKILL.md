@@ -66,7 +66,12 @@ After generating each document:
 - Give 2-4 sentences of feedback using `✓` and `△`.
 - Name the file created or updated.
 - Include the composer output for the matching learning page.
-- Tell the participant the next command.
+- Tell the participant the next command using the exact skill invocation. In Desktop, make it visually scannable as a short Markdown blockquote callout, with this final form:
+
+```text
+> **Next command**
+> Type `$command-name`
+```
 - Update `docs/hackathon-learning/process-notes.md`.
 
 Because this is Codex, do not tell the participant to run `/clear` as a hard requirement. Instead, say that the next command can be run in a fresh chat if the conversation feels long.

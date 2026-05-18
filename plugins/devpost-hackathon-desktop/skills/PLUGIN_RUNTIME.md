@@ -29,6 +29,13 @@ Every command should:
 3. Run the response composer.
 4. Use the composer output as the participant-facing response.
 
+The composer output includes the exact next skill invocation when another plugin command should run. In the Desktop plugin this should be visually scannable, preferably as a short Markdown blockquote callout. If you add any workflow-specific note after the composer output, repeat that exact invocation as the final callout in this form:
+
+```text
+> **Next command**
+> Type `$command-name`
+```
+
 The composer prints Markdown to stdout:
 
 ```bash

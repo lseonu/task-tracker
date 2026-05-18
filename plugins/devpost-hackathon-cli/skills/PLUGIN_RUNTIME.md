@@ -29,6 +29,12 @@ Every command should:
 3. Run the response composer.
 4. Use the composer output as the participant-facing response.
 
+The composer output includes the exact next skill invocation when another plugin command should run. If you add any workflow-specific note after the composer output, repeat that exact invocation as the final line in this form:
+
+```text
+Type this next: `$command-name`.
+```
+
 The composer prints Markdown to stdout:
 
 ```bash

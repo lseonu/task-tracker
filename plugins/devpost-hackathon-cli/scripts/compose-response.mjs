@@ -185,11 +185,43 @@ function summaryLines(state, config) {
   return lines;
 }
 
-function nextCommandFor(page, state) {
-  if (page.kind === "learning" && state.learning?.status === "completed" && state.next_command) return `Continue with $${state.next_command}.`;
-  if (page.kind === "learning") return page.learning.nextAction;
-  if (page.kind === "map") return state.next_command ? `Continue with $${state.next_command}.` : "Run $start-hackathon.";
-  return page.step.nextAction;
+function fallbackNextCommand(page, state) {
+  if (page.kind === "learning") {
+    if (page.learning.id === "build") {
+      return state.learning?.status === "completed" ? "prepare-submission" : "learning-build";
+    }
+    const index = learningSteps.findIndex((step) => step.id === page.learning.id);
+    return learningSteps[index + 1]?.page || "prepare-submission";
+  }
+  if (page.kind === "map") return "start-hackathon";
+  const index = mainSteps.findIndex((step) => step.id === page.step.id);
+  return mainSteps[index + 1]?.id || "hackathon-map";
+}
+
+function resolvedNextCommand(page, state) {
+  if (!state.__preview_state && state.next_command) return state.next_command;
+  return fallbackNextCommand(page, state);
+}
+
+function nextInstructionFor(page, state) {
+  const command = resolvedNextCommand(page, state);
+  if (page.step?.id === "review-rules" && state.rules_acknowledged !== true && command === "review-rules") {
+    return [
+      "Next: Reply `yes` when you acknowledge the rules, or `no` if you need help understanding them.",
+      "After that, Codex will show the next skill invocation."
+    ].join("\n");
+  }
+  if (page.step?.id === "submission-check" && command === "hackathon-map") {
+    return [
+      "Next skill invocation if you need the map again: `$hackathon-map`.",
+      "Otherwise, complete the official submission in Devpost."
+    ].join("\n");
+  }
+  const lines = [`Type this next: \`$${command}\`.`];
+  if (page.kind === "main" && page.step?.id === "resources" && state.learning?.status !== "active" && command !== "learning-onboard") {
+    lines.push("Optional guided learning path: `$learning-onboard`.");
+  }
+  return lines.join("\n");
 }
 
 async function securityScanBlock(page) {
@@ -220,7 +252,7 @@ async function composeCli(page, state, config, markdown) {
   if (markdown) blocks.push(markdown);
   const scanBlock = await securityScanBlock(page);
   if (scanBlock) blocks.push(scanBlock);
-  blocks.push(`Next: ${nextCommandFor(page, state)}`);
+  blocks.push(nextInstructionFor(page, state));
   return `${blocks.filter(Boolean).join("\n\n")}\n`;
 }
 
