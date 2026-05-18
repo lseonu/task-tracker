@@ -14,7 +14,7 @@ const configRoot = configPath === projectConfigPath ? projectRoot : pluginRoot;
 const progressAssetDir = path.join(projectRoot, ".openai-codex-hackathon/progress");
 const securityScanPath = path.join(projectRoot, ".openai-codex-hackathon/submission-security-scan.json");
 // Codex Desktop can cache local image paths; bump this when SVG geometry changes.
-const progressSvgVersion = "v6";
+const progressSvgVersion = "v7";
 
 const mainSteps = [
   { id: "start-hackathon", key: "start", label: "Start", headline: "Welcome to {{event.name}}", nextAction: "Register on Devpost, then run $review-rules." },
@@ -271,10 +271,10 @@ function learningStepperSvg(items, config) {
   const title = xmlEscape(config.event?.name || "Hackathon");
   const activeIndex = Math.max(0, items.findIndex((item) => item.state === "current"));
   const lineSegments = items.slice(0, -1).map((item, index) => {
-    const x1 = startX + index * gap + 24;
-    const x2 = startX + (index + 1) * gap - 24;
+    const x1 = startX + index * gap + 30;
+    const x2 = startX + (index + 1) * gap - 30;
     const fill = index < activeIndex ? "#D9E7FF" : "#DDE3E6";
-    return `<rect x="${x1}" y="${centerY - 4}" width="${x2 - x1}" height="8" rx="4" fill="${fill}"/>`;
+    return `<rect x="${x1}" y="${centerY - 5}" width="${x2 - x1}" height="10" rx="5" fill="${fill}"/>`;
   }).join("");
   const nodes = items.map((item, index) => {
     const x = startX + index * gap;
@@ -284,12 +284,12 @@ function learningStepperSvg(items, config) {
     const numberFill = state === "current" ? "#1D64D6" : state === "complete" ? "#1D64D6" : "#8C8C8C";
     const labelFill = state === "blocked" ? "#757575" : "#2C2C2C";
     const marker = state === "complete"
-      ? `<path d="M${x - 9} ${centerY + 1} l7 7 l16 -18" fill="none" stroke="#1D64D6" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>`
-      : `<text x="${x}" y="${centerY + 11}" text-anchor="middle" font-family="${font}" font-size="30" font-weight="800" fill="${numberFill}">${index + 1}</text>`;
+      ? `<path d="M${x - 11} ${centerY + 1} l8 8 l18 -20" fill="none" stroke="#1D64D6" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>`
+      : `<text x="${x}" y="${centerY + 12}" text-anchor="middle" font-family="${font}" font-size="34" font-weight="800" fill="${numberFill}">${index + 1}</text>`;
     return `
-      <circle cx="${x}" cy="${centerY}" r="29" fill="${fill}" stroke="${stroke}" stroke-width="2"/>
+      <circle cx="${x}" cy="${centerY}" r="34" fill="${fill}" stroke="${stroke}" stroke-width="2.25"/>
       ${marker}
-      <text x="${x}" y="${centerY + 80}" text-anchor="middle" font-family="${font}" font-size="19" font-weight="700" fill="${labelFill}">${xmlEscape(item.label)}</text>`;
+      <text x="${x}" y="${centerY + 86}" text-anchor="middle" font-family="${font}" font-size="21" font-weight="700" fill="${labelFill}">${xmlEscape(item.label)}</text>`;
   }).join("");
   return `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${title} learning progress">
   <rect width="${width}" height="${height}" rx="14" fill="#FFFFFF"/>
