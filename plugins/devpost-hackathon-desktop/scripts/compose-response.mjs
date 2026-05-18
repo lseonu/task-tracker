@@ -13,6 +13,8 @@ const configPath = existsSync(projectConfigPath) ? projectConfigPath : pluginCon
 const configRoot = configPath === projectConfigPath ? projectRoot : pluginRoot;
 const progressAssetDir = path.join(projectRoot, ".openai-codex-hackathon/progress");
 const securityScanPath = path.join(projectRoot, ".openai-codex-hackathon/submission-security-scan.json");
+// Codex Desktop can cache local image paths; bump this when SVG geometry changes.
+const progressSvgVersion = "v4";
 
 const mainSteps = [
   { id: "start-hackathon", key: "start", label: "Start", headline: "Welcome to {{event.name}}", nextAction: "Register on Devpost, then run $review-rules." },
@@ -213,7 +215,7 @@ function mainStepperSvg(items, config) {
   const arrow = 30;
   const title = xmlEscape(config.event?.name || "Hackathon");
   const font = "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
-  const segmentShapes = [];
+  const segmentFills = [];
   const segmentContent = [];
   items.forEach((item, index) => {
     const left = x + index * stepWidth;
@@ -222,7 +224,7 @@ function mainStepperSvg(items, config) {
     const chevronTip = isLast ? right : right + arrow;
     const leftInset = index === 0 ? left : left + arrow;
     const points = isLast
-      ? `${left},${y} ${right},${y} ${right},${y + stepHeight} ${left},${y + stepHeight}`
+      ? `${left},${y} ${right},${y} ${right},${y + stepHeight} ${left},${y + stepHeight} ${left + arrow},${y + stepHeight / 2}`
       : index === 0
         ? `${left},${y} ${right},${y} ${chevronTip},${y + stepHeight / 2} ${right},${y + stepHeight} ${left},${y + stepHeight}`
         : `${left},${y} ${right},${y} ${chevronTip},${y + stepHeight / 2} ${right},${y + stepHeight} ${left},${y + stepHeight} ${left + arrow},${y + stepHeight / 2}`;
@@ -235,25 +237,25 @@ function mainStepperSvg(items, config) {
     const icon = state === "complete"
       ? `<path d="M${leftInset + 29} ${y + 43} l8 8 l17 -20" fill="none" stroke="#1D64D6" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>`
       : "";
-    const shape = isLast
-      ? `<rect x="${left}" y="${y}" width="${stepWidth}" height="${stepHeight}" fill="${fill}"/>
-      <path d="M${left} ${y}H${right}V${y + stepHeight}H${left}" fill="none" stroke="#8C8C8C" stroke-width="1.5"/>`
-      : `<polygon points="${points}" fill="${fill}" stroke="#8C8C8C" stroke-width="1.5"/>`;
-    if (isLast) {
-      segmentShapes.unshift(shape);
-    } else {
-      segmentShapes.push(shape);
-    }
+    segmentFills.push(`<polygon points="${points}" fill="${fill}"/>`);
     segmentContent.push(`
       <circle cx="${leftInset + 38}" cy="${y + 39}" r="17" fill="${iconFill}" stroke="${iconStroke}" stroke-width="2"/>
       ${icon}
       <text x="${leftInset + 76}" y="${y + 38}" font-family="${font}" font-size="24" font-weight="700" fill="${primary}">Step ${index + 1}</text>
       <text x="${leftInset + 76}" y="${y + 68}" font-family="${font}" font-size="23" fill="${secondary}">${xmlEscape(item.label)}</text>`);
   });
+  const rightEdge = x + stepWidth * items.length;
+  const bottom = y + stepHeight;
+  const separators = items.slice(1).map((_, index) => {
+    const boundaryX = x + (index + 1) * stepWidth;
+    return `<path d="M${boundaryX} ${y}L${boundaryX + arrow} ${y + stepHeight / 2}L${boundaryX} ${bottom}" fill="none" stroke="#8C8C8C" stroke-width="1.5"/>`;
+  }).join("\n");
   return `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${title} progress">
   <rect width="${width}" height="${height}" rx="14" fill="#FFFFFF"/>
   <text x="${x}" y="28" font-family="${font}" font-size="18" font-weight="700" fill="#005271">${title}</text>
-  ${segmentShapes.join("\n")}
+  ${segmentFills.join("\n")}
+  <path d="M${x} ${y}H${rightEdge}V${bottom}H${x}V${y}" fill="none" stroke="#8C8C8C" stroke-width="1.5"/>
+  ${separators}
   ${segmentContent.join("\n")}
 </svg>
 `;
@@ -261,8 +263,8 @@ function mainStepperSvg(items, config) {
 
 function learningStepperSvg(items, config) {
   const width = 1200;
-  const height = 300;
-  const centerY = 150;
+  const height = 420;
+  const centerY = 250;
   const startX = 160;
   const gap = 146;
   const font = "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
@@ -287,7 +289,7 @@ function learningStepperSvg(items, config) {
     return `
       <circle cx="${x}" cy="${centerY}" r="29" fill="${fill}" stroke="${stroke}" stroke-width="2"/>
       ${marker}
-      <text x="${x}" y="${centerY + 84}" text-anchor="middle" font-family="${font}" font-size="19" font-weight="700" fill="${labelFill}">${xmlEscape(item.label)}</text>`;
+      <text x="${x}" y="${centerY + 90}" text-anchor="middle" font-family="${font}" font-size="19" font-weight="700" fill="${labelFill}">${xmlEscape(item.label)}</text>`;
   }).join("");
   return `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${title} learning progress">
   <rect width="${width}" height="${height}" rx="14" fill="#FFFFFF"/>
@@ -305,7 +307,7 @@ async function stepperImage(page, state, config) {
   const kind = page.kind === "learning" ? "learning" : "main";
   const items = kind === "learning" ? learningItems : mainItems;
   const svg = kind === "learning" ? learningStepperSvg(items, config) : mainStepperSvg(items, config);
-  const filename = `${kind}-${stateSlug(items)}.svg`;
+  const filename = `${kind}-${progressSvgVersion}-${stateSlug(items)}.svg`;
   const outputPath = path.join(progressAssetDir, filename);
   try {
     await mkdir(progressAssetDir, { recursive: true });
