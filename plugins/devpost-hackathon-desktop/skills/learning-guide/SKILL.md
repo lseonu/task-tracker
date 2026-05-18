@@ -10,9 +10,11 @@ Read `../PLUGIN_RUNTIME.md` before running any composer, renderer, or scanner co
 
 This guide adapts the Devpost learning curriculum for the Codex hackathon plugin.
 
-The path is nested inside Step 3: Resources and uses Codex commands:
+The path is nested inside Step 3: Resources and uses six learning commands:
 
-`$learning-onboard -> $learning-scope -> $learning-prd -> $learning-spec -> $learning-checklist -> $learning-build -> $prepare-submission`
+`$learning-onboard -> $learning-scope -> $learning-prd -> $learning-spec -> $learning-checklist -> $learning-build`
+
+After `$learning-build`, return to the main flow with `$prepare-submission`.
 
 ## Core Rules
 

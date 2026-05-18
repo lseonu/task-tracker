@@ -196,7 +196,7 @@ In a fresh Codex Desktop chat with the Desktop plugin installed, from an empty t
 7. Confirm the inline response explains the normal path and optional learning path.
 8. Run `$learning-onboard` only if testing the optional learning path.
 9. Continue through `$learning-scope`, `$learning-prd`, `$learning-spec`, `$learning-checklist`, and `$learning-build`.
-10. Return to `$prepare-submission`.
+10. Then run `$prepare-submission`.
 11. Run `$submission-check`.
 12. Confirm the security scan renders clearly.
 

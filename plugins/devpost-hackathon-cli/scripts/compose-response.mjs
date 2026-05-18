@@ -27,8 +27,7 @@ const learningSteps = [
   { id: "prd", page: "learning-prd", key: "prd", label: "PRD", headline: "Write the product requirements", nextAction: "After the PRD is saved, run $learning-spec." },
   { id: "spec", page: "learning-spec", key: "spec", label: "Spec", headline: "Plan the implementation", nextAction: "After the spec is saved, run $learning-checklist." },
   { id: "checklist", page: "learning-checklist", key: "checklist", label: "Checklist", headline: "Break the build into tasks", nextAction: "After the checklist is saved, run $learning-build." },
-  { id: "build", page: "learning-build", key: "build", label: "Build", headline: "Build with Codex", nextAction: "Continue $learning-build until the checklist is complete, then run $prepare-submission." },
-  { id: "return", page: "prepare-submission", key: "return", label: "Submit", headline: "Return to submission prep", nextAction: "Run $prepare-submission." }
+  { id: "build", page: "learning-build", key: "build", label: "Build", headline: "Build with Codex", nextAction: "Continue $learning-build until the checklist is complete, then run $prepare-submission." }
 ];
 
 const mainByKey = new Map(mainSteps.flatMap((step) => [[step.key, step], [step.id, step]]));
@@ -130,17 +129,16 @@ function mainStepState(step, activeStep, state) {
     if (mainSteps.indexOf(step) < mainSteps.indexOf(activeStep)) return "done";
     return "todo";
   }
-  if ((state.completed_stages || []).includes(step.id)) return "done";
   if (step.id === activeStep.id) return "current";
+  if ((state.completed_stages || []).includes(step.id)) return "done";
   if ((step.id === "prepare-submission" || step.id === "submission-check") && state.rules_acknowledged !== true) return "blocked";
   return "todo";
 }
 
 function learningStepState(step, activeLearning, state) {
   const completed = new Set(state.learning?.completed_steps || []);
-  if (completed.has(step.id)) return "done";
   if (step.id === activeLearning?.id || step.id === state.learning?.current_step) return "current";
-  if (step.id === "return" && state.learning?.status === "completed") return "current";
+  if (completed.has(step.id)) return "done";
   return "todo";
 }
 

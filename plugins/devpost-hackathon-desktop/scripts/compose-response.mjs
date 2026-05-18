@@ -30,8 +30,7 @@ const learningSteps = [
   { id: "prd", page: "learning-prd", key: "prd", label: "PRD", headline: "Write the product requirements", nextAction: "After the PRD is saved, run $learning-spec." },
   { id: "spec", page: "learning-spec", key: "spec", label: "Spec", headline: "Plan the implementation", nextAction: "After the spec is saved, run $learning-checklist." },
   { id: "checklist", page: "learning-checklist", key: "checklist", label: "Checklist", headline: "Break the build into tasks", nextAction: "After the checklist is saved, run $learning-build." },
-  { id: "build", page: "learning-build", key: "build", label: "Build", headline: "Build with Codex", nextAction: "Continue $learning-build until the checklist is complete, then run $prepare-submission." },
-  { id: "return", page: "prepare-submission", key: "return", label: "Submit", headline: "Return to submission prep", nextAction: "Run $prepare-submission." }
+  { id: "build", page: "learning-build", key: "build", label: "Build", headline: "Build with Codex", nextAction: "Continue $learning-build until the checklist is complete, then run $prepare-submission." }
 ];
 
 const mainByKey = new Map(mainSteps.flatMap((step) => [[step.key, step], [step.id, step]]));
@@ -133,17 +132,16 @@ function mainStepState(step, activeStep, state) {
     if (mainSteps.indexOf(step) < mainSteps.indexOf(activeStep)) return "done";
     return "todo";
   }
-  if ((state.completed_stages || []).includes(step.id)) return "done";
   if (step.id === activeStep.id) return "current";
+  if ((state.completed_stages || []).includes(step.id)) return "done";
   if ((step.id === "prepare-submission" || step.id === "submission-check") && state.rules_acknowledged !== true) return "blocked";
   return "todo";
 }
 
 function learningStepState(step, activeLearning, state) {
   const completed = new Set(state.learning?.completed_steps || []);
-  if (completed.has(step.id)) return "done";
   if (step.id === activeLearning?.id || step.id === state.learning?.current_step) return "current";
-  if (step.id === "return" && state.learning?.status === "completed") return "current";
+  if (completed.has(step.id)) return "done";
   return "todo";
 }
 
@@ -197,7 +195,6 @@ function xmlEscape(value = "") {
 function visualState(item) {
   if (item.state === "done") return "complete";
   if (item.state === "current") return "current";
-  if (item.state === "blocked") return "blocked";
   return "todo";
 }
 
@@ -239,11 +236,11 @@ function mainStepperSvg(items, config) {
         ? `${left},${y} ${right},${y} ${chevronTip},${y + stepHeight / 2} ${right},${y + stepHeight} ${left},${y + stepHeight}`
         : `${left},${y} ${right},${y} ${chevronTip},${y + stepHeight / 2} ${right},${y + stepHeight} ${left},${y + stepHeight} ${left + arrow},${y + stepHeight / 2}`;
     const state = visualState(item);
-    const fill = state === "current" ? "#D9E7FF" : state === "blocked" ? "#F1F1F1" : "#FFFFFF";
+    const fill = state === "current" ? "#D9E7FF" : "#FFFFFF";
     const iconFill = "#FFFFFF";
-    const iconStroke = state === "blocked" ? "#B8B8B8" : "#8C8C8C";
-    const primary = state === "blocked" ? "#5F5F5F" : "#2C2C2C";
-    const secondary = state === "blocked" ? "#757575" : "#7A7A7A";
+    const iconStroke = "#8C8C8C";
+    const primary = "#2C2C2C";
+    const secondary = "#7A7A7A";
     const iconCenterX = leftInset + 38;
     const iconCenterY = y + 39;
     const icon = state === "complete" ? checkBadgeSvg(iconCenterX, iconCenterY, 36) : `<circle cx="${iconCenterX}" cy="${iconCenterY}" r="17" fill="${iconFill}" stroke="${iconStroke}" stroke-width="2"/>`;
@@ -275,7 +272,7 @@ function learningStepperSvg(items, config) {
   const height = 270;
   const centerY = 128;
   const startX = 160;
-  const gap = 146;
+  const gap = items.length > 1 ? (width - startX * 2) / (items.length - 1) : 0;
   const font = "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
   const title = xmlEscape(config.event?.name || "Hackathon");
   const activeIndex = Math.max(0, items.findIndex((item) => item.state === "current"));

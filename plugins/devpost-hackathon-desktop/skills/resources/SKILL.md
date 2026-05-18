@@ -42,7 +42,7 @@ The optional learning path is command-driven, not clickable routing in a side pa
 
 Visible learning sequence:
 
-`Ideate -> Scope -> PRD -> Spec -> Checklist -> Build -> Return`
+`Ideate -> Scope -> PRD -> Spec -> Checklist -> Build`
 
 Command sequence:
 
