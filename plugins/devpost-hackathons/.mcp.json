@@ -1,0 +1,10 @@
+{
+  "mcp_servers": {
+    "devpost": {
+      "url": "https://devpost.com/mcp",
+      "scopes": ["mcp:read", "mcp:write"],
+      "oauth_resource": "https://devpost.com/mcp",
+      "required": false
+    }
+  }
+}

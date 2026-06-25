@@ -1,11 +1,10 @@
-# Devpost Hackathon Plugin Prototypes
+# Devpost Hackathon Plugin Prototype
 
-Prototype Codex plugins for guiding participants through a Devpost hackathon flow. This repo intentionally contains two separate installable plugin packages:
+Prototype Codex plugin for guiding participants through a Devpost hackathon flow. This repo contains one installable plugin package:
 
-- `plugins/devpost-hackathon-desktop`: Codex Desktop version with inline progress visuals.
-- `plugins/devpost-hackathon-cli`: Codex CLI version with terminal-native text progress.
+- `plugins/devpost-hackathons`: a text-first plugin that renders a rich multi-line text "dashboard" in any Codex host. On hosts that can render them (Codex Desktop / ChatGPT), rich inline visuals come from the bundled Devpost MCP server (server `devpost` at `https://devpost.com/mcp`) and its stepper widget; the CLI and other non-widget hosts always show the text dashboard.
 
-The duplication is deliberate for this early prototype. It keeps each surface easy to inspect, demo, and discard while OpenAI and Devpost decide what they want the final hackathon experience to be.
+The single text-first package keeps the surface easy to inspect, demo, and evolve while OpenAI and Devpost decide what they want the final hackathon experience to be.
 
 Devpost team handoff: start with [`docs/devpost-team-onboarding.md`](docs/devpost-team-onboarding.md) for configuration, copy editing, banner assets, plugin installation, QA, and the required first participant command, `$start-hackathon`.
 
@@ -14,13 +13,12 @@ Devpost team handoff: start with [`docs/devpost-team-onboarding.md`](docs/devpos
 This is a Monday prototype, not final production packaging. The following items are intentionally still open:
 
 - Final Devpost event URL, dates, rules, eligibility, and judging copy need the official event source of truth.
-- Desktop progress SVGs are generated from workflow state at compose time, but they still need human QA in Codex Desktop.
+- The bundled Devpost MCP stepper widget still needs human QA on Codex Desktop / ChatGPT.
 - The repo marketplace needs one real install smoke test in Codex Desktop and one in Codex CLI before team-wide handoff.
-- Future Devpost MCP/auth behavior is documented as a later integration, not implemented in this V1 prototype.
 
 ## Installable Packages
 
-The repository root is a marketplace/prototype workspace, not the plugin itself. Install one of the plugin folders through the repo marketplace:
+The repository root is a marketplace/prototype workspace, not the plugin itself. Install the plugin folder through the repo marketplace:
 
 ```text
 .agents/plugins/marketplace.json
@@ -28,27 +26,25 @@ The repository root is a marketplace/prototype workspace, not the plugin itself.
 
 That marketplace exposes:
 
-- `devpost-hackathon-desktop`
-- `devpost-hackathon-cli`
+- `devpost-hackathons`
 
-During local development, update the plugin folder you are testing and refresh/restart Codex so the installed cache sees the new files.
+During local development, update the plugin folder and refresh/restart Codex so the installed cache sees the new files.
 
 ## Live Content Wiring
 
 The `content/` folders are live runtime inputs, not vestigial files.
 
-Each package has its own `scripts/compose-response.mjs`. The composer reads package-local `config/hackathon.json`, resolves the relevant Markdown path from `config.content`, reads that Markdown file, strips maintainer-only HTML comments, interpolates `[Hackathon name]` and `{{event.name}}`, then inserts the result into the chat response.
+The package has `scripts/compose-response.mjs`. The composer reads `config/hackathon.json`, resolves the relevant Markdown path from `config.content`, reads that Markdown file, strips maintainer-only HTML comments, interpolates `[Hackathon name]` and `{{event.name}}`, then inserts the result into the chat response.
 
 The skill files call the composer after doing behavior work such as state updates, gates, scans, and file creation. Skills should define SOP and command behavior; participant-facing step copy should usually live in `content/`.
 
 ## Event Configuration
 
-Each plugin package should avoid hardcoding event-specific details in skills or generated response output.
+The plugin package should avoid hardcoding event-specific details in skills or generated response output.
 
-Each package has its own `config/hackathon.json` for lightweight event configuration. Because the Desktop and CLI packages are intentionally separate, update both config files unless you are testing only one surface:
+The package has `config/hackathon.json` for lightweight event configuration:
 
-- `plugins/devpost-hackathon-desktop/config/hackathon.json`
-- `plugins/devpost-hackathon-cli/config/hackathon.json`
+- `plugins/devpost-hackathons/config/hackathon.json`
 
 Editable config fields:
 
@@ -65,8 +61,6 @@ Editable config fields:
 | `assets.logo_light` | Design | Logo path for light backgrounds. |
 | `assets.logo_dark` | Design | Logo path for dark backgrounds. |
 | `assets.event_banner` | Design/product | Optional banner path if the team decides to use banner art. |
-| `assets.progress_images_enabled` | Design/product | Desktop only. Set `false` to remove inline progress SVGs and use text fallback. |
-| `assets.progress_image_format` | Design/engineering | Desktop only. Documents that generated progress images are SVG. |
 | `content.start` | Product/editorial | Path for `$start-hackathon` copy. Usually leave path stable and edit the Markdown file. |
 | `content.rules` | Product/legal/event | Path for `$review-rules` page copy. |
 | `content.resources` | Product/curriculum | Path for `$resources` page copy. |
@@ -89,7 +83,7 @@ Keep config small. It is a V1 fallback configuration surface, not the final sour
 
 Longer step copy should live in Markdown files, not JSON strings.
 
-Each plugin package has duplicated content files:
+The plugin package has these content files:
 
 - `content/steps/start.md`
 - `content/steps/rules.md`
@@ -107,30 +101,28 @@ Optional learning-path content lives in:
 - `content/learning/checklist.md`
 - `content/learning/build.md`
 
-For V1, treat these as rich text only. The Desktop plugin generates inline progress SVGs from workflow state; the CLI plugin keeps progress text-only.
+For V1, treat these as rich text only. The plugin renders a text-first dashboard everywhere; rich inline visuals come from the bundled Devpost MCP stepper widget on capable hosts.
 
-These Markdown files are the main product-editable participant copy. Update both package copies unless the Desktop and CLI versions intentionally diverge.
+These Markdown files are the main product-editable participant copy.
 
-| Command | Desktop source | CLI source |
-| --- | --- | --- |
-| `$start-hackathon` | `plugins/devpost-hackathon-desktop/content/steps/start.md` | `plugins/devpost-hackathon-cli/content/steps/start.md` |
-| `$review-rules` | `plugins/devpost-hackathon-desktop/content/steps/rules.md` | `plugins/devpost-hackathon-cli/content/steps/rules.md` |
-| `$resources` | `plugins/devpost-hackathon-desktop/content/steps/resources.md` | `plugins/devpost-hackathon-cli/content/steps/resources.md` |
-| `$prepare-submission` | `plugins/devpost-hackathon-desktop/content/steps/prepare.md` | `plugins/devpost-hackathon-cli/content/steps/prepare.md` |
-| `$submission-check` | `plugins/devpost-hackathon-desktop/content/steps/check.md` | `plugins/devpost-hackathon-cli/content/steps/check.md` |
-| `$hackathon-map` | `plugins/devpost-hackathon-desktop/content/steps/map.md` | `plugins/devpost-hackathon-cli/content/steps/map.md` |
-| `$learning-onboard` | `plugins/devpost-hackathon-desktop/content/learning/onboard.md` | `plugins/devpost-hackathon-cli/content/learning/onboard.md` |
-| `$learning-scope` | `plugins/devpost-hackathon-desktop/content/learning/scope.md` | `plugins/devpost-hackathon-cli/content/learning/scope.md` |
-| `$learning-prd` | `plugins/devpost-hackathon-desktop/content/learning/prd.md` | `plugins/devpost-hackathon-cli/content/learning/prd.md` |
-| `$learning-spec` | `plugins/devpost-hackathon-desktop/content/learning/spec.md` | `plugins/devpost-hackathon-cli/content/learning/spec.md` |
-| `$learning-checklist` | `plugins/devpost-hackathon-desktop/content/learning/checklist.md` | `plugins/devpost-hackathon-cli/content/learning/checklist.md` |
-| `$learning-build` | `plugins/devpost-hackathon-desktop/content/learning/build.md` | `plugins/devpost-hackathon-cli/content/learning/build.md` |
+| Command | Source |
+| --- | --- |
+| `$start-hackathon` | `plugins/devpost-hackathons/content/steps/start.md` |
+| `$review-rules` | `plugins/devpost-hackathons/content/steps/rules.md` |
+| `$resources` | `plugins/devpost-hackathons/content/steps/resources.md` |
+| `$prepare-submission` | `plugins/devpost-hackathons/content/steps/prepare.md` |
+| `$submission-check` | `plugins/devpost-hackathons/content/steps/check.md` |
+| `$hackathon-map` | `plugins/devpost-hackathons/content/steps/map.md` |
+| `$learning-onboard` | `plugins/devpost-hackathons/content/learning/onboard.md` |
+| `$learning-scope` | `plugins/devpost-hackathons/content/learning/scope.md` |
+| `$learning-prd` | `plugins/devpost-hackathons/content/learning/prd.md` |
+| `$learning-spec` | `plugins/devpost-hackathons/content/learning/spec.md` |
+| `$learning-checklist` | `plugins/devpost-hackathons/content/learning/checklist.md` |
+| `$learning-build` | `plugins/devpost-hackathons/content/learning/build.md` |
 
 ## Reference And Template Content
 
 Some editable hackathon SOP content lives under `skills/**/references/` and `skills/**/templates/`. These files are not rendered as the main step page by the composer, but skill instructions read them when answering questions, creating local docs, or reviewing submissions.
-
-Edit both package copies unless the surfaces intentionally diverge:
 
 | Source file | Owner | Purpose |
 | --- | --- | --- |
@@ -167,37 +159,27 @@ The bundled Devpost logo files live in `assets/logos/`:
 
 The event banner slot is configured at `assets.event_banner`. V1 includes `assets/banners/event-banner-placeholder.svg`; replace it with final hackathon banner art only if the team decides to use a banner in chat.
 
-Desktop progress visuals are generated SVG files, not hand-managed per-step exports. The composer reads the participant's current progress state, writes an opaque-background SVG under `.openai-codex-hackathon/progress/`, and references that SVG at the top of the response. This keeps the visual readable in both light and dark Codex themes.
-
-To remove all Desktop images without changing code, set `assets.progress_images_enabled` to `false` in `plugins/devpost-hackathon-desktop/config/hackathon.json`. The Desktop composer will then use text progress, matching the CLI-style fallback.
+Rich inline progress visuals come from the bundled Devpost MCP stepper widget on hosts that can render it (Codex Desktop / ChatGPT). On the CLI and other non-widget hosts, the composer always renders the text dashboard, which stays readable in both light and dark Codex themes.
 
 ## Composing Chat Responses
 
-Chat is the primary participant surface. Each package has its own response composer.
-
-Desktop:
+Chat is the primary participant surface. The package has one response composer.
 
 ```bash
-node plugins/devpost-hackathon-desktop/scripts/compose-response.mjs --page resources
+node plugins/devpost-hackathons/scripts/compose-response.mjs --page resources
 ```
 
-CLI:
+The composer reads:
 
-```bash
-node plugins/devpost-hackathon-cli/scripts/compose-response.mjs --page resources
-```
-
-The package-local composer reads:
-
-- package-local `config/hackathon.json`
+- `config/hackathon.json`
 - `.openai-codex-hackathon-state.json` when present
-- package-local `content/steps/*.md`
-- package-local `content/learning/*.md`
+- `content/steps/*.md`
+- `content/learning/*.md`
 - `.openai-codex-hackathon/submission-security-scan.json` when present for final checks
 
-The Desktop composer generates progress SVGs with absolute local image paths when `assets.progress_images_enabled` is true. The CLI composer emits no image Markdown.
+The composer always emits the text dashboard and never emits image Markdown; rich inline visuals are supplied by the bundled Devpost MCP stepper widget on capable hosts.
 
-Event, product, and design owners can revise copy in each package's `content/steps/` or `content/learning/` without editing the composer or skill files. The Markdown files include maintainer-only comments with their source paths; participant responses should not display copy-editing instructions.
+Event, product, and design owners can revise copy in the package's `content/steps/` or `content/learning/` without editing the composer or skill files. The Markdown files include maintainer-only comments with their source paths; participant responses should not display copy-editing instructions.
 
 ## Optional Learning Path
 
@@ -214,13 +196,13 @@ V1 command sequence:
 
 These commands should create durable local documents under `docs/hackathon-learning/` and keep `.openai-codex-hackathon-state.json` small by storing only progress, file paths, and confirmed project metadata.
 
-## Future Devpost MCP
+## Devpost MCP
 
-The future Devpost MCP should become the source of truth for event, registration, team, and submission data when available.
+The Devpost MCP is now bundled with this plugin. A plugin-root `.mcp.json` declares the remote `devpost` server at `https://devpost.com/mcp`, referenced by `"mcpServers": "./.mcp.json"` in `.codex-plugin/plugin.json`. It is the source of truth for official event data and supplies the inline stepper widget on capable hosts.
 
-Until then, `config/hackathon.json` plus the Markdown content files provide a lightweight, forkable setup for a specific hackathon.
+`config/hackathon.json` plus the Markdown content files remain the lightweight, forkable local fallback for a specific hackathon when the MCP server is unavailable.
 
-See [`docs/future-devpost-mcp.md`](docs/future-devpost-mcp.md) for the current integration notes, OpenAI documentation links, likely read-only tool shape, auth/state guidance, and migration plan. V1 intentionally does not add `.mcp.json` or `mcpServers` until the Devpost MCP server and auth model are known.
+See [`docs/future-devpost-mcp.md`](docs/future-devpost-mcp.md) for the wiring, tool names, and auth model (OAuth via discovery; public read tools need no auth).
 
 ## Devpost Team Handoff
 

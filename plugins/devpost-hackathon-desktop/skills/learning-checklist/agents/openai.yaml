@@ -1,4 +1,0 @@
-interface:
-  display_name: "Guided Learning: Checklist"
-  short_description: "Break the spec into buildable tasks"
-  default_prompt: "Use $learning-checklist to create a sequenced build checklist."

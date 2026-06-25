@@ -1,4 +1,0 @@
-interface:
-  display_name: "Prepare Submission"
-  short_description: "Draft submission copy and required assets"
-  default_prompt: "Use $prepare-submission to draft my Devpost submission materials from this project."

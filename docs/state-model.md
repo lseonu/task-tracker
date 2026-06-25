@@ -11,9 +11,9 @@ It should stay small, human-readable, and easy to compose participant-facing res
 - Store only participant/workflow state that helps the next skill compose the right response or make the right recommendation.
 - Keep rendered output history out of state.
 - Keep design-system values in config/assets, not participant state.
-- Do not store Desktop/CLI capability guesses. The installed plugin package decides presentation.
+- Do not store host capability guesses. The plugin is text-first; presentation richness is supplied by the bundled MCP widget on capable hosts.
 - Store light personalization when it makes screens feel specific.
-- Treat future Devpost MCP/auth details as out of scope until the MCP integration exists.
+- Cache only small derived values from the bundled Devpost MCP; keep tokens and full payloads out of state.
 
 ## V1 Shape
 
@@ -100,17 +100,13 @@ Only store file paths for durable local outputs such as a plan or checklist. Do 
 
 Do not store presentation mode in state.
 
-This repo ships two installable plugin packages:
+This repo ships one installable plugin package:
 
-- `devpost-hackathon-desktop`
-- `devpost-hackathon-cli`
+- `devpost-hackathons`
 
-Both packages read and write the same workflow state shape. The package controls presentation:
+It is text-first: the composer always renders the text dashboard from this state shape on every host. Presentation richness is not controlled by the package — rich inline visuals come from the bundled Devpost MCP stepper widget on capable hosts (Codex Desktop / ChatGPT), while the CLI and other non-widget hosts show the text dashboard.
 
-- Desktop may generate progress SVGs from state and reference them in chat.
-- CLI emits text progress only.
-
-If a participant switches between Desktop and CLI while working in the same project folder, the same `.openai-codex-hackathon-state.json` should continue to work.
+If a participant switches between Codex Desktop and Codex CLI while working in the same project folder, the same `.openai-codex-hackathon-state.json` should continue to work.
 
 ## Legacy Fields
 

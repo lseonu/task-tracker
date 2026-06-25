@@ -1,4 +1,0 @@
-interface:
-  display_name: "Hackathon Resources"
-  short_description: "Show build resources and anti-pattern guidance"
-  default_prompt: "Use $resources to show the OpenAI Codex Hackathon resources and anti-pattern guidance."

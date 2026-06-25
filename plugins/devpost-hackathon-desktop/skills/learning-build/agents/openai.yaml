@@ -1,4 +1,0 @@
-interface:
-  display_name: "Guided Learning: Build"
-  short_description: "Build from the guided checklist"
-  default_prompt: "Use $learning-build to execute the next guided build task."

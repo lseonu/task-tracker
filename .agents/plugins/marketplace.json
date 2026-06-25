@@ -2,26 +2,14 @@
   "name": "devpost-hackathon-prototypes",
   "interface": {
     "displayName": "Devpost Hackathon Prototypes",
-    "description": "Early Devpost hackathon plugin prototypes for Codex Desktop and Codex CLI."
+    "description": "Early Devpost hackathon plugin prototype for Codex (terminal and desktop)."
   },
   "plugins": [
     {
-      "name": "devpost-hackathon-desktop",
+      "name": "devpost-hackathons",
       "source": {
         "source": "local",
-        "path": "./plugins/devpost-hackathon-desktop"
-      },
-      "category": "Developer Tools",
-      "policy": {
-        "installation": "AVAILABLE",
-        "authentication": "ON_INSTALL"
-      }
-    },
-    {
-      "name": "devpost-hackathon-cli",
-      "source": {
-        "source": "local",
-        "path": "./plugins/devpost-hackathon-cli"
+        "path": "./plugins/devpost-hackathons"
       },
       "category": "Developer Tools",
       "policy": {
