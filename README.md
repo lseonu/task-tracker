@@ -67,12 +67,12 @@ Editable config fields:
 | `content.prepare` | Product/editorial | Path for `$prepare-submission` page copy. |
 | `content.check` | Product/editorial | Path for `$submission-check` page copy. |
 | `content.map` | Product/editorial | Path for `$hackathon-map` page copy. |
-| `content.learning.onboard` | Curriculum/product | Path for `$learning-onboard` copy. |
-| `content.learning.scope` | Curriculum/product | Path for `$learning-scope` copy. |
-| `content.learning.prd` | Curriculum/product | Path for `$learning-prd` copy. |
-| `content.learning.spec` | Curriculum/product | Path for `$learning-spec` copy. |
-| `content.learning.checklist` | Curriculum/product | Path for `$learning-checklist` copy. |
-| `content.learning.build` | Curriculum/product | Path for `$learning-build` copy. |
+| `content.learning.onboard` | Curriculum/product | Path for `$build-onboard` copy. |
+| `content.learning.scope` | Curriculum/product | Path for `$build-scope` copy. |
+| `content.learning.prd` | Curriculum/product | Path for `$build-prd` copy. |
+| `content.learning.spec` | Curriculum/product | Path for `$build-spec` copy. |
+| `content.learning.checklist` | Curriculum/product | Path for `$build-checklist` copy. |
+| `content.learning.build` | Curriculum/product | Path for `$build-project` copy. |
 | `submission_requirements[]` | Product/legal/event | Short fallback submission requirements used by skills and final review. |
 | `notes.configuration_owner` | Internal maintainers | Internal note for who should own event configuration. |
 | `notes.mcp_future` | Internal maintainers | Internal note about future Devpost MCP ownership. |
@@ -113,12 +113,12 @@ These Markdown files are the main product-editable participant copy.
 | `$prepare-submission` | `plugins/devpost-hackathons/content/steps/prepare.md` |
 | `$submission-check` | `plugins/devpost-hackathons/content/steps/check.md` |
 | `$hackathon-map` | `plugins/devpost-hackathons/content/steps/map.md` |
-| `$learning-onboard` | `plugins/devpost-hackathons/content/learning/onboard.md` |
-| `$learning-scope` | `plugins/devpost-hackathons/content/learning/scope.md` |
-| `$learning-prd` | `plugins/devpost-hackathons/content/learning/prd.md` |
-| `$learning-spec` | `plugins/devpost-hackathons/content/learning/spec.md` |
-| `$learning-checklist` | `plugins/devpost-hackathons/content/learning/checklist.md` |
-| `$learning-build` | `plugins/devpost-hackathons/content/learning/build.md` |
+| `$build-onboard` | `plugins/devpost-hackathons/content/learning/onboard.md` |
+| `$build-scope` | `plugins/devpost-hackathons/content/learning/scope.md` |
+| `$build-prd` | `plugins/devpost-hackathons/content/learning/prd.md` |
+| `$build-spec` | `plugins/devpost-hackathons/content/learning/spec.md` |
+| `$build-checklist` | `plugins/devpost-hackathons/content/learning/checklist.md` |
+| `$build-project` | `plugins/devpost-hackathons/content/learning/build.md` |
 
 ## Reference And Template Content
 
@@ -131,11 +131,11 @@ Some editable hackathon SOP content lives under `skills/**/references/` and `ski
 | `skills/resources/references/anti-patterns.md` | Product/curriculum | Project anti-pattern guidance used by the resources step. |
 | `skills/prepare-submission/references/submission-template.md` | Product/editorial | Outline used to create or update `devpost-submission.md`. |
 | `skills/submission-check/references/preflight-checklist.md` | Product/event/engineering | Final readiness checklist used before Devpost handoff. |
-| `skills/learning-guide/templates/learner-profile-template.md` | Curriculum/product | Template for guided-learning onboarding notes. |
-| `skills/learning-guide/templates/scope-template.md` | Curriculum/product | Template for guided-learning scope docs. |
-| `skills/learning-guide/templates/prd-template.md` | Curriculum/product | Template for guided-learning PRDs. |
-| `skills/learning-guide/templates/spec-template.md` | Curriculum/engineering | Template for guided-learning technical specs. |
-| `skills/learning-guide/templates/checklist-template.md` | Curriculum/engineering | Template for guided-learning build checklists. |
+| `skills/build-guide/templates/learner-profile-template.md` | Curriculum/product | Template for guided-learning onboarding notes. |
+| `skills/build-guide/templates/scope-template.md` | Curriculum/product | Template for guided-learning scope docs. |
+| `skills/build-guide/templates/prd-template.md` | Curriculum/product | Template for guided-learning PRDs. |
+| `skills/build-guide/templates/spec-template.md` | Curriculum/engineering | Template for guided-learning technical specs. |
+| `skills/build-guide/templates/checklist-template.md` | Curriculum/engineering | Template for guided-learning build checklists. |
 
 ## Marketplace And Plugin Metadata
 
@@ -181,20 +181,20 @@ The composer always emits the text dashboard and never emits image Markdown; ric
 
 Event, product, and design owners can revise copy in the package's `content/steps/` or `content/learning/` without editing the composer or skill files. The Markdown files include maintainer-only comments with their source paths; participant responses should not display copy-editing instructions.
 
-## Optional Learning Path
+## Optional Guided Build Tool
 
-The optional learning path stays nested inside Step 3: Resources. It is command-driven, not clickable routing inside a separate screen.
+The optional guided build tool stays nested inside Step 3: Resources. It is command-driven, not clickable routing inside a separate screen.
 
 V1 command sequence:
 
-- `$learning-onboard`
-- `$learning-scope`
-- `$learning-prd`
-- `$learning-spec`
-- `$learning-checklist`
-- `$learning-build`
+- `$build-onboard`
+- `$build-scope`
+- `$build-prd`
+- `$build-spec`
+- `$build-checklist`
+- `$build-project`
 
-These commands should create durable local documents under `docs/hackathon-learning/` and keep `.openai-codex-hackathon-state.json` small by storing only progress, file paths, and confirmed project metadata.
+These commands should create durable local documents under `docs/hackathon-build/` and keep `.openai-codex-hackathon-state.json` small by storing only progress, file paths, and confirmed project metadata.
 
 ## Devpost MCP
 

@@ -24,14 +24,14 @@ The main flow is:
 4. `$prepare-submission`
 5. `$submission-check`
 
-The optional learning path starts from Step 3 and stays nested inside Resources:
+The optional guided build tool starts from Step 3 and stays nested inside Resources:
 
-1. `$learning-onboard`
-2. `$learning-scope`
-3. `$learning-prd`
-4. `$learning-spec`
-5. `$learning-checklist`
-6. `$learning-build`
+1. `$build-onboard`
+2. `$build-scope`
+3. `$build-prd`
+4. `$build-spec`
+5. `$build-checklist`
+6. `$build-project`
 
 Use `$hackathon-map` anytime to show the current state and recommended next command.
 
@@ -108,16 +108,16 @@ Top-level sequence copy:
 | `$submission-check` | `check` | `content/steps/check.md` |
 | `$hackathon-map` | `map` | `content/steps/map.md` |
 
-Optional learning path copy:
+Optional guided build tool copy:
 
 | Command | Composer page | Markdown source |
 | --- | --- | --- |
-| `$learning-onboard` | `learning-onboard` | `content/learning/onboard.md` |
-| `$learning-scope` | `learning-scope` | `content/learning/scope.md` |
-| `$learning-prd` | `learning-prd` | `content/learning/prd.md` |
-| `$learning-spec` | `learning-spec` | `content/learning/spec.md` |
-| `$learning-checklist` | `learning-checklist` | `content/learning/checklist.md` |
-| `$learning-build` | `learning-build` | `content/learning/build.md` |
+| `$build-onboard` | `build-onboard` | `content/learning/onboard.md` |
+| `$build-scope` | `build-scope` | `content/learning/scope.md` |
+| `$build-prd` | `build-prd` | `content/learning/prd.md` |
+| `$build-spec` | `build-spec` | `content/learning/spec.md` |
+| `$build-checklist` | `build-checklist` | `content/learning/checklist.md` |
+| `$build-project` | `build-project` | `content/learning/build.md` |
 
 Markdown comments at the top of those files identify the source path for maintainers. Those comments do not render into participant-facing responses.
 
@@ -183,9 +183,9 @@ In a fresh Codex Desktop chat with the plugin installed, from an empty test proj
 4. Run `$review-rules`.
 5. Confirm the participant must explicitly agree before moving on.
 6. Run `$resources`.
-7. Confirm the inline response explains the normal path and optional learning path.
-8. Run `$learning-onboard` only if testing the optional learning path.
-9. Continue through `$learning-scope`, `$learning-prd`, `$learning-spec`, `$learning-checklist`, and `$learning-build`.
+7. Confirm the inline response explains the normal path and optional guided build tool.
+8. Run `$build-onboard` only if testing the optional guided build tool.
+9. Continue through `$build-scope`, `$build-prd`, `$build-spec`, `$build-checklist`, and `$build-project`.
 10. Then run `$prepare-submission`.
 11. Run `$submission-check`.
 12. Confirm the security scan renders clearly.

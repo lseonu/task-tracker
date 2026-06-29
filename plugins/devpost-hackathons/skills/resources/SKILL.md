@@ -7,7 +7,7 @@ description: Show the participant's resource hub for working through the hackath
 
 ## Purpose
 
-Update state for Step 3, compose the Resources chat response, and explain the two available paths: continue directly to submission prep or enter the optional learning path.
+Update state for Step 3, compose the Resources chat response, and explain the two available paths: continue directly to submission prep or enter the optional guided build tool.
 
 Chat is the primary participant interface. Keep responses text-first so they render in any Codex host; the bundled `devpost` MCP server supplies rich inline visuals on hosts that support them.
 
@@ -47,19 +47,23 @@ The Resources response should help the participant understand:
 - strong project archetypes
 - anti-patterns to avoid
 - the normal next step: `$prepare-submission`
-- the optional learning path nested inside Step 3
+- the optional guided build tool nested inside Step 3
 
-The optional learning path is command-driven, not clickable routing in a side pane.
+The optional guided build tool is command-driven, not clickable routing in a side pane.
 
-Visible learning sequence:
+Visible build sequence:
 
 `Ideate -> Scope -> PRD -> Spec -> Checklist -> Build`
 
 Command sequence:
 
-`$learning-onboard -> $learning-scope -> $learning-prd -> $learning-spec -> $learning-checklist -> $learning-build`
+`$build-onboard -> $build-scope -> $build-prd -> $build-spec -> $build-checklist -> $build-project`
 
 Do not render images, posters, or other media in chat.
+
+## Hackathon Resources (live, from the MCP)
+
+Render the hackathon's own resources in chat — a condensed version of the Resources tab on the hackathon's Devpost site. Call the `get_hackathon_overview` MCP tool (bundled `devpost` server, PUBLIC — needs only `hackathon.slug`) and use its `resources_text` / `resources_html` field: pull out the key links and render them as **live markdown hyperlinks**, one short line each (condense — do not dump the whole blob). If the hackathon returns no resources, fall back to `references/resource-links.md`. These chat links are the real resources.
 
 ## Presentation Output
 
@@ -80,7 +84,7 @@ After showing resources:
 - set `next_command` to `prepare-submission`
 - preserve registration and deadline fields
 
-Do not mark the optional learning path active unless the user chooses it or runs `$learning-onboard`.
+Do not mark the optional guided build tool active unless the user chooses it or runs `$build-onboard`.
 
 ## Chat Output
 
@@ -91,14 +95,14 @@ Do not hand-write a separate dashboard. Let the CLI composer render the response
 Respond with:
 
 - note that guided planning is optional and nested inside Step 3
-- one or two sentences explaining the decision between direct submission prep and the guided learning path
+- one or two sentences explaining the decision between direct submission prep and the guided build tool
 - invitation to ask questions about which path fits their project
 - recommendation: continue with `$prepare-submission` unless they want guided planning
-- guided path entry command: `$learning-onboard`
+- guided path entry command: `$build-onboard`
 
 If composer generation fails, use a compact text fallback:
 
 - current stage: Resources
 - two paths available
 - next likely command: `$prepare-submission`
-- optional learning command: `$learning-onboard`
+- optional build command: `$build-onboard`

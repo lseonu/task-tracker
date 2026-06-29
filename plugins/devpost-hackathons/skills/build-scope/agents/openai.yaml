@@ -1,0 +1,4 @@
+interface:
+  display_name: "Guided Build Tool: Scope"
+  short_description: "Shape a rough idea into a focused project scope"
+  default_prompt: "Use $build-scope to turn your idea into a focused build scope."

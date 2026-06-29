@@ -1,11 +1,11 @@
 ---
-name: learning-spec
+name: build-spec
 description: Translate the PRD into a practical technical implementation plan.
 ---
 
-# Learning Spec
+# Guided Build: Spec
 
-Read `../learning-guide/SKILL.md`, then follow this command.
+Read `../build-guide/SKILL.md`, then follow this command.
 
 This is the Codex version of the learning curriculum's spec command.
 
@@ -21,7 +21,7 @@ Read `.openai-codex-hackathon-state.json`.
 
 If the state file does not exist, direct the user to `$start-hackathon`.
 
-Read everything in `docs/hackathon-learning/`. If `scope.md` or `prd.md` is missing, direct the user to the missing prior command.
+Read everything in `docs/hackathon-build/`. If `scope.md` or `prd.md` is missing, direct the user to the missing prior command.
 
 ## Flow
 
@@ -39,12 +39,12 @@ After mandatory beats, offer a deepening round. Good spec deepening topics inclu
 
 ## Output
 
-Use `../learning-guide/templates/spec-template.md`.
+Use `../build-guide/templates/spec-template.md`.
 
 Create or update:
 
-- `docs/hackathon-learning/spec.md`
-- `docs/hackathon-learning/process-notes.md`
+- `docs/hackathon-build/spec.md`
+- `docs/hackathon-build/process-notes.md`
 
 Critical requirements:
 
@@ -59,14 +59,14 @@ Set:
 
 - `learning.current_step` to `spec`
 - add `prd` to `learning.completed_steps` if missing
-- `next_command` to `learning-checklist`
+- `next_command` to `build-checklist`
 
 ## Presentation Output
 
 Run:
 
 ```bash
-node "$HOME/.codex/plugins/cache/local-plugins/devpost-hackathons/0.1.0/scripts/compose-response.mjs" --page learning-spec
+node "$HOME/.codex/plugins/cache/local-plugins/devpost-hackathons/0.1.0/scripts/compose-response.mjs" --page build-spec
 ```
 
-Use the composer output as the participant-facing response. End by recommending `$learning-checklist`.
+Use the composer output as the participant-facing response. End by recommending `$build-checklist`.

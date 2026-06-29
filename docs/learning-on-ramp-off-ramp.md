@@ -2,7 +2,7 @@
 
 ## Purpose
 
-The optional learning path lives inside Step 3: Resources. It should help participants move from vibe coding into a more durable AI-assisted development workflow without making that learning path feel mandatory.
+The optional guided build tool lives inside Step 3: Resources. It should help participants move from vibe coding into a more durable AI-assisted development workflow without making that guided build tool feel mandatory.
 
 The core hackathon flow remains:
 
@@ -12,14 +12,14 @@ The core hackathon flow remains:
 4. Prepare
 5. Check
 
-When the learning path is active, Step 3 stays highlighted in the top-level progress UI.
+When the guided build tool is active, Step 3 stays highlighted in the top-level progress UI.
 
 ## On-Ramp
 
 The Resources step should offer two clear choices:
 
 - `I have my project idea`: run `$prepare-submission`
-- `Help me shape the project`: run `$learning-onboard`
+- `Help me shape the project`: run `$build-onboard`
 
 The on-ramp copy should make three things clear:
 
@@ -41,12 +41,12 @@ The learning sequence follows the walkthrough structure:
 
 The V1 command sequence is:
 
-- `$learning-onboard`
-- `$learning-scope`
-- `$learning-prd`
-- `$learning-spec`
-- `$learning-checklist`
-- `$learning-build`
+- `$build-onboard`
+- `$build-scope`
+- `$build-prd`
+- `$build-spec`
+- `$build-checklist`
+- `$build-project`
 
 Participants can answer by typing or by using any speech-to-text support available in their operating system or Codex environment. The skill behavior should tolerate longer dictated answers and then summarize them back before writing durable files.
 
@@ -73,7 +73,7 @@ State should only keep small pointers and confirmed project metadata:
 
 ## Off-Ramp
 
-The learning path should return the participant to Step 4: Prepare.
+The guided build tool should return the participant to Step 4: Prepare.
 
 The off-ramp artifact should summarize:
 
@@ -83,7 +83,7 @@ The off-ramp artifact should summarize:
 - what submission materials are likely missing
 - next command: `$prepare-submission`
 
-When the participant exits the learning path, update state lightly:
+When the participant exits the guided build tool, update state lightly:
 
 - set `learning.status` to `completed` or `skipped`
 - set `current_stage` to `prepare-submission` when they are ready to move on
@@ -92,10 +92,10 @@ When the participant exits the learning path, update state lightly:
 
 ## Prepare Submission Re-Offer
 
-`$prepare-submission` can re-offer the learning path if the project is vague or underspecified.
+`$prepare-submission` can re-offer the guided build tool if the project is vague or underspecified.
 
 Use a soft prompt:
 
 > Your project direction is still a little loose. You can keep drafting, or return to the optional guided path to tighten the scope before submission prep.
 
-Do not block submission prep just because the participant skipped the learning path.
+Do not block submission prep just because the participant skipped the guided build tool.

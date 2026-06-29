@@ -62,7 +62,7 @@ When state exists, compose the recovery response:
 node "$HOME/.codex/plugins/cache/local-plugins/devpost-hackathons/0.1.0/scripts/compose-response.mjs" --page map
 ```
 
-Use the composer output as the response. It should show the current top-level stage, completed stages, optional learning state, deadline status, and next command without marking anything complete.
+Use the composer output as the response. It should show the current top-level stage, completed stages, optional guided build tool state, deadline status, and next command without marking anything complete.
 
 ## Chat Output
 
@@ -89,8 +89,8 @@ Core sequence:
 
 `$start-hackathon -> $review-rules -> $resources -> $prepare-submission -> $submission-check`
 
-Optional learning sequence inside Step 3:
+Optional build sequence inside Step 3:
 
-`$learning-onboard -> $learning-scope -> $learning-prd -> $learning-spec -> $learning-checklist -> $learning-build -> $prepare-submission`
+`$build-onboard -> $build-scope -> $build-prd -> $build-spec -> $build-checklist -> $build-project -> $prepare-submission`
 
 Only show the full command map when the user asks for commands or when no state exists. Otherwise show only the next recommended command.

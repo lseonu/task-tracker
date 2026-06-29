@@ -16,18 +16,18 @@ const securityScanPath = path.join(projectRoot, ".openai-codex-hackathon/submiss
 const mainSteps = [
   { id: "start-hackathon", key: "start", label: "Start", title: "Start hackathon", headline: "Welcome to {{event.name}}", nextAction: "Register on Devpost, then run $review-rules." },
   { id: "review-rules", key: "rules", label: "Rules", title: "Review rules", headline: "Review the rules", nextAction: "Reply yes or no in chat to unlock the rest of the flow." },
-  { id: "resources", key: "resources", label: "Resources", title: "Resources", headline: "Choose your build path", nextAction: "Continue to $prepare-submission or enter guided planning with $learning-onboard." },
+  { id: "resources", key: "resources", label: "Resources", title: "Resources", headline: "Choose your build path", nextAction: "Continue to $prepare-submission or enter the guided build tool with $build-onboard." },
   { id: "prepare-submission", key: "prepare", label: "Prepare", title: "Prepare submission", headline: "Prepare your submission", nextAction: "Work through the preparation checklist, then run $submission-check." },
   { id: "submission-check", key: "check", label: "Check", title: "Submission check", headline: "Run your final check", nextAction: "If ready, complete the official submission in Devpost." }
 ];
 
 const learningSteps = [
-  { id: "onboard", page: "learning-onboard", key: "onboard", label: "Ideate", headline: "Ideate your project", nextAction: "After brainstorming, run $learning-scope." },
-  { id: "scope", page: "learning-scope", key: "scope", label: "Scope", headline: "Shape your project scope", nextAction: "After the scope is saved, run $learning-prd." },
-  { id: "prd", page: "learning-prd", key: "prd", label: "PRD", headline: "Write the product requirements", nextAction: "After the PRD is saved, run $learning-spec." },
-  { id: "spec", page: "learning-spec", key: "spec", label: "Spec", headline: "Plan the implementation", nextAction: "After the spec is saved, run $learning-checklist." },
-  { id: "checklist", page: "learning-checklist", key: "checklist", label: "Checklist", headline: "Break the build into tasks", nextAction: "After the checklist is saved, run $learning-build." },
-  { id: "build", page: "learning-build", key: "build", label: "Build", headline: "Build with Codex", nextAction: "Continue $learning-build until the checklist is complete, then run $prepare-submission." }
+  { id: "onboard", page: "build-onboard", key: "onboard", label: "Ideate", headline: "Ideate your project", nextAction: "After brainstorming, run $build-scope." },
+  { id: "scope", page: "build-scope", key: "scope", label: "Scope", headline: "Shape your project scope", nextAction: "After the scope is saved, run $build-prd." },
+  { id: "prd", page: "build-prd", key: "prd", label: "PRD", headline: "Write the product requirements", nextAction: "After the PRD is saved, run $build-spec." },
+  { id: "spec", page: "build-spec", key: "spec", label: "Spec", headline: "Plan the implementation", nextAction: "After the spec is saved, run $build-checklist." },
+  { id: "checklist", page: "build-checklist", key: "checklist", label: "Checklist", headline: "Break the build into tasks", nextAction: "After the checklist is saved, run $build-project." },
+  { id: "build", page: "build-project", key: "build", label: "Build", headline: "Build with Codex", nextAction: "Continue $build-project until the checklist is complete, then run $prepare-submission." }
 ];
 
 const mainByKey = new Map(mainSteps.flatMap((step) => [[step.key, step], [step.id, step]]));
@@ -220,7 +220,7 @@ function renderTextDashboard(page, state, config) {
     deadlineLine(state, config)
   ];
   if (page.kind === "learning" || state.learning?.status === "active") {
-    lines.push("", "Learning path", DASH_DIVIDER, ...dashboardRows(learningItems), DASH_DIVIDER);
+    lines.push("", "Guided build tool", DASH_DIVIDER, ...dashboardRows(learningItems), DASH_DIVIDER);
   }
   return lines.join("\n");
 }
@@ -238,7 +238,7 @@ function summaryLines(state, config) {
 function fallbackNextCommand(page, state) {
   if (page.kind === "learning") {
     if (page.learning.id === "build") {
-      return state.learning?.status === "completed" ? "prepare-submission" : "learning-build";
+      return state.learning?.status === "completed" ? "prepare-submission" : "build-project";
     }
     const index = learningSteps.findIndex((step) => step.id === page.learning.id);
     return learningSteps[index + 1]?.page || "prepare-submission";
@@ -295,8 +295,8 @@ function nextInstructionFor(page, state, config) {
     ].join("\n");
   }
   const lines = [`Type this next: \`$${command}\`.`];
-  if (page.kind === "main" && page.step?.id === "resources" && state.learning?.status !== "active" && command !== "learning-onboard") {
-    lines.push("Optional guided learning path: `$learning-onboard`.");
+  if (page.kind === "main" && page.step?.id === "resources" && state.learning?.status !== "active" && command !== "build-onboard") {
+    lines.push("Optional guided build tool: `$build-onboard`.");
   }
   return lines.join("\n");
 }

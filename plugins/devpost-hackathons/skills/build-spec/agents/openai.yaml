@@ -1,0 +1,4 @@
+interface:
+  display_name: "Guided Build Tool: Spec"
+  short_description: "Plan the technical implementation"
+  default_prompt: "Use $build-spec to turn the PRD into a technical plan."

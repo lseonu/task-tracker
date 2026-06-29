@@ -1,17 +1,17 @@
 ---
-name: learning-build
-description: Execute the guided learning checklist with Codex while preserving verification pauses.
+name: build-project
+description: Execute the guided build checklist with Codex while preserving verification pauses.
 ---
 
-# Learning Build
+# Guided Build: Build
 
-Read `../learning-guide/SKILL.md`, then follow this command.
+Read `../build-guide/SKILL.md`, then follow this command.
 
 This is the Codex version of the learning curriculum's build command.
 
 ## Goal
 
-Build from `docs/hackathon-learning/checklist.md` according to the selected build mode.
+Build from `docs/hackathon-build/checklist.md` according to the selected build mode.
 
 The intelligence is in the checklist and spec. Do not improvise new items or skip verification preferences.
 
@@ -21,13 +21,13 @@ Read `.openai-codex-hackathon-state.json`.
 
 If the state file does not exist, direct the user to `$start-hackathon`.
 
-Read everything in `docs/hackathon-learning/`. If `checklist.md` is missing, direct the user to `$learning-checklist`.
+Read everything in `docs/hackathon-build/`. If `checklist.md` is missing, direct the user to `$build-checklist`.
 
-If every checklist item is complete, set the learning path complete and direct the user to `$prepare-submission`.
+If every checklist item is complete, set the guided build tool complete and direct the user to `$prepare-submission`.
 
 ## Step-By-Step Mode
 
-Each `$learning-build` run handles exactly one unchecked checklist item.
+Each `$build-project` run handles exactly one unchecked checklist item.
 
 For the first unchecked item:
 
@@ -35,9 +35,9 @@ For the first unchecked item:
 2. Build only that item.
 3. Verify according to the item's `Verify` field if verification is enabled.
 4. If comprehension checks are enabled, ask one precise question about what was built.
-5. Mark the item complete in `docs/hackathon-learning/checklist.md`.
-6. Append build notes to `docs/hackathon-learning/build-notes.md`.
-7. End by telling the participant to run `$learning-build` again for the next item, or `$prepare-submission` if complete.
+5. Mark the item complete in `docs/hackathon-build/checklist.md`.
+6. Append build notes to `docs/hackathon-build/build-notes.md`.
+7. End by telling the participant to run `$build-project` again for the next item, or `$prepare-submission` if complete.
 
 ## Autonomous Mode
 
@@ -59,7 +59,7 @@ Set:
 
 - `learning.current_step` to `build`
 - add `checklist` to `learning.completed_steps` if missing
-- `next_command` to `learning-build` until the checklist is complete
+- `next_command` to `build-project` until the checklist is complete
 - when complete, add `build` to `learning.completed_steps`, set `learning.status` to `completed`, set `current_stage` to `prepare-submission`, and set `next_command` to `prepare-submission`
 
 ## Presentation Output
@@ -67,7 +67,7 @@ Set:
 Run:
 
 ```bash
-node "$HOME/.codex/plugins/cache/local-plugins/devpost-hackathons/0.1.0/scripts/compose-response.mjs" --page learning-build
+node "$HOME/.codex/plugins/cache/local-plugins/devpost-hackathons/0.1.0/scripts/compose-response.mjs" --page build-project
 ```
 
 Use the composer output as the participant-facing response. End with what changed, how it was verified, and the next command.

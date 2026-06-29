@@ -1,17 +1,17 @@
 ---
-name: learning-checklist
+name: build-checklist
 description: Break the technical spec into sequenced build tasks with verification checkpoints.
 ---
 
-# Learning Checklist
+# Guided Build: Checklist
 
-Read `../learning-guide/SKILL.md`, then follow this command.
+Read `../build-guide/SKILL.md`, then follow this command.
 
 This is the Codex version of the learning curriculum's checklist command.
 
 ## Goal
 
-Turn the spec into a sequenced, verifiable build checklist. The checklist is the contract `$learning-build` will execute.
+Turn the spec into a sequenced, verifiable build checklist. The checklist is the contract `$build-project` will execute.
 
 ## Preconditions
 
@@ -19,7 +19,7 @@ Read `.openai-codex-hackathon-state.json`.
 
 If the state file does not exist, direct the user to `$start-hackathon`.
 
-Read everything in `docs/hackathon-learning/`. If `spec.md` or `prd.md` is missing, direct the user to the missing prior command.
+Read everything in `docs/hackathon-build/`. If `spec.md` or `prd.md` is missing, direct the user to the missing prior command.
 
 ## Flow
 
@@ -47,12 +47,12 @@ After the initial checklist draft, offer a deepening round. Good checklist deepe
 
 ## Output
 
-Use `../learning-guide/templates/checklist-template.md`.
+Use `../build-guide/templates/checklist-template.md`.
 
 Create or update:
 
-- `docs/hackathon-learning/checklist.md`
-- `docs/hackathon-learning/process-notes.md`
+- `docs/hackathon-build/checklist.md`
+- `docs/hackathon-build/process-notes.md`
 
 ## State Update
 
@@ -60,15 +60,15 @@ Set:
 
 - `learning.current_step` to `checklist`
 - add `spec` to `learning.completed_steps` if missing
-- `learning.checklist_file` to `docs/hackathon-learning/checklist.md`
-- `next_command` to `learning-build`
+- `learning.checklist_file` to `docs/hackathon-build/checklist.md`
+- `next_command` to `build-project`
 
 ## Presentation Output
 
 Run:
 
 ```bash
-node "$HOME/.codex/plugins/cache/local-plugins/devpost-hackathons/0.1.0/scripts/compose-response.mjs" --page learning-checklist
+node "$HOME/.codex/plugins/cache/local-plugins/devpost-hackathons/0.1.0/scripts/compose-response.mjs" --page build-checklist
 ```
 
-Use the composer output as the participant-facing response. End by recommending `$learning-build`.
+Use the composer output as the participant-facing response. End by recommending `$build-project`.

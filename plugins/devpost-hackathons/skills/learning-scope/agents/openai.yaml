@@ -1,4 +1,0 @@
-interface:
-  display_name: "Guided Learning: Scope"
-  short_description: "Shape a rough idea into a focused project scope"
-  default_prompt: "Use $learning-scope to turn your idea into a focused build scope."

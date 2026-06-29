@@ -22,7 +22,7 @@
   "interface": {
     "displayName": "Devpost Hackathon Guide",
     "shortDescription": "A Codex hackathon guide for Devpost participants",
-    "longDescription": "Prototype Devpost hackathon plugin for Codex: orientation, rules review, resources, optional guided learning, submission drafting, and final preflight. Responses are text-first so they work in any Codex host; the bundled Devpost MCP server supplies official event data and renders rich inline visuals on hosts that support them. It intentionally stops short of direct Devpost submission while sponsor, legal, and event copy are still being finalized.",
+    "longDescription": "Prototype Devpost hackathon plugin for Codex: orientation, rules review, resources, the optional guided build tool, submission drafting, and final preflight. Responses are text-first so they work in any Codex host; the bundled Devpost MCP server supplies official event data and renders rich inline visuals on hosts that support them. It intentionally stops short of direct Devpost submission while sponsor, legal, and event copy are still being finalized.",
     "developerName": "Devpost Prototype",
     "category": "Developer Tools",
     "capabilities": [

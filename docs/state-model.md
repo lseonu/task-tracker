@@ -76,7 +76,7 @@ Do not store long generated messages, user biographies, or broad preference prof
 
 ## Learning State
 
-The optional learning path stays nested inside Step 3.
+The optional guided build tool stays nested inside Step 3.
 
 Use `learning.status` values:
 

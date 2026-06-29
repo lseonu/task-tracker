@@ -1,19 +1,19 @@
 ---
-name: learning-scope
+name: build-scope
 description: Help the participant turn a rough hackathon idea into a focused scope document.
 ---
 
-# Learning Scope
+# Guided Build: Scope
 
-Read `../learning-guide/SKILL.md`, then follow this command.
+Read `../build-guide/SKILL.md`, then follow this command.
 
 This is the Codex version of the learning curriculum's scope command.
 
 ## Goal
 
-Use flipped interaction to draw out the participant's idea, sharpen it, cut scope, and write `docs/hackathon-learning/scope.md`.
+Use flipped interaction to draw out the participant's idea, sharpen it, cut scope, and write `docs/hackathon-build/scope.md`.
 
-This is the most important context-gathering conversation in the learning path. Do not rush to the document.
+This is the most important context-gathering conversation in the guided build tool. Do not rush to the document.
 
 ## Preconditions
 
@@ -21,9 +21,9 @@ Read `.openai-codex-hackathon-state.json`.
 
 If the state file does not exist, direct the user to `$start-hackathon`.
 
-If `learning.status` is not `active`, direct the user to `$learning-onboard` first.
+If `learning.status` is not `active`, direct the user to `$build-onboard` first.
 
-Read everything in `docs/hackathon-learning/`, especially `learner-profile.md`.
+Read everything in `docs/hackathon-build/`, especially `learner-profile.md`.
 
 ## Flow
 
@@ -40,12 +40,12 @@ After mandatory beats, offer a deepening round before writing the document. Good
 
 ## Output
 
-Use `../learning-guide/templates/scope-template.md`.
+Use `../build-guide/templates/scope-template.md`.
 
 Create or update:
 
-- `docs/hackathon-learning/scope.md`
-- `docs/hackathon-learning/process-notes.md`
+- `docs/hackathon-build/scope.md`
+- `docs/hackathon-build/process-notes.md`
 
 ## State Update
 
@@ -53,16 +53,16 @@ Set:
 
 - `learning.current_step` to `scope`
 - add `onboard` to `learning.completed_steps` if missing
-- `learning.plan_file` to `docs/hackathon-learning/scope.md`
+- `learning.plan_file` to `docs/hackathon-build/scope.md`
 - confirmed `project.name` and `project.summary` if chosen
-- `next_command` to `learning-prd`
+- `next_command` to `build-prd`
 
 ## Presentation Output
 
 Run:
 
 ```bash
-node "$HOME/.codex/plugins/cache/local-plugins/devpost-hackathons/0.1.0/scripts/compose-response.mjs" --page learning-scope
+node "$HOME/.codex/plugins/cache/local-plugins/devpost-hackathons/0.1.0/scripts/compose-response.mjs" --page build-scope
 ```
 
-Use the composer output as the participant-facing response. End by recommending `$learning-prd`.
+Use the composer output as the participant-facing response. End by recommending `$build-prd`.

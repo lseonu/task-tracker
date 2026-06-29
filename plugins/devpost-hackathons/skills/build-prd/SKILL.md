@@ -1,11 +1,11 @@
 ---
-name: learning-prd
+name: build-prd
 description: Convert the scoped hackathon idea into user-facing product requirements.
 ---
 
-# Learning PRD
+# Guided Build: PRD
 
-Read `../learning-guide/SKILL.md`, then follow this command.
+Read `../build-guide/SKILL.md`, then follow this command.
 
 This is the Codex version of the learning curriculum's PRD command.
 
@@ -19,7 +19,7 @@ Read `.openai-codex-hackathon-state.json`.
 
 If the state file does not exist, direct the user to `$start-hackathon`.
 
-Read everything in `docs/hackathon-learning/`. If `scope.md` does not exist, direct the user to `$learning-scope`.
+Read everything in `docs/hackathon-build/`. If `scope.md` does not exist, direct the user to `$build-scope`.
 
 ## Flow
 
@@ -35,16 +35,16 @@ Mandatory beats:
 
 After mandatory beats, offer a deepening round. Good PRD deepening topics include feature interactions, persistence, boundary cases, the Devpost "wow moment," assumptions about user order, and polish.
 
-If the participant asks technical implementation questions, defer them warmly to `$learning-spec`.
+If the participant asks technical implementation questions, defer them warmly to `$build-spec`.
 
 ## Output
 
-Use `../learning-guide/templates/prd-template.md`.
+Use `../build-guide/templates/prd-template.md`.
 
 Create or update:
 
-- `docs/hackathon-learning/prd.md`
-- `docs/hackathon-learning/process-notes.md`
+- `docs/hackathon-build/prd.md`
+- `docs/hackathon-build/process-notes.md`
 
 The PRD should be more detailed than the scope doc.
 
@@ -54,14 +54,14 @@ Set:
 
 - `learning.current_step` to `prd`
 - add `scope` to `learning.completed_steps` if missing
-- `next_command` to `learning-spec`
+- `next_command` to `build-spec`
 
 ## Presentation Output
 
 Run:
 
 ```bash
-node "$HOME/.codex/plugins/cache/local-plugins/devpost-hackathons/0.1.0/scripts/compose-response.mjs" --page learning-prd
+node "$HOME/.codex/plugins/cache/local-plugins/devpost-hackathons/0.1.0/scripts/compose-response.mjs" --page build-prd
 ```
 
-Use the composer output as the participant-facing response. End by recommending `$learning-spec`.
+Use the composer output as the participant-facing response. End by recommending `$build-spec`.
