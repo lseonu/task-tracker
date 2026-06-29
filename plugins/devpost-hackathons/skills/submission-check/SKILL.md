@@ -96,19 +96,35 @@ Use the composer output as the participant-facing response.
 
 ## State Update
 
+Persist state changes with the `update-state.mjs` script, not by editing
+`.openai-codex-hackathon-state.json` directly. The script writes the file as a
+single shell command, so the host shows a quiet command run instead of a
+reviewable file-diff card. Only run it when state actually changes on this turn.
+
 If the project passes cleanly enough for handoff:
 
-- add `submission-check` to `completed_stages` if needed
-- set `submission.status` to `ready`
-- set `submission.browser_handoff_ready` to `true`
-- set `current_stage` to `submission-check`
-- clear `next_command` or set it to `hackathon-map`
+```bash
+node "$HOME/.codex/plugins/cache/local-plugins/devpost-hackathons/0.1.0/scripts/update-state.mjs" \
+  --add completed_stages=submission-check \
+  --set current_stage=submission-check \
+  --set submission.status=ready \
+  --set submission.browser_handoff_ready=true \
+  --set next_command=hackathon-map
+```
 
-If it does not pass:
+If it does not pass (set `next_command` to the specific command that fixes the
+top issue, e.g. `prepare-submission`):
 
-- set `submission.status` to `needs-work`
-- set `current_stage` to `submission-check`
-- set `next_command` to the specific command that should fix the issue
+```bash
+node "$HOME/.codex/plugins/cache/local-plugins/devpost-hackathons/0.1.0/scripts/update-state.mjs" \
+  --set current_stage=submission-check \
+  --set submission.status=needs-work \
+  --set next_command=prepare-submission
+```
+
+Run this update before the response composer (the composer reads the state you
+just wrote). Do not also echo the JSON or describe each field edit in chat; one
+short sentence naming the new status and next command is enough.
 
 ## Chat Output
 
