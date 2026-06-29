@@ -27,6 +27,7 @@ Use the local `references/` files for evergreen guidance (links, archetypes, ant
 Read these files before responding:
 
 - `../PLUGIN_RUNTIME.md`
+- `../../content/steps/resources.md`
 - `../../config/hackathon.json`
 - `references/resource-links.md`
 - `references/anti-patterns.md`
@@ -67,13 +68,7 @@ Render the hackathon's own resources in chat — a condensed version of the Reso
 
 ## Presentation Output
 
-After reading references and updating state, run:
-
-```bash
-node "$HOME/.codex/plugins/cache/devpost-hackathon-prototypes/devpost-hackathons/0.1.0/scripts/compose-response.mjs" --page resources
-```
-
-Use the composer output as the participant-facing response.
+Compose the response in-context per `../PLUGIN_RUNTIME.md` ("Composing the Response"): read `../../content/steps/resources.md`, strip maintainer `<!-- -->` comments, interpolate the event name, then present a short stage headline, the page content, and the next-command callout. Do not run any script.
 
 ## State Update
 

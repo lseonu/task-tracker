@@ -30,6 +30,7 @@ Quote rules, eligibility, and requirements text from the MCP response; do not pa
 Read these before responding:
 
 - `../PLUGIN_RUNTIME.md`
+- `../../content/steps/rules.md`
 - `../../config/hackathon.json`
 - `references/placeholder-rules.md`
 
@@ -79,13 +80,7 @@ Keep the response complete enough for the gate, but do not write a second ad hoc
 
 ## Presentation Output
 
-When presenting the rules gate or after recording a `yes` response, run:
-
-```bash
-node "$HOME/.codex/plugins/cache/devpost-hackathon-prototypes/devpost-hackathons/0.1.0/scripts/compose-response.mjs" --page rules
-```
-
-Use the composer output as the participant-facing response.
+Compose the response in-context per `../PLUGIN_RUNTIME.md` ("Composing the Response"): read `../../content/steps/rules.md`, strip maintainer `<!-- -->` comments, interpolate the event name, then present a short stage headline, the page content, and the next-command callout. Do not run any script.
 
 ## State Update
 

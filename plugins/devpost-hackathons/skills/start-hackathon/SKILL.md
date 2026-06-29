@@ -22,9 +22,13 @@ Once the hackathon identifier is known, call:
 
 Do not fabricate official hackathon data when the server is unavailable; fall back to the local `config/hackathon.json` and content files and say the data is provisional.
 
-## Required Reference
+## Required References
 
-Read `../PLUGIN_RUNTIME.md` and `../../config/hackathon.json` before responding.
+Read before responding:
+
+- `../PLUGIN_RUNTIME.md`
+- `../../config/hackathon.json`
+- `../../content/steps/start.md` (the page content you will present)
 
 ## Workspace Assumption
 
@@ -34,19 +38,22 @@ If the folder already contains project files, continue. This plugin is meant to 
 
 ## State Initialization
 
-Write state with the `update-state.mjs` script, not by editing
-`.openai-codex-hackathon-state.json` directly — the script writes the file as a single
-shell command, so the host shows a quiet command run instead of a reviewable file-diff
-card.
+If `.openai-codex-hackathon-state.json` does not exist in the project root, create it by
+writing this initial (slim V2) payload:
 
-If `.openai-codex-hackathon-state.json` does not exist in the project root, initialize it
-(the script creates the slim V2 state, then records the first step):
-
-```bash
-node "$HOME/.codex/plugins/cache/devpost-hackathon-prototypes/devpost-hackathons/0.1.0/scripts/update-state.mjs" \
-  --add completed_stages=start-hackathon \
-  --set current_stage=review-rules \
-  --set next_command=review-rules
+```json
+{
+  "plugin": "devpost-hackathon",
+  "version": 2,
+  "participant": { "name": "", "display_name": "" },
+  "project": { "name": "", "summary": "", "openai_usage": "", "codex_usage": "" },
+  "current_stage": "review-rules",
+  "completed_stages": ["start-hackathon"],
+  "rules_acknowledged": false,
+  "learning": { "status": "not-started", "current_step": "", "completed_steps": [], "plan_file": "", "checklist_file": "" },
+  "submission": { "draft_file": "devpost-submission.md", "status": "not-started", "browser_handoff_ready": false },
+  "next_command": "review-rules"
+}
 ```
 
 If the state file already exists, do not reinitialize and do not reset progress — load it,
@@ -63,32 +70,22 @@ If `participant.name`/`participant.display_name` and `project.summary` are empty
 
 Do not block the flow on this. The participant can continue to `$review-rules` without answering.
 
-If the participant provides those details, store them with the same script (set
-`project.name` only if they give a clear project name):
-
-```bash
-node "$HOME/.codex/plugins/cache/devpost-hackathon-prototypes/devpost-hackathons/0.1.0/scripts/update-state.mjs" \
-  --set participant.display_name="<their name>" \
-  --set project.summary="<their one-sentence idea>"
-```
-
-Then compose the Start response.
+If the participant provides those details, edit `.openai-codex-hackathon-state.json` to set
+`participant.display_name` and `project.summary` (and `project.name` only if they give a
+clear project name), preserving the rest of the file. Then compose the Start response.
 
 ## Presentation Output
 
-After creating or loading state, run:
-
-```bash
-node "$HOME/.codex/plugins/cache/devpost-hackathon-prototypes/devpost-hackathons/0.1.0/scripts/compose-response.mjs" --page start
-```
-
-Use the composer output as the participant-facing response. The composer output must remain text-only; rich visuals come from the `devpost` MCP server, not from this response.
+After creating or loading state, compose the response in-context per `../PLUGIN_RUNTIME.md`
+("Composing the Response"): read `../../content/steps/start.md`, strip maintainer `<!-- -->`
+comments, interpolate the event name, and present it as the participant-facing response.
+Render the journey stepper widget first (see PLUGIN_RUNTIME). Keep the response text-only;
+the stepper widget is the progress visual.
 
 ## Chat Output
 
-Keep chat output minimal.
-
-Do not hand-write a separate dashboard or landing experience. Let the CLI composer render the response.
+Keep chat output minimal. Do not hand-write a separate progress dashboard or landing
+experience — the stepper widget shows progress.
 
 In normal operation, respond with:
 
@@ -98,13 +95,6 @@ In normal operation, respond with:
 - the next command: `$review-rules`
 - an invitation to ask questions about how the flow works before continuing
 - the optional personalization prompt if name/project idea are missing
-
-If composer generation fails, use a compact text fallback:
-
-- current stage: Start
-- next command: `$review-rules`
-- registration reminder: Devpost registration still happens in the browser
-- one-sentence error summary
 
 ## Handoff
 

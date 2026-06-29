@@ -85,11 +85,11 @@ The optional event banner is configured here:
 }
 ```
 
-The composer always renders a text-first dashboard from workflow state:
+The model composes a text-first response in-context from workflow state:
 
-1. The composer reads the current command and `.openai-codex-hackathon-state.json`.
-2. It composes the text dashboard for the current page; it emits no image Markdown.
-3. Run `node plugins/devpost-hackathons/scripts/compose-response.mjs --page start` and one learning page to verify the composed responses still work.
+1. The model reads the current command and `.openai-codex-hackathon-state.json`.
+2. It reads the page's content file, strips maintainer-only HTML comments, interpolates event values, and writes the text response; it emits no image Markdown.
+3. To verify, run a step command (e.g. `$start-hackathon`) and one learning command and confirm the composed responses still read correctly.
 
 Rich inline visuals come from the bundled Devpost MCP stepper widget on capable hosts (Codex Desktop / ChatGPT), not from generated images.
 
@@ -127,28 +127,21 @@ For V1, keep Markdown copy to rich text only: headings, paragraphs, bullets, and
 
 Developer-owned files inside the plugin package:
 
-- `skills/*/SKILL.md`: command behavior and chat instructions.
-- `scripts/compose-response.mjs`: deterministic chat response composer.
-- `scripts/submission-security-scan.mjs`: local final-check scanner.
+- `skills/*/SKILL.md`: command behavior and chat instructions. There are no scripts: the model composes responses in-context, edits state directly, and runs the final-check secret scan as an inline `grep`.
 - `.codex-plugin/plugin.json`: plugin metadata shown by Codex.
 
 Generated or runtime files:
 
-- `.openai-codex-hackathon-state.json`: participant-local state file created in the active project.
+- `.openai-codex-hackathon-state.json`: participant-local state file in the active project, written by the model editing the JSON directly.
 - `.openai-codex-hackathon/`: participant-local support directory.
-- `.openai-codex-hackathon/submission-security-scan.json`: generated security scan result.
 
 Do not put customer-specific event facts directly into `skills/*/SKILL.md` unless there is no config or Markdown alternative.
 
 ## Compose And Preview
 
-From the plugin repo:
+To preview a page, run its command (e.g. `$start-hackathon`) in Codex. The model composes the response by reading the content file for that page.
 
-```bash
-node plugins/devpost-hackathons/scripts/compose-response.mjs --page start
-```
-
-The composer output is a text dashboard and should not include Markdown image syntax. Rich inline visuals come from the bundled Devpost MCP stepper widget on capable hosts.
+The composed output is text-first and should not include Markdown image syntax. Rich inline visuals come from the bundled Devpost MCP stepper widget on capable hosts.
 
 ## Install And Refresh In Codex
 

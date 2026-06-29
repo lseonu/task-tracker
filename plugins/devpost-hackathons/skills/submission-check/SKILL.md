@@ -33,6 +33,7 @@ Read before responding:
 - `../PLUGIN_RUNTIME.md`
 - `references/preflight-checklist.md`
 - `../../config/hackathon.json`
+- `../../content/steps/check.md` (the page content you will present)
 
 ## Preconditions
 
@@ -46,21 +47,26 @@ If `devpost-submission.md` does not exist, direct the user to `$prepare-submissi
 
 ## Security Scan
 
-Before assigning the final readiness result, run:
+Before assigning the final readiness result, scan the project for exposed secrets with a
+grep (no script needed). Run from the participant's project root:
 
 ```bash
-node "$HOME/.codex/plugins/cache/devpost-hackathon-prototypes/devpost-hackathons/0.1.0/scripts/submission-security-scan.mjs"
+grep -rInE 'sk-[A-Za-z0-9]{20,}|ghp_[A-Za-z0-9]{20,}|gh[posru]_[A-Za-z0-9]{20,}|xox[baprs]-[A-Za-z0-9-]+|AKIA[0-9A-Z]{16}|-----BEGIN [A-Z ]*PRIVATE KEY-----|(api[_-]?key|secret|password|token)\s*[:=]\s*["'"'"'][^"'"'"']{8,}' . \
+  --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=dist --exclude-dir=build --exclude-dir=.next --exclude-dir=venv --exclude-dir=__pycache__ 2>/dev/null
+find . \( -name '.env' -o -name '*.pem' -o -name 'id_rsa' -o -name 'id_dsa' \) -not -path '*/node_modules/*' -not -path '*/.git/*' 2>/dev/null
 ```
 
-Read `.openai-codex-hackathon/submission-security-scan.json`.
+Interpret the results:
 
-Treat scan results this way:
+- **block**: the grep matched a high-confidence secret (OpenAI/GitHub/Slack token, AWS key,
+  or a private-key block). The submission cannot be marked `ready` until it is removed.
+- **review**: only risky credential-looking files (`.env`, `*.pem`, `id_rsa`) or generic
+  `key=…`/`password=…` assignments turned up. The submission can be `close`, not `ready`,
+  unless the participant explicitly verifies they are benign.
+- **pass**: no matches.
 
-- `block`: high-confidence secret or risky credential file found. The submission cannot be marked `ready`.
-- `review`: no high-confidence secret, but warning findings need user review. The submission can be `close`, not `ready`, unless the user has explicitly verified the warnings are benign.
-- `pass`: no high-confidence findings or warnings from the scanner.
-
-Never paste raw secret values in chat or generated files. Use only redacted evidence from the scanner.
+Never paste raw secret values in chat or generated files — refer to the file and line only,
+with the value redacted.
 
 ## Readiness Review
 
@@ -84,53 +90,32 @@ Review:
 
 Assign one top-line result: `ready`, `close`, or `not ready`.
 
-## Presentation Output
-
-After running the readiness review and updating state, run:
-
-```bash
-node "$HOME/.codex/plugins/cache/devpost-hackathon-prototypes/devpost-hackathons/0.1.0/scripts/compose-response.mjs" --page check
-```
-
-Use the composer output as the participant-facing response.
-
 ## State Update
 
-Persist state changes with the `update-state.mjs` script, not by editing
-`.openai-codex-hackathon-state.json` directly. The script writes the file as a
-single shell command, so the host shows a quiet command run instead of a
-reviewable file-diff card. Only run it when state actually changes on this turn.
+Edit `.openai-codex-hackathon-state.json` directly, only when state changes on this turn,
+preserving the fields you are not touching.
 
-If the project passes cleanly enough for handoff:
+If the project passes cleanly enough for handoff: add `submission-check` to
+`completed_stages`, set `current_stage` to `submission-check`, `submission.status` to
+`ready`, `submission.browser_handoff_ready` to `true`, and `next_command` to
+`hackathon-map`.
 
-```bash
-node "$HOME/.codex/plugins/cache/devpost-hackathon-prototypes/devpost-hackathons/0.1.0/scripts/update-state.mjs" \
-  --add completed_stages=submission-check \
-  --set current_stage=submission-check \
-  --set submission.status=ready \
-  --set submission.browser_handoff_ready=true \
-  --set next_command=hackathon-map
-```
+If it does not pass: set `current_stage` to `submission-check`, `submission.status` to
+`needs-work`, and `next_command` to the specific command that fixes the top issue (e.g.
+`prepare-submission`).
 
-If it does not pass (set `next_command` to the specific command that fixes the
-top issue, e.g. `prepare-submission`):
+## Presentation Output
 
-```bash
-node "$HOME/.codex/plugins/cache/devpost-hackathon-prototypes/devpost-hackathons/0.1.0/scripts/update-state.mjs" \
-  --set current_stage=submission-check \
-  --set submission.status=needs-work \
-  --set next_command=prepare-submission
-```
-
-Run this update before the response composer (the composer reads the state you
-just wrote). Do not also echo the JSON or describe each field edit in chat; one
-short sentence naming the new status and next command is enough.
+After the readiness review and the state edit, compose the response in-context per
+`../PLUGIN_RUNTIME.md` ("Composing the Response"): read `../../content/steps/check.md`,
+strip maintainer `<!-- -->` comments, interpolate the event name, and present it. Render
+the journey stepper widget first (see PLUGIN_RUNTIME). Summarize the scan + readiness
+result in your own words alongside the page content.
 
 ## Chat Output
 
-Keep chat output compact.
-
-Do not hand-write a separate dashboard. Let the CLI composer render the response and summarize scan results.
+Keep chat output compact. Do not hand-write a separate progress dashboard — the stepper
+widget shows progress.
 
 Respond with:
 
@@ -141,7 +126,7 @@ Respond with:
 - when ready, explicit final submit steps: open Devpost, copy `devpost-submission.md`, add links/screenshots/video, submit the official form before the deadline
 - browser handoff URL only when ready and known
 
-If composer generation fails, use a compact text fallback:
+If you cannot read the content file, fall back to a compact text response:
 
 - readiness result
 - security scan status

@@ -29,6 +29,7 @@ Do not fabricate official hackathon data when the server is unavailable; fall ba
 Read:
 
 - `../PLUGIN_RUNTIME.md`
+- `../../content/steps/map.md`
 - `.openai-codex-hackathon-state.json` when present
 - `../../config/hackathon.json`
 
@@ -56,13 +57,9 @@ If an older state file references removed prototype fields like `dashboard`, `re
 
 ## Presentation Output
 
-When state exists, compose the recovery response:
+When state exists, compose the recovery response in-context per `../PLUGIN_RUNTIME.md` ("Composing the Response"): read `../../content/steps/map.md`, strip maintainer `<!-- -->` comments, interpolate the event name, then present a short stage headline, the page content, and the next-command callout. Do not run any script.
 
-```bash
-node "$HOME/.codex/plugins/cache/devpost-hackathon-prototypes/devpost-hackathons/0.1.0/scripts/compose-response.mjs" --page map
-```
-
-Use the composer output as the response. It should show the current top-level stage, completed stages, optional guided build tool state, deadline status, and next command without marking anything complete.
+The response should show the current top-level stage, completed stages, optional guided build tool state, deadline status, and next command without marking anything complete.
 
 ## Chat Output
 

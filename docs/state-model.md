@@ -68,30 +68,20 @@ MCP.
 - `submission.public_demo_url` / `repo_url` / `video_url` — these live in the
   local `devpost-submission.md` draft, not in state.
 
-Older V1 files that still carry these fields are tolerated (the composer only
-reads the fields it needs), but new writes should not add them back.
+Older V1 files that still carry these fields are tolerated (skills only read the
+fields they need), but new writes should not add them back.
 
 ## Writing State
 
-Do not edit `.openai-codex-hackathon-state.json` with the model's file-editing
-tool. On Codex Desktop, an edit-tool write renders a reviewable file-diff card
-("Edited …state.json +N -M" with Undo/Review) on every turn, which clutters the
-conversation with bookkeeping the participant never needs to review.
+The plugin has no state-writing script. Edit `.openai-codex-hackathon-state.json`
+directly — a small JSON file edit is the expected mechanism. Keep these rules:
 
-Instead, persist changes with the write script, which the host renders as a quiet
-command run:
-
-```bash
-node "$HOME/.codex/plugins/cache/devpost-hackathon-prototypes/devpost-hackathons/0.1.0/scripts/update-state.mjs" \
-  --set current_stage=resources \
-  --set next_command=prepare-submission \
-  --add completed_stages=resources
-```
-
-`--set key=value` sets a (dot-path) field with inferred typing, `--add` appends to
-an array field (deduped), and `--json key=value` sets a parsed-JSON value. Run the
-update before the response composer, and only when state actually changes on this
-turn — turns that just read, recap, or answer a question should write nothing.
+- Write only when state actually changes on this turn. Turns that just read, recap,
+  or answer a question should not write state.
+- Preserve fields you are not changing; never reset progress the participant has
+  already made.
+- Keep the file small and V2-shaped — do not add back the removed Devpost-owned
+  fields; read those live from the `devpost` MCP server.
 
 ## Personalization
 
@@ -141,10 +131,11 @@ If a participant switches between Codex Desktop and Codex CLI while working in t
 
 Earlier prototype notes used `dashboard` and `reminders`.
 
-For V1, prefer:
+Prefer:
 
-- `deadlines` for deadline display/cache
+- official dates read live from the `devpost` MCP server (not persisted in state)
 - package-local config/assets for presentation decisions
-- `.openai-codex-hackathon/submission-security-scan.json` for final-check scan output
+- the final-check secret scan is an inline `grep` run by `$submission-check`; it does not
+  persist a result file
 
-Existing skills may still tolerate older `dashboard`, `reminders`, `presentation`, and `artifacts` fields in old participant projects, but new state writes should use the clarified V1 shape.
+Existing skills may still tolerate older `dashboard`, `reminders`, `presentation`, and `artifacts` fields in old participant projects, but new state writes should use the clarified V2 shape.

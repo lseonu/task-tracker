@@ -27,7 +27,7 @@ Shape the draft toward the real submission fields and judging criteria from the 
 
 ## Required Reference
 
-Read `../PLUGIN_RUNTIME.md` and `references/submission-template.md` before responding.
+Read `../PLUGIN_RUNTIME.md`, `../../content/steps/prepare.md`, and `references/submission-template.md` before responding.
 
 ## Preconditions
 
@@ -82,13 +82,7 @@ Use checklist syntax. Start each action with a verb. Do not turn this into a lon
 
 ## Presentation Output
 
-After drafting or updating `devpost-submission.md` and state, run:
-
-```bash
-node "$HOME/.codex/plugins/cache/devpost-hackathon-prototypes/devpost-hackathons/0.1.0/scripts/compose-response.mjs" --page prepare
-```
-
-Use the composer output as the participant-facing response.
+Compose the response in-context per `../PLUGIN_RUNTIME.md` ("Composing the Response"): read `../../content/steps/prepare.md`, strip maintainer `<!-- -->` comments, interpolate the event name, then present a short stage headline, the page content, and the next-command callout. Do not run any script.
 
 ## State Update
 

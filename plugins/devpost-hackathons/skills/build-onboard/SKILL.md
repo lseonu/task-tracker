@@ -71,10 +71,10 @@ Set:
 
 ## Presentation Output
 
-Run:
+Compose the response in-context per `../PLUGIN_RUNTIME.md` ("Composing the Response"): read `../../content/learning/onboard.md`, strip maintainer `<!-- -->` comments, interpolate the event name, then present a short stage headline, the page content, and the next-command callout. Do not run any script. End with a compact note that the next command is `$build-scope`.
 
-```bash
-node "$HOME/.codex/plugins/cache/devpost-hackathon-prototypes/devpost-hackathons/0.1.0/scripts/compose-response.mjs" --page build-onboard
-```
+## Required References
 
-Use the composer output as the participant-facing response. End with a compact note that the next command is `$build-scope`.
+- `../PLUGIN_RUNTIME.md`
+- `../build-guide/SKILL.md`
+- `../../content/learning/onboard.md`

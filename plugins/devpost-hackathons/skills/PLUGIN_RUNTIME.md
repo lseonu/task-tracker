@@ -1,64 +1,78 @@
 # Plugin Runtime Rule
 
-The participant's current working directory is their project folder, not this plugin bundle.
+The participant's current working directory is their project folder, not this plugin
+bundle. The local state file `.openai-codex-hackathon-state.json` lives in the
+participant's project root.
 
-Do not assume these plugin files exist in the participant project:
-
-- `scripts/compose-response.mjs`
-- `scripts/submission-security-scan.mjs`
-- `config/hackathon.json`
-- `content/`
-- `assets/`
-
-When running plugin scripts, run them from the installed plugin bundle root. The plugin bundle root is the directory that contains `.codex-plugin/plugin.json`, `skills/`, `scripts/`, `config/`, `content/`, and `assets/`.
-
-For this local installed plugin, the bundle root is usually:
-
-```text
-$HOME/.codex/plugins/cache/devpost-hackathon-prototypes/devpost-hackathons/0.1.0
-```
-
-Codex installs plugins at `$HOME/.codex/plugins/cache/<marketplace>/<plugin>/<version>/`,
-so the path encodes the marketplace name (`devpost-hackathon-prototypes`) and the
-plugin version (`0.1.0` from `.codex-plugin/plugin.json`). If either changes, update
-the script paths in these skills to match.
+This plugin runs entirely from skill instructions — there are no scripts to execute and
+no Node dependency. You read the plugin's own content/config files (relative to the skill
+you are running, exactly like the other entries under **Required References**), compose
+the response yourself, and write state by editing the JSON file directly.
 
 ## Primary Interface
 
-Chat is the primary participant interface. Compose responses text-first so they render in any Codex host (terminal or desktop). Rich inline visuals are supplied by the bundled `devpost` MCP server (e.g. its stepper widget) on hosts that can render them; the composer's text dashboard is the universal fallback and must always stand on its own. Do not tell the participant to open a localhost page during normal operation.
+Chat is the primary participant interface. Compose responses text-first so they render in
+any Codex host (terminal or desktop). The rich progress visual is the `devpost` MCP
+server's stepper widget on hosts that can render it; your composed text must always stand
+on its own without it. Do not tell the participant to open a localhost page, and do not
+generate or embed images — the stepper widget is the only progress visual.
 
 Every command should:
 
-1. Read the required references and local state.
-2. Perform its workflow-specific state or document updates.
-3. Render the journey stepper by calling the `show_hackathon_stepper` MCP tool
-   (the bundled `devpost` server — `mcp__devpost__show_hackathon_stepper`) with the
-   `active_step` for this stage. This inline widget is the single "you are here"
-   progress visual: render it exactly once per response, before the composer output,
-   on every step that advances the participant through the sequence. See **Journey
-   Stepper** below for the per-stage arguments.
-4. Run the response composer.
-5. Use the composer output as the participant-facing response.
-
-The composer output includes the exact next skill invocation when another plugin command should run. If you add any workflow-specific note after the composer output, repeat that exact invocation as the final line in this form:
+1. Read the required references and local state (`.openai-codex-hackathon-state.json`).
+2. Make its workflow-specific state or document updates (see **Writing State**).
+3. Render the journey stepper by calling the `show_hackathon_stepper` MCP tool (the
+   bundled `devpost` server — `mcp__devpost__show_hackathon_stepper`) with the
+   `active_step` for this stage — once per response, before the text. See **Journey
+   Stepper**.
+4. Compose the participant-facing text yourself (see **Composing the Response**).
+5. End with the exact next skill invocation when another command should run, as the final
+   line:
 
 ```text
 Type this next: `$command-name`.
 ```
 
-The composer prints Markdown to stdout:
+## Composing the Response
 
-```bash
-node "$HOME/.codex/plugins/cache/devpost-hackathon-prototypes/devpost-hackathons/0.1.0/scripts/compose-response.mjs" --page resources
-```
+Build the text response in-context — do not run a script:
 
-Do not generate or embed images in the response. When connected, the `devpost` MCP server renders any rich visuals (such as its progress/stepper widget) inline on capable hosts; the composer output stays text-only.
+1. Read the page's content file from the plugin's `content/` directory, referenced
+   relative to the current skill (e.g. `../../content/steps/start.md`). Each skill names
+   its page content file under **Required References**.
+2. Strip maintainer-only HTML comments (`<!-- ... -->`) — they are notes for editors, not
+   for the participant.
+3. Interpolate event values: replace `{{event.name}}` and `[Hackathon name]` with the
+   event name (prefer live data from the `devpost` MCP server; otherwise the value in
+   `../../config/hackathon.json`). If official dates/URLs are still placeholders, say they
+   are provisional rather than inventing them.
+4. Output, in order: a one-line headline for the stage, the interpolated page content,
+   and the next-command callout. Keep it concise and text-only; the stepper widget already
+   shows progress, so do not also hand-write a progress dashboard or ASCII stepper.
+
+If you cannot read the content file, fall back to a compact text response with: the
+current stage, the important blocker or result, the next command, and any required yes/no
+prompt.
+
+## Writing State
+
+State lives in `.openai-codex-hackathon-state.json` in the participant's project root.
+Edit it directly (a small JSON file edit is fine). Keep these rules:
+
+- Keep the file small and V2-shaped (see `docs/state-model.md`): local progress,
+  light personalization, and local document paths only. Do not persist Devpost-owned data
+  (registration, official dates, submitted status) — read that live from the `devpost`
+  MCP server each turn.
+- Write only when state actually changes on this turn. Turns that just read, recap, or
+  answer a question should not write state.
+- Preserve existing fields you are not changing; never reset progress the participant has
+  already made.
 
 ## Journey Stepper
 
-Call `show_hackathon_stepper` once per response, before composing the text, on any
-turn that moves the participant into a new step of the sequence. Pass the
-`active_step` for the current stage:
+Call `show_hackathon_stepper` once per response, before composing the text, on any turn
+that moves the participant into a new step of the sequence. Pass the `active_step` for the
+current stage:
 
 | Stage / command       | `active_step` |
 | --------------------- | ------------- |
@@ -68,28 +82,17 @@ turn that moves the participant into a new step of the sequence. Pass the
 | `$prepare-submission` | `prepare`     |
 | `$submission-check`   | `submit`      |
 
-For the optional guided build tool (the `$build-*` commands, which all sit inside
-the Resources step), pass `active_step: resources` and also:
+For the optional guided build tool (the `$build-*` commands, which all sit inside the
+Resources step), pass `active_step: resources` and also:
 
 - `build_assistant: true`
-- `build_step`: the current sub-step from `learning.current_step` — one of `scope`,
-  `prd`, `spec`, `checklist`, `build`. For `$build-onboard` (the entry step), pass
+- `build_step`: the current sub-step from `learning.current_step` — one of `scope`, `prd`,
+  `spec`, `checklist`, `build`. For `$build-onboard` (the entry step), pass
   `build_assistant: true` and omit `build_step`.
 
 If the guided build tool is not active, omit `build_assistant` and `build_step` — the
 stepper then shows Resources without the sub-stepper.
 
-Use the exact argument names and accepted values from the `show_hackathon_stepper`
-tool's own input schema; if the live tool differs from the mapping above, follow the
-schema and pass the value that identifies the current stage. The stepper widget is
-the progress visual — do not also generate a progress image, and the composer output
-stays text-only.
-
-If composer generation fails, provide a compact text fallback with:
-
-- current stage
-- important blocker or result
-- next command
-- any required yes/no prompt
-
-Do not fall back to localhost page instructions.
+Use the exact argument names and accepted values from the `show_hackathon_stepper` tool's
+own input schema; if the live tool differs from the mapping above, follow the schema and
+pass the value that identifies the current stage.

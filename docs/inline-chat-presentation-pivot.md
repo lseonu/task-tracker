@@ -38,19 +38,13 @@ State tracks participant progress, registration flags, project metadata, learnin
 
 If a participant switches between Codex Desktop and Codex CLI in the same project folder, the plugin should continue from the same state.
 
-## Composer Contract
+## Composition Contract
 
-```bash
-node plugins/devpost-hackathons/scripts/compose-response.mjs --page start
-```
+The model composes each response in-context — there is no script. To render a page it reads the page's content file, strips maintainer-only HTML comments, and interpolates event values.
 
-The composer reads package config and content. It also reads participant-local state from the active project folder.
+The model reads package config and content, plus participant-local state from the active project folder.
 
-Final-check scan output lives at:
-
-```text
-.openai-codex-hackathon/submission-security-scan.json
-```
+The final-check secret scan is an inline `grep` the model runs over submission files; it produces no generated scan file.
 
 ## Branding Guidance
 

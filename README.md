@@ -34,9 +34,9 @@ During local development, update the plugin folder and refresh/restart Codex so 
 
 The `content/` folders are live runtime inputs, not vestigial files.
 
-The package has `scripts/compose-response.mjs`. The composer reads `config/hackathon.json`, resolves the relevant Markdown path from `config.content`, reads that Markdown file, strips maintainer-only HTML comments, interpolates `[Hackathon name]` and `{{event.name}}`, then inserts the result into the chat response.
+The model composes the response in-context — there are no scripts and no Node dependency. It reads `config/hackathon.json`, resolves the relevant Markdown path from `config.content`, reads that Markdown file, strips maintainer-only HTML comments, interpolates `[Hackathon name]` and `{{event.name}}`, then writes the result as the chat response.
 
-The skill files call the composer after doing behavior work such as state updates, gates, scans, and file creation. Skills should define SOP and command behavior; participant-facing step copy should usually live in `content/`.
+The skill files instruct the model to compose this response after doing behavior work such as state updates, gates, scans, and file creation. Skills should define SOP and command behavior; participant-facing step copy should usually live in `content/`.
 
 ## Event Configuration
 
@@ -148,9 +148,7 @@ The marketplace wrapper is editable too:
 
 Developers should own behavior files:
 
-- `skills/*/SKILL.md` for command SOP, gates, state updates, and which reference/template files to read.
-- `scripts/compose-response.mjs` for deterministic response rendering.
-- `scripts/submission-security-scan.mjs` for local final-check scanning.
+- `skills/*/SKILL.md` for command SOP, gates, state updates, in-context response composition, and which reference/template files to read. There are no scripts: responses are composed in-context, state is written by editing `.openai-codex-hackathon-state.json` directly, and the final-check secret scan is an inline `grep` the model runs.
 
 The bundled Devpost logo files live in `assets/logos/`:
 
@@ -163,23 +161,18 @@ Rich inline progress visuals come from the bundled Devpost MCP stepper widget on
 
 ## Composing Chat Responses
 
-Chat is the primary participant surface. The package has one response composer.
+Chat is the primary participant surface. The model composes the response in-context by reading the content file for the current page — there is no script.
 
-```bash
-node plugins/devpost-hackathons/scripts/compose-response.mjs --page resources
-```
-
-The composer reads:
+To compose a response, the model reads:
 
 - `config/hackathon.json`
 - `.openai-codex-hackathon-state.json` when present
 - `content/steps/*.md`
 - `content/learning/*.md`
-- `.openai-codex-hackathon/submission-security-scan.json` when present for final checks
 
-The composer always emits the text dashboard and never emits image Markdown; rich inline visuals are supplied by the bundled Devpost MCP stepper widget on capable hosts.
+It strips maintainer-only HTML comments, interpolates `[Hackathon name]` and `{{event.name}}`, and writes text-first output, never image Markdown; rich inline visuals are supplied by the bundled Devpost MCP stepper widget on capable hosts. The final-check secret scan is an inline `grep` the model runs (no generated `.json`).
 
-Event, product, and design owners can revise copy in the package's `content/steps/` or `content/learning/` without editing the composer or skill files. The Markdown files include maintainer-only comments with their source paths; participant responses should not display copy-editing instructions.
+Event, product, and design owners can revise copy in the package's `content/steps/` or `content/learning/` without editing skill files. The Markdown files include maintainer-only comments with their source paths; participant responses should not display copy-editing instructions.
 
 ## Optional Guided Build Tool
 
