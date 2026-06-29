@@ -85,7 +85,7 @@ Use checklist syntax. Start each action with a verb. Do not turn this into a lon
 After drafting or updating `devpost-submission.md` and state, run:
 
 ```bash
-node "$HOME/.codex/plugins/cache/local-plugins/devpost-hackathons/0.1.0/scripts/compose-response.mjs" --page prepare
+node "$HOME/.codex/plugins/cache/devpost-hackathon-prototypes/devpost-hackathons/0.1.0/scripts/compose-response.mjs" --page prepare
 ```
 
 Use the composer output as the participant-facing response.

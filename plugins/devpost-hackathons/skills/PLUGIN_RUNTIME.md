@@ -15,8 +15,13 @@ When running plugin scripts, run them from the installed plugin bundle root. The
 For this local installed plugin, the bundle root is usually:
 
 ```text
-$HOME/.codex/plugins/cache/local-plugins/devpost-hackathons/0.1.0
+$HOME/.codex/plugins/cache/devpost-hackathon-prototypes/devpost-hackathons/0.1.0
 ```
+
+Codex installs plugins at `$HOME/.codex/plugins/cache/<marketplace>/<plugin>/<version>/`,
+so the path encodes the marketplace name (`devpost-hackathon-prototypes`) and the
+plugin version (`0.1.0` from `.codex-plugin/plugin.json`). If either changes, update
+the script paths in these skills to match.
 
 ## Primary Interface
 
@@ -44,7 +49,7 @@ Type this next: `$command-name`.
 The composer prints Markdown to stdout:
 
 ```bash
-node "$HOME/.codex/plugins/cache/local-plugins/devpost-hackathons/0.1.0/scripts/compose-response.mjs" --page resources
+node "$HOME/.codex/plugins/cache/devpost-hackathon-prototypes/devpost-hackathons/0.1.0/scripts/compose-response.mjs" --page resources
 ```
 
 Do not generate or embed images in the response. When connected, the `devpost` MCP server renders any rich visuals (such as its progress/stepper widget) inline on capable hosts; the composer output stays text-only.

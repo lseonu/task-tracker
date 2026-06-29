@@ -82,7 +82,7 @@ Instead, persist changes with the write script, which the host renders as a quie
 command run:
 
 ```bash
-node "$HOME/.codex/plugins/cache/local-plugins/devpost-hackathons/0.1.0/scripts/update-state.mjs" \
+node "$HOME/.codex/plugins/cache/devpost-hackathon-prototypes/devpost-hackathons/0.1.0/scripts/update-state.mjs" \
   --set current_stage=resources \
   --set next_command=prepare-submission \
   --add completed_stages=resources

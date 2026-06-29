@@ -67,7 +67,7 @@ Set:
 Run:
 
 ```bash
-node "$HOME/.codex/plugins/cache/local-plugins/devpost-hackathons/0.1.0/scripts/compose-response.mjs" --page build-project
+node "$HOME/.codex/plugins/cache/devpost-hackathon-prototypes/devpost-hackathons/0.1.0/scripts/compose-response.mjs" --page build-project
 ```
 
 Use the composer output as the participant-facing response. End with what changed, how it was verified, and the next command.

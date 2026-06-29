@@ -82,7 +82,7 @@ Keep the response complete enough for the gate, but do not write a second ad hoc
 When presenting the rules gate or after recording a `yes` response, run:
 
 ```bash
-node "$HOME/.codex/plugins/cache/local-plugins/devpost-hackathons/0.1.0/scripts/compose-response.mjs" --page rules
+node "$HOME/.codex/plugins/cache/devpost-hackathon-prototypes/devpost-hackathons/0.1.0/scripts/compose-response.mjs" --page rules
 ```
 
 Use the composer output as the participant-facing response.

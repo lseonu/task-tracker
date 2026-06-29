@@ -59,7 +59,7 @@ If an older state file references removed prototype fields like `dashboard`, `re
 When state exists, compose the recovery response:
 
 ```bash
-node "$HOME/.codex/plugins/cache/local-plugins/devpost-hackathons/0.1.0/scripts/compose-response.mjs" --page map
+node "$HOME/.codex/plugins/cache/devpost-hackathon-prototypes/devpost-hackathons/0.1.0/scripts/compose-response.mjs" --page map
 ```
 
 Use the composer output as the response. It should show the current top-level stage, completed stages, optional guided build tool state, deadline status, and next command without marking anything complete.

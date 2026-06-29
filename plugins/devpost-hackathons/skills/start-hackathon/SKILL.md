@@ -110,7 +110,7 @@ Then compose the Start response.
 After creating or loading state, run:
 
 ```bash
-node "$HOME/.codex/plugins/cache/local-plugins/devpost-hackathons/0.1.0/scripts/compose-response.mjs" --page start
+node "$HOME/.codex/plugins/cache/devpost-hackathon-prototypes/devpost-hackathons/0.1.0/scripts/compose-response.mjs" --page start
 ```
 
 Use the composer output as the participant-facing response. The composer output must remain text-only; rich visuals come from the `devpost` MCP server, not from this response.

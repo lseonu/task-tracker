@@ -66,7 +66,7 @@ Set:
 Run:
 
 ```bash
-node "$HOME/.codex/plugins/cache/local-plugins/devpost-hackathons/0.1.0/scripts/compose-response.mjs" --page build-spec
+node "$HOME/.codex/plugins/cache/devpost-hackathon-prototypes/devpost-hackathons/0.1.0/scripts/compose-response.mjs" --page build-spec
 ```
 
 Use the composer output as the participant-facing response. End by recommending `$build-checklist`.

@@ -49,7 +49,7 @@ If `devpost-submission.md` does not exist, direct the user to `$prepare-submissi
 Before assigning the final readiness result, run:
 
 ```bash
-node "$HOME/.codex/plugins/cache/local-plugins/devpost-hackathons/0.1.0/scripts/submission-security-scan.mjs"
+node "$HOME/.codex/plugins/cache/devpost-hackathon-prototypes/devpost-hackathons/0.1.0/scripts/submission-security-scan.mjs"
 ```
 
 Read `.openai-codex-hackathon/submission-security-scan.json`.
@@ -89,7 +89,7 @@ Assign one top-line result: `ready`, `close`, or `not ready`.
 After running the readiness review and updating state, run:
 
 ```bash
-node "$HOME/.codex/plugins/cache/local-plugins/devpost-hackathons/0.1.0/scripts/compose-response.mjs" --page check
+node "$HOME/.codex/plugins/cache/devpost-hackathon-prototypes/devpost-hackathons/0.1.0/scripts/compose-response.mjs" --page check
 ```
 
 Use the composer output as the participant-facing response.
@@ -104,7 +104,7 @@ reviewable file-diff card. Only run it when state actually changes on this turn.
 If the project passes cleanly enough for handoff:
 
 ```bash
-node "$HOME/.codex/plugins/cache/local-plugins/devpost-hackathons/0.1.0/scripts/update-state.mjs" \
+node "$HOME/.codex/plugins/cache/devpost-hackathon-prototypes/devpost-hackathons/0.1.0/scripts/update-state.mjs" \
   --add completed_stages=submission-check \
   --set current_stage=submission-check \
   --set submission.status=ready \
@@ -116,7 +116,7 @@ If it does not pass (set `next_command` to the specific command that fixes the
 top issue, e.g. `prepare-submission`):
 
 ```bash
-node "$HOME/.codex/plugins/cache/local-plugins/devpost-hackathons/0.1.0/scripts/update-state.mjs" \
+node "$HOME/.codex/plugins/cache/devpost-hackathon-prototypes/devpost-hackathons/0.1.0/scripts/update-state.mjs" \
   --set current_stage=submission-check \
   --set submission.status=needs-work \
   --set next_command=prepare-submission
