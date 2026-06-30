@@ -33,6 +33,26 @@ Every command should:
 Type this next: `$command-name`.
 ```
 
+## Devpost MCP Server
+
+The bundled `devpost` server (`https://devpost.com/mcp`) is the source of truth for official
+event data. Current Codex registers it automatically. Follow these rules everywhere so a turn
+never becomes a troubleshooting session:
+
+- **Call only what you need, when you need it.** Each skill lists the `devpost` tools its page
+  can draw on; call just the ones required to render the current response, at the point you
+  need them. Do not pre-fetch the whole list, and do not call a tool whose result you will not
+  use.
+- **Do not verify, probe, or set up the server.** Assume the tools are available and call them
+  directly. Never call a tool just to check it exists, and never tell the participant to
+  register, add, re-authenticate, or restart the server during a normal turn. One-time
+  install/setup lives in `../SETUP.md`, not in participant responses.
+- **On failure, degrade in one line — do not self-correct.** If a `devpost` call errors or
+  returns nothing, treat it as "official data unavailable," not "something is misconfigured."
+  Fall back immediately to `../config/hackathon.json` (and the skill's named fallback file)
+  and note once, in a short clause, that the event details are provisional. Do not retry in a
+  loop, diagnose the error, or re-explain the fallback on later turns.
+
 ## Composing the Response
 
 Build the text response in-context — do not run a script:

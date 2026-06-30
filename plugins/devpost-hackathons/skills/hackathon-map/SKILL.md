@@ -15,14 +15,9 @@ Unlike the step commands, `$hackathon-map` does not mark workflow stages complet
 
 ## Required Data Source
 
-Use the `devpost` MCP server (bundled with this plugin) as the source of truth for official hackathon information. Verify its tools are callable in this Codex session, for example `mcp__devpost__get_hackathon_overview`. If they are missing (an older Codex that does not auto-register bundled servers, or the server was disabled), add it manually with `codex mcp add devpost --url https://devpost.com/mcp` and restart Codex.
+Official event data comes from the `devpost` MCP server — follow **Devpost MCP Server** in `../PLUGIN_RUNTIME.md` (call only what you need, never verify or set up the server, degrade in one line on failure).
 
-When a hackathon identifier is known, call:
-- `devpost.get_hackathon_overview`
-- `devpost.get_key_dates`
-- `devpost.get_announcements`
-
-Do not fabricate official hackathon data when the server is unavailable; fall back to the local state file and `config/hackathon.json` and say the data is provisional.
+Draw on these only as needed: `devpost.get_hackathon_overview`, `devpost.get_key_dates`, `devpost.get_announcements`.
 
 ## Required References
 

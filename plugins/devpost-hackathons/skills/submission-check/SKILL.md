@@ -15,16 +15,9 @@ Chat is the primary participant interface. Keep responses text-first so they ren
 
 ## Required Data Source
 
-Use the `devpost` MCP server (bundled with this plugin) as the source of truth for official submission requirements and rules. Verify its tools are callable in this Codex session, for example `mcp__devpost__get_hackathon_overview`. If they are missing (an older Codex that does not auto-register bundled servers, or the server was disabled), add it manually with `codex mcp add devpost --url https://devpost.com/mcp` and restart Codex.
+Official requirements and rules come from the `devpost` MCP server — follow **Devpost MCP Server** in `../PLUGIN_RUNTIME.md` (call only what you need, never verify or set up the server, degrade in one line on failure).
 
-Before running the check, call:
-- `devpost.get_hackathon_overview`
-- `devpost.get_key_dates`
-- `devpost.get_hackathon_rules`
-- `devpost.get_submission_requirements`
-- `devpost.get_judging_criteria`
-
-Check readiness against the real requirements from the MCP response. Do not fabricate official requirements when the server is unavailable; fall back to `config/hackathon.json` and say the check is provisional.
+Draw on these only as needed: `devpost.get_submission_requirements`, `devpost.get_hackathon_rules`, `devpost.get_judging_criteria`, `devpost.get_key_dates`. Check readiness against the real requirements; if the server is unavailable, run the check against `config/hackathon.json` and say it is provisional.
 
 ## Required References
 
