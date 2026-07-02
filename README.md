@@ -80,6 +80,7 @@ Editable config fields:
 | `content.prepare` | Product/editorial | Path for `$prepare-submission` page copy. |
 | `content.check` | Product/editorial | Path for `$submission-check` page copy. |
 | `content.map` | Product/editorial | Path for `$hackathon-map` page copy. |
+| `content.help` | Product/editorial | Path for `$help` page copy. |
 | `content.learning.onboard` | Curriculum/product | Path for `$build-onboard` copy. |
 | `content.learning.scope` | Curriculum/product | Path for `$build-scope` copy. |
 | `content.learning.prd` | Curriculum/product | Path for `$build-prd` copy. |
@@ -104,6 +105,7 @@ The plugin package has these content files:
 - `content/steps/prepare.md`
 - `content/steps/check.md`
 - `content/steps/map.md`
+- `content/steps/help.md`
 
 Optional learning-path content lives in:
 
@@ -126,6 +128,7 @@ These Markdown files are the main product-editable participant copy.
 | `$prepare-submission` | `plugins/devpost-hackathons/content/steps/prepare.md` |
 | `$submission-check` | `plugins/devpost-hackathons/content/steps/check.md` |
 | `$hackathon-map` | `plugins/devpost-hackathons/content/steps/map.md` |
+| `$help` | `plugins/devpost-hackathons/content/steps/help.md` |
 | `$build-onboard` | `plugins/devpost-hackathons/content/learning/onboard.md` |
 | `$build-scope` | `plugins/devpost-hackathons/content/learning/scope.md` |
 | `$build-prd` | `plugins/devpost-hackathons/content/learning/prd.md` |
