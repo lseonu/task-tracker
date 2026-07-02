@@ -20,6 +20,19 @@ Read before responding:
 - `../../config/hackathon.json`
 - `.openai-codex-hackathon-state.json` when present (read-only, for tailoring)
 
+## Live Command Inventory
+
+Derive the current command list from the plugin itself before composing, so this page never goes stale as skills are added or removed:
+
+1. List the sibling skill directories under `../` — every directory containing a `SKILL.md` is one command.
+2. For each, the command name is the frontmatter `name` (presented as `$name`). For a one-line participant-facing description, prefer `interface.short_description` from that skill's `agents/openai.yaml`; if absent, condense the frontmatter description to a few words.
+3. Reconcile against the page content in `../../content/steps/help.md`:
+   - A command that exists but is missing from the page: add it to the matching section — `build-*` commands under the guided build track, everything else alongside the core journey or as a one-line extra. Place it sensibly; do not renumber the five-step journey unless the new skill is clearly part of it.
+   - A command on the page whose skill directory no longer exists: leave it out of your response.
+   - Never present a command that has no skill directory. You may omit `$help` itself.
+
+The curated page copy provides the voice and structure; the live inventory is the source of truth for what commands exist.
+
 ## Data Sources
 
 Do not call `devpost` MCP tools for a plain help response — orientation needs no official data. Only if the user's question also asks about dates, rules, or other event specifics, follow **Devpost MCP Server** in `../PLUGIN_RUNTIME.md` and call just what that question needs.

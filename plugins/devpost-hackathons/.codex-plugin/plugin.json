@@ -1,6 +1,6 @@
 {
   "name": "devpost-hackathons",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Prototype Devpost hackathon guide for Codex: text-first responses everywhere, with rich inline visuals from the bundled Devpost MCP server on hosts that can render them.",
   "author": {
     "name": "Devpost Prototype",

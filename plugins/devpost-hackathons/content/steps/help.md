@@ -31,4 +31,7 @@ Totally optional — skip it if you already know what you're building.
 - Your progress lives in one small local file in this folder — nothing leaves your machine.
 - Codex never submits for you. The final handoff always happens on Devpost in your browser.
 - New here? Type `$start-hackathon` and the guide takes it from there.
-<!-- Copy maintainers: edit this page copy in content/steps/help.md. -->
+<!-- Copy maintainers: edit this page copy in content/steps/help.md. The command list is
+reconciled against the installed skills at runtime (see skills/help/SKILL.md, "Live Command
+Inventory"): commands added to the plugin appear even if this page lags, and removed ones are
+dropped. Keep this page's copy in sync anyway — it provides the tone and descriptions. -->
