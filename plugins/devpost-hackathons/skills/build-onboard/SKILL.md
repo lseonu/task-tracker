@@ -30,19 +30,16 @@ Create `docs/hackathon-build/` if needed. Read any existing files in it before a
 Open with a brief welcome and explain:
 
 - this optional path helps them plan before Codex builds
-- Codex will interview them using flipped interaction
 - the docs are useful build context and submission evidence
 - the command chain is `$build-onboard -> $build-scope -> $build-prd -> $build-spec -> $build-checklist -> $build-project`
 
-Then ask one question at a time to learn:
+Keep the onboarding short. Ask questions in batches, not one at a time — repeated single-question back-and-forth is cumbersome in the desktop app. Ask these two or three questions together in one message:
 
-- name, if they want to share it
-- what they do and what brought them to the hackathon
-- coding experience level
-- languages/frameworks they know, if any
-- whether they have used AI coding agents before
-- creative sensibility signals, such as apps, games, books, music, or art they like
-- whether they have planned projects with docs before
+1. Do you have an idea of what you want to build today? (A rough sketch is fine — "no idea yet" is a valid answer.)
+2. What's your coding experience — level, and any languages, frameworks, or AI coding agents you've used?
+3. What brought you to the hackathon (and your name, if you'd like to share it)?
+
+After they answer, ask whether they'd like a couple more questions to sharpen the profile or would rather move on. If they want more, ask one final batch (e.g. whether they have planned projects with docs before, and preferred pace or support needs). If not, move straight on to `$build-scope`.
 
 If they want to dictate answers with speech-to-text, support that naturally. Accept longer dictated responses, summarize them back, and confirm before writing durable files.
 

@@ -6,17 +6,16 @@
 - Background:
 - What brought them to the hackathon:
 
+## Project Idea
+
+- Initial idea (or "exploring"):
+
 ## Technical Experience
 
 - Experience level:
 - Languages/frameworks known:
 - AI coding tools used before:
 - Prior experience planning before coding:
-
-## Creative Sensibility
-
-- Apps/games/books/music/art they mentioned:
-- Design or product taste signals:
 
 ## Build Preferences
 
