@@ -1,8 +1,8 @@
 {
-  "name": "devpost-hackathon-prototypes",
+  "name": "devpost",
   "interface": {
-    "displayName": "Devpost Hackathon Prototypes",
-    "description": "Early Devpost hackathon plugin prototype for Codex (terminal and desktop)."
+    "displayName": "Devpost",
+    "description": "Official Devpost plugins for Codex — hackathon guidance, resources, and submission prep."
   },
   "plugins": [
     {

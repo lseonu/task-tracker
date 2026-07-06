@@ -37,7 +37,7 @@ in `.codex-plugin/plugin.json` is unchanged, editing files here and restarting C
 - **Bump the version** in `plugins/devpost-hackathons/.codex-plugin/plugin.json`, then fully quit
   and relaunch Codex so it reinstalls the new version from this folder. (The clean way.)
 - **Quick iteration:** sync your changes straight into the cached copy, e.g.
-  `rsync -a --delete plugins/devpost-hackathons/skills/ ~/.codex/plugins/cache/devpost-hackathon-prototypes/devpost-hackathons/<version>/skills/`,
+  `rsync -a --delete plugins/devpost-hackathons/skills/ ~/.codex/plugins/cache/devpost/devpost-hackathons/<version>/skills/`,
   then relaunch Codex.
 
 Either way, **fully quit and relaunch** Codex (not just a new chat) — skill instructions are loaded
