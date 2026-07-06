@@ -75,10 +75,10 @@ Editable config fields:
 | `assets.logo_dark` | Design | Logo path for dark backgrounds. |
 | `assets.event_banner` | Design/product | Optional banner path if the team decides to use banner art. |
 | `content.start` | Product/editorial | Path for `$start-hackathon` copy. Usually leave path stable and edit the Markdown file. |
-| `content.rules` | Product/legal/event | Path for `$review-rules` page copy. |
+| `content.rules` | Product/legal/event | Path for `$review` page copy. |
 | `content.resources` | Product/curriculum | Path for `$resources` page copy. |
 | `content.prepare` | Product/editorial | Path for `$prepare-submission` page copy. |
-| `content.check` | Product/editorial | Path for `$submission-check` page copy. |
+| `content.check` | Product/editorial | Path for `$submission` page copy. |
 | `content.map` | Product/editorial | Path for `$hackathon-map` page copy. |
 | `content.help` | Product/editorial | Path for `$help` page copy. |
 | `content.learning.onboard` | Curriculum/product | Path for `$build-onboard` copy. |
@@ -124,10 +124,10 @@ These Markdown files are the main product-editable participant copy.
 | --- | --- |
 | `$find-hackathon` | Skill-composed (no content page; pre-stepper discovery) |
 | `$start-hackathon` | `plugins/devpost-hackathons/content/steps/start.md` |
-| `$review-rules` | `plugins/devpost-hackathons/content/steps/rules.md` |
+| `$review` | `plugins/devpost-hackathons/content/steps/rules.md` |
 | `$resources` | `plugins/devpost-hackathons/content/steps/resources.md` |
 | `$prepare-submission` | `plugins/devpost-hackathons/content/steps/prepare.md` |
-| `$submission-check` | `plugins/devpost-hackathons/content/steps/check.md` |
+| `$submission` | `plugins/devpost-hackathons/content/steps/check.md` |
 | `$hackathon-map` | `plugins/devpost-hackathons/content/steps/map.md` |
 | `$help` | `plugins/devpost-hackathons/content/steps/help.md` |
 | `$build-onboard` | `plugins/devpost-hackathons/content/learning/onboard.md` |
@@ -143,11 +143,11 @@ Some editable hackathon SOP content lives under `skills/**/references/` and `ski
 
 | Source file | Owner | Purpose |
 | --- | --- | --- |
-| `skills/review-rules/references/placeholder-rules.md` | Product/legal/event | Rules source material for the mandatory rules gate and participant questions. Replace provisional eligibility, dates, judging, originality, and support details before launch. |
+| `skills/review/references/placeholder-rules.md` | Product/legal/event | Rules source material for the mandatory rules gate and participant questions. Replace provisional eligibility, dates, judging, originality, and support details before launch. |
 | `skills/resources/references/resource-links.md` | Product/curriculum | Resource links and official learning/inspiration destinations. |
 | `skills/resources/references/anti-patterns.md` | Product/curriculum | Project anti-pattern guidance used by the resources step. |
 | `skills/prepare-submission/references/submission-template.md` | Product/editorial | Outline used to create or update `devpost-submission.md`. |
-| `skills/submission-check/references/preflight-checklist.md` | Product/event/engineering | Final readiness checklist used before Devpost handoff. |
+| `skills/submission/references/preflight-checklist.md` | Product/event/engineering | Final readiness checklist used before Devpost handoff. |
 | `skills/build-guide/templates/learner-profile-template.md` | Curriculum/product | Template for guided-learning onboarding notes. |
 | `skills/build-guide/templates/scope-template.md` | Curriculum/product | Template for guided-learning scope docs. |
 | `skills/build-guide/templates/prd-template.md` | Curriculum/product | Template for guided-learning PRDs. |

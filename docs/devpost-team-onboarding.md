@@ -19,10 +19,10 @@ Use a dollar sign. These are Codex plugin skills, not terminal commands and not 
 The main flow is:
 
 1. `$start-hackathon`
-2. `$review-rules`
+2. `$review`
 3. `$resources`
 4. `$prepare-submission`
-5. `$submission-check`
+5. `$submission`
 
 The optional guided build tool starts from Step 3 and stays nested inside Resources:
 
@@ -102,10 +102,10 @@ Top-level sequence copy:
 | Command | Composer page | Markdown source |
 | --- | --- | --- |
 | `$start-hackathon` | `start` | `content/steps/start.md` |
-| `$review-rules` | `rules` | `content/steps/rules.md` |
+| `$review` | `rules` | `content/steps/rules.md` |
 | `$resources` | `resources` | `content/steps/resources.md` |
 | `$prepare-submission` | `prepare` | `content/steps/prepare.md` |
-| `$submission-check` | `check` | `content/steps/check.md` |
+| `$submission` | `check` | `content/steps/check.md` |
 | `$hackathon-map` | `map` | `content/steps/map.md` |
 | `$help` | `help` | `content/steps/help.md` |
 
@@ -174,14 +174,14 @@ In a fresh Codex Desktop chat with the plugin installed, from an empty test proj
 1. Run `$start-hackathon`.
 2. Confirm the welcome message explains chat-first guidance.
 3. Confirm the bundled MCP stepper widget renders inline.
-4. Run `$review-rules`.
+4. Run `$review`.
 5. Confirm the participant must explicitly agree before moving on.
 6. Run `$resources`.
 7. Confirm the inline response explains the normal path and optional guided build tool.
 8. Run `$build-onboard` only if testing the optional guided build tool.
 9. Continue through `$build-scope`, `$build-prd`, `$build-spec`, `$build-checklist`, and `$build-project`.
 10. Then run `$prepare-submission`.
-11. Run `$submission-check`.
+11. Run `$submission`.
 12. Confirm the security scan renders clearly.
 
 In Codex CLI with the plugin installed, repeat the same command sequence and confirm the text dashboard renders and no Markdown image syntax appears.

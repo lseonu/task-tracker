@@ -97,10 +97,10 @@ current stage:
 | Stage / command       | `active_step` |
 | --------------------- | ------------- |
 | `$start-hackathon`    | `register`    |
-| `$review-rules`       | `review`      |
+| `$review`       | `review`      |
 | `$resources`          | `resources`   |
 | `$prepare-submission` | `prepare`     |
-| `$submission-check`   | `submit`      |
+| `$submission`   | `submit`      |
 
 For the optional guided build tool (the `$build-*` commands, which all sit inside the
 Resources step), pass `active_step: resources` and also:

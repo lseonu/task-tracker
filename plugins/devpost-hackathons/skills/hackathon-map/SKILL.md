@@ -73,13 +73,13 @@ If state does not exist, respond with:
 
 - `No hackathon state found.`
 - entry command: `$start-hackathon`
-- core sequence: `$start-hackathon -> $review-rules -> $resources -> $prepare-submission -> $submission-check`
+- core sequence: `$start-hackathon -> $review -> $resources -> $prepare-submission -> $submission`
 
 ## Command Map
 
 Core sequence:
 
-`$start-hackathon -> $review-rules -> $resources -> $prepare-submission -> $submission-check`
+`$start-hackathon -> $review -> $resources -> $prepare-submission -> $submission`
 
 Optional build sequence inside Step 3:
 

@@ -29,7 +29,7 @@ Read `.openai-codex-hackathon-state.json`.
 
 If the file does not exist, direct the user to `$start-hackathon`.
 
-If `rules_acknowledged` is not `true`, direct the user to `$review-rules` first.
+If `rules_acknowledged` is not `true`, direct the user to `$review` first.
 
 If the workspace or conversation still does not reveal a real project, warn that the draft will contain placeholders rather than a truthful final submission.
 
@@ -64,7 +64,7 @@ Make the draft honest about what exists today versus what is still placeholder m
 
 ## Review And Feedback
 
-After updating `devpost-submission.md`, give a compact "go do these things" checklist that tells the participant what to gather, fix, or verify before `$submission-check`. Cover:
+After updating `devpost-submission.md`, give a compact "go do these things" checklist that tells the participant what to gather, fix, or verify before `$submission`. Cover:
 
 - missing submission components
 - weak or vague claims
@@ -88,7 +88,7 @@ After drafting:
 - set `submission.browser_handoff_ready` to `false`
 - set `current_stage` to `prepare-submission`
 - set `next_command` to:
-  - `submission-check` when the packet is materially complete and only minor follow-ups remain
+  - `submission` when the packet is materially complete and only minor follow-ups remain
   - otherwise `prepare-submission`
 
 ## Chat Output
@@ -101,7 +101,7 @@ Respond with:
 
 - whether `devpost-submission.md` was created or updated
 - the short "go do these things" checklist
-- next recommendation: either another `$prepare-submission` pass or `$submission-check`
+- next recommendation: either another `$prepare-submission` pass or `$submission`
 
 If composer generation fails, use a compact text fallback:
 

@@ -87,10 +87,10 @@ Do not store access tokens, full participant profiles, full team records, or ful
 ## Skill Integration
 
 - `$start-hackathon`: detect whether the Devpost MCP is available and authenticated; show registration status if available; otherwise keep browser/manual registration fallback.
-- `$review-rules`: pull official rules, eligibility, judging criteria, and submission requirements from Devpost when possible.
+- `$review`: pull official rules, eligibility, judging criteria, and submission requirements from Devpost when possible.
 - `$resources`: pull official event resources and links when possible.
 - `$prepare-submission`: compare local draft materials against the official Devpost submission fields.
-- `$submission-check`: combine local security/readiness checks with Devpost-side validation.
+- `$submission`: combine local security/readiness checks with Devpost-side validation, then submit via `submit_project` after explicit participant confirmation (browser handoff as fallback).
 - `$hackathon-map`: show live registration, team, and submission status when the MCP is connected.
 
 ## Remaining Work
@@ -99,12 +99,10 @@ The bundling is done. The remaining work is on the skills and write side:
 
 1. Update skills to prefer MCP reads while preserving manual/browser fallback.
 2. QA no-auth, auth-expired, unregistered, registered, no-team, team, no-draft, draft, submitted, and deadline-passed states.
-3. Consider write-capable draft sync (using `mcp:write`) only after the read-only flow is stable.
-4. Consider final submission only with explicit confirmation, clear UX, and product/legal approval.
+3. Final submission via `submit_project` is now wired into `$submission` behind an explicit "yes, submit" confirmation, with the browser handoff as fallback. It still needs human QA and product/legal sign-off before a production event.
 
 ## Open Questions
 
-- Which `mcp:write` tools (draft sync, asset attach, submit) should be exposed, and in what order?
-- Should final submit ever be available through Codex?
+- Should `$prepare-submission` also sync drafts to Devpost via `create_project`/`update_project`, or should writes stay confined to `$submission`?
 - What rate limits and caching rules should the plugin follow?
 - Which registration/team/submission fields are safe and useful for Codex to read once authenticated tools land?

@@ -42,12 +42,12 @@ writing this initial (slim V2) payload:
   "version": 2,
   "participant": { "name": "", "display_name": "" },
   "project": { "name": "", "summary": "", "openai_usage": "", "codex_usage": "" },
-  "current_stage": "review-rules",
+  "current_stage": "review",
   "completed_stages": ["start-hackathon"],
   "rules_acknowledged": false,
   "learning": { "status": "not-started", "current_step": "", "completed_steps": [], "plan_file": "", "checklist_file": "" },
   "submission": { "draft_file": "devpost-submission.md", "status": "not-started", "browser_handoff_ready": false },
-  "next_command": "review-rules"
+  "next_command": "review"
 }
 ```
 
@@ -63,7 +63,7 @@ If `participant.name`/`participant.display_name` and `project.summary` are empty
 
 `If you want, tell me your name and a one-sentence project idea. I can store that locally so later guidance feels specific to you and your project.`
 
-Do not block the flow on this. The participant can continue to `$review-rules` without answering.
+Do not block the flow on this. The participant can continue to `$review` without answering.
 
 If the participant provides those details, edit `.openai-codex-hackathon-state.json` to set
 `participant.display_name` and `project.summary` (and `project.name` only if they give a
@@ -87,7 +87,7 @@ In normal operation, respond with:
 - a warm welcome that names the event and explains that Codex will guide the participant through the hackathon from this project folder
 - one sentence explaining that Codex will keep the process in chat with text progress
 - whether state was created or loaded
-- the next command: `$review-rules`
+- the next command: `$review`
 - an invitation to ask questions about how the flow works before continuing
 - the optional personalization prompt if name/project idea are missing
 
@@ -96,6 +96,6 @@ In normal operation, respond with:
 End by telling the participant:
 
 1. Register on Devpost if needed.
-2. Come back and run `$review-rules`.
+2. Come back and run `$review`.
 
 Also mention `$hackathon-map` only as the recovery command if they lose track later.

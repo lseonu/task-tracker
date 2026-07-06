@@ -21,7 +21,7 @@ Read `.openai-codex-hackathon-state.json`.
 
 If the state file does not exist, direct the user to `$start-hackathon`.
 
-If `rules_acknowledged` is not `true`, direct the user to `$review-rules` first.
+If `rules_acknowledged` is not `true`, direct the user to `$review` first.
 
 Create `docs/hackathon-build/` if needed. Read any existing files in it before asking questions.
 

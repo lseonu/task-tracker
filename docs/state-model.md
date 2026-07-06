@@ -37,7 +37,7 @@ local file never becomes a stale shadow of the production database.
     "openai_usage": "",
     "codex_usage": ""
   },
-  "current_stage": "review-rules",
+  "current_stage": "review",
   "completed_stages": ["start-hackathon"],
   "rules_acknowledged": false,
   "learning": {
@@ -52,14 +52,15 @@ local file never becomes a stale shadow of the production database.
     "status": "not-started",
     "browser_handoff_ready": false
   },
-  "next_command": "review-rules"
+  "next_command": "review"
 }
 ```
 
-`submission.status` (`not-started` / `needs-work` / `close` / `ready`) and
-`browser_handoff_ready` describe local draft readiness in Codex, not whether the
-project was submitted on Devpost — that fact is owned by Devpost and read via the
-MCP.
+`submission.status` (`not-started` / `needs-work` / `close` / `ready` / `submitted`) and
+`browser_handoff_ready` describe local draft readiness in Codex. `submitted` is set only
+after a successful `submit_project` call from `$submission` (a returned confirmation
+id/url may be recorded alongside it); Devpost remains the source of truth for submission
+state and is read live via the MCP.
 
 ### Removed in V2 (read live from the MCP instead)
 
@@ -135,7 +136,7 @@ Prefer:
 
 - official dates read live from the `devpost` MCP server (not persisted in state)
 - package-local config/assets for presentation decisions
-- the final-check secret scan is an inline `grep` run by `$submission-check`; it does not
+- the final-check secret scan is an inline `grep` run by `$submission`; it does not
   persist a result file
 
 Existing skills may still tolerate older `dashboard`, `reminders`, `presentation`, and `artifacts` fields in old participant projects, but new state writes should use the clarified V2 shape.

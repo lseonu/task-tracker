@@ -33,7 +33,7 @@ Read `.openai-codex-hackathon-state.json`.
 
 If the state file does not exist, direct the user to `$start-hackathon`.
 
-If `rules_acknowledged` is not `true`, tell the user to finish `$review-rules` first. This is a blocker before the rest of the workflow.
+If `rules_acknowledged` is not `true`, tell the user to finish `$review` first. This is a blocker before the rest of the workflow.
 
 ## Response Content
 
