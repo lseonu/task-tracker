@@ -42,7 +42,7 @@ The Resources response should help the participant understand:
 - useful in-app resources
 - strong project archetypes
 - anti-patterns to avoid
-- the normal next step: `$prepare-submission`
+- the fork: either enter the guided build tool (`$build-onboard`) or skip it and build the project now with Codex, running `$prepare-submission` only once there is something built to submit
 - the optional guided build tool nested inside Step 3
 
 The optional guided build tool is command-driven, not clickable routing in a side pane.
@@ -71,7 +71,7 @@ After showing resources:
 
 - add `resources` to `completed_stages` if needed
 - set `current_stage` to `resources`
-- set `next_command` to `prepare-submission`
+- set `next_command` to `prepare-submission` (the next tracked stage — but present it as "when your build is ready", never as the immediate next step; the participant builds first, guided or not)
 - preserve registration and deadline fields
 
 Do not mark the optional guided build tool active unless the user chooses it or runs `$build-onboard`.
@@ -85,14 +85,16 @@ Do not hand-write a separate dashboard. Let the CLI composer render the response
 Respond with:
 
 - note that guided planning is optional and nested inside Step 3
-- one or two sentences explaining the decision between direct submission prep and the guided build tool
+- one or two sentences explaining the fork: guided planning vs. building on your own
 - invitation to ask questions about which path fits their project
-- recommendation: continue with `$prepare-submission` unless they want guided planning
-- guided path entry command: `$build-onboard`
+- do NOT end with a single `Type this next: $prepare-submission` line — that misleads participants into thinking submission prep is the immediate next step before they have built anything. End with the two-path callout instead:
+
+```text
+Want the guided path? Type `$build-onboard`.
+Building on your own? Start building with Codex now — when your project feels ready to submit, type `$prepare-submission`.
+```
 
 If composer generation fails, use a compact text fallback:
 
 - current stage: Resources
-- two paths available
-- next likely command: `$prepare-submission`
-- optional build command: `$build-onboard`
+- the two-path callout above (guided `$build-onboard`, or build now and `$prepare-submission` when ready)
