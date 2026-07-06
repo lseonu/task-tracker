@@ -1,9 +1,9 @@
 {
   "name": "devpost-hackathons",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Prototype Devpost hackathon guide for Codex: text-first responses everywhere, with rich inline visuals from the bundled Devpost MCP server on hosts that can render them.",
   "author": {
-    "name": "Devpost Prototype",
+    "name": "Devpost",
     "email": "support@devpost.com",
     "url": "https://github.com/bathrobe/codex-hackathon"
   },
@@ -19,10 +19,10 @@
   "skills": "./skills/",
   "mcpServers": "./.mcp.json",
   "interface": {
-    "displayName": "Devpost Hackathon Guide",
+    "displayName": "Devpost Hackathons",
     "shortDescription": "A Codex hackathon guide for Devpost participants",
     "longDescription": "Prototype Devpost hackathon plugin for Codex: orientation, strategic review, resources, the optional guided build tool, submission drafting, and final preflight. Responses are text-first so they work in any Codex host; the bundled Devpost MCP server supplies official event data and renders rich inline visuals on hosts that support them. When the final check passes, the plugin can submit the project to Devpost through the bundled MCP — only ever after showing exactly what will be sent and receiving the participant's explicit confirmation; the browser handoff remains available as a fallback.",
-    "developerName": "Devpost Prototype",
+    "developerName": "Devpost",
     "category": "Developer Tools",
     "capabilities": [
       "Interactive",
