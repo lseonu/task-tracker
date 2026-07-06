@@ -43,7 +43,7 @@ Do not call the stepper widget — this command does not move the participant to
 
 Adapt to the conversation. Lead with what this user needs; keep the full tour available but compact:
 
-- **No state file / brand-new user:** lead with the welcome and the five-step journey; the entry point is `$start-hackathon`.
+- **No state file / brand-new user:** lead with the welcome and picking a hackathon; the entry point is `$find-hackathon` (see what's available and choose an event), then `$start-hackathon`.
 - **State file exists:** greet them as returning, note their `current_stage` in one line, and surface their `next_command` before the tour.
 - **They asked a specific "how do I…" question:** answer that first in a sentence or two, name the command that handles it, then offer the tour compactly.
 - **They seem stuck or frustrated:** acknowledge it, give the single most likely command or fix first, and keep the rest short. Mention `$hackathon-map` for progress recovery.

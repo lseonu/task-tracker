@@ -1,6 +1,6 @@
 {
   "name": "devpost-hackathons",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "Prototype Devpost hackathon guide for Codex: text-first responses everywhere, with rich inline visuals from the bundled Devpost MCP server on hosts that can render them.",
   "author": {
     "name": "Devpost",
@@ -33,9 +33,9 @@
     "privacyPolicyURL": "https://info.devpost.com/privacy",
     "termsOfServiceURL": "https://info.devpost.com/terms",
     "defaultPrompt": [
-      "Start my Devpost hackathon flow.",
-      "Show my hackathon map and next step.",
-      "Show the next deadline and what I should do before submitting."
+      "Find open hackathons I can submit to.",
+      "Show me hackathons I'm registered for.",
+      "Help me submit my project to a Devpost hackathon."
     ],
     "brandColor": "#003954"
   }

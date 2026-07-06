@@ -4,7 +4,9 @@ This plugin turns Codex into your hackathon copilot — right here in chat, righ
 
 ## The big idea
 
-The hackathon is a journey of five steps, and each step is a command you type in chat:
+**First, pick your hackathon.** Type `$find-hackathon` to see what's open on Devpost, browse events you can submit to, or confirm one you already have in mind. Everything else happens inside the event you choose.
+
+From there, the hackathon is a journey of five steps, and each step is a command you type in chat:
 
 | Step | Command | What it does |
 | --- | --- | --- |
@@ -13,8 +15,6 @@ The hackathon is a journey of five steps, and each step is a command you type in
 | 3. Resources | `$resources` | Get build resources, links, and anti-pattern advice. |
 | 4. Prepare | `$prepare-submission` | Draft your Devpost submission as a local file. |
 | 5. Submit | `$submission` | Run the final preflight, then submit to Devpost — with your confirmation. |
-
-Haven't picked your hackathon yet? Type `$find-hackathon` to browse open Devpost events (or confirm one you already know) before you start.
 
 ## Want more structure while you build?
 
@@ -32,7 +32,7 @@ Totally optional — skip it if you already know what you're building.
 
 - Your progress lives in one small local file in this folder — nothing leaves your machine.
 - Codex never submits without asking. At the end, `$submission` can submit for you — after showing exactly what will be sent and getting your explicit "yes, submit" — or you can finish in the browser instead.
-- New here? Type `$start-hackathon` and the guide takes it from there.
+- New here? Type `$find-hackathon` to pick your hackathon — the guide takes it from there.
 <!-- Copy maintainers: edit this page copy in content/steps/help.md. The command list is
 reconciled against the installed skills at runtime (see skills/help/SKILL.md, "Live Command
 Inventory"): commands added to the plugin appear even if this page lags, and removed ones are
