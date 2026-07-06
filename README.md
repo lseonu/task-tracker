@@ -122,6 +122,7 @@ These Markdown files are the main product-editable participant copy.
 
 | Command | Source |
 | --- | --- |
+| `$find-hackathon` | Skill-composed (no content page; pre-stepper discovery) |
 | `$start-hackathon` | `plugins/devpost-hackathons/content/steps/start.md` |
 | `$review-rules` | `plugins/devpost-hackathons/content/steps/rules.md` |
 | `$resources` | `plugins/devpost-hackathons/content/steps/resources.md` |

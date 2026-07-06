@@ -29,6 +29,22 @@ Public read tools (no auth required):
 - `get_hackathon_rules`
 - `get_announcements`
 
+Auth-required tools (OAuth / Bearer JWT; verified live against prod 2026-07-06):
+
+- `whoami`
+- `list_hackathons` — hackathons the user is registered for or submitted to
+- `list_open_hackathons` — open/upcoming Devpost-managed hackathons (up to 15)
+- `list_my_projects`
+- `get_project`
+- `get_registration_form`
+- `register_for_hackathon`
+- `create_project`
+- `update_project`
+- `upload_project_thumbnail` / `prepare_thumbnail_upload`
+- `submit_project`
+
+There is no `search_hackathons` tool — discovery is the two list tools above, with any keyword filtering done by the model in-context.
+
 ## Auth Model
 
 Auth is OAuth via discovery. Public read tools work with no auth. A protected call returns a 401, which triggers a browser-based OAuth flow; the participant authenticates through the MCP/Codex flow rather than pasting tokens into chat. Scopes are `mcp:read` and `mcp:write`. Tokens should stay out of plugin config, local state files, generated files, and model-visible logs.
