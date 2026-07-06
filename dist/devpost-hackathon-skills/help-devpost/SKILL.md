@@ -1,5 +1,5 @@
 ---
-name: help
+name: help-devpost
 description: Give a friendly orientation to the Devpost hackathon plugin — what it can do, the available commands, and how to get started. Use when the user asks how to get started with the hackathon or Devpost, asks what this plugin does or what commands are available, seems confused, stuck, or unsure what to do next, hits a problem they can't name a command for, or is just curious about the hackathon experience.
 ---
 
@@ -29,7 +29,7 @@ Derive the current command list from the plugin itself before composing, so this
 3. Reconcile against the page content in `references/content/steps/help.md`:
    - A command that exists but is missing from the page: add it to the matching section — `build-*` commands under the guided build track, everything else alongside the core journey or as a one-line extra. Place it sensibly; do not renumber the five-step journey unless the new skill is clearly part of it.
    - A command on the page whose skill directory no longer exists: leave it out of your response.
-   - Never present a command that has no skill directory. You may omit `$help` itself.
+   - Never present a command that has no skill directory. You may omit `$help-devpost` itself.
 
 The curated page copy provides the voice and structure; the live inventory is the source of truth for what commands exist.
 

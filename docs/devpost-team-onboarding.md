@@ -107,7 +107,7 @@ Top-level sequence copy:
 | `$prepare-submission` | `prepare` | `content/steps/prepare.md` |
 | `$submission` | `check` | `content/steps/check.md` |
 | `$hackathon-map` | `map` | `content/steps/map.md` |
-| `$help` | `help` | `content/steps/help.md` |
+| `$help-devpost` | `help-devpost` | `content/steps/help.md` |
 
 Optional guided build tool copy:
 

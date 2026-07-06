@@ -47,7 +47,7 @@ PARTICIPANT_SKILLS = [
     "build-spec",
     "build-checklist",
     "build-project",
-    "help",
+    "help-devpost",
     "prepare-submission",
     "submission",
 ]
