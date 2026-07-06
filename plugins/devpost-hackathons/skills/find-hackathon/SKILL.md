@@ -20,7 +20,8 @@ Official event data comes from the `devpost` MCP server — follow **Devpost MCP
 For this step, draw on these only as needed:
 
 - `devpost.get_hackathon_overview` (public — resolves a known slug/URL, no sign-in needed)
-- `devpost.list_open_hackathons` (auth-required — open or upcoming Devpost-managed hackathons)
+- `devpost.search_hackathons` (auth-required — keyword search across Devpost hackathons; the primary discovery tool)
+- `devpost.list_open_hackathons` (auth-required — open or upcoming Devpost-managed hackathons, for browsing without a query)
 - `devpost.list_hackathons` (auth-required — hackathons the signed-in user is already registered for or submitted to)
 
 ## Required References
@@ -32,7 +33,7 @@ Read before responding:
 
 ## Authentication Note
 
-Browsing hackathons requires being signed in to the `devpost` MCP server (`list_open_hackathons` and `list_hackathons` are auth-required). Resolving a specific hackathon the user names uses the public `get_hackathon_overview` tool and needs no sign-in.
+Searching and browsing hackathons requires being signed in to the `devpost` MCP server (`search_hackathons`, `list_open_hackathons`, and `list_hackathons` are all auth-required). Resolving a specific hackathon the user names uses the public `get_hackathon_overview` tool and needs no sign-in.
 
 ## State
 
@@ -63,8 +64,8 @@ If it does not resolve, say so and offer Path B.
 
 If the user wants to discover an event:
 
-1. If they may already be registered somewhere, call `list_hackathons` first and offer those. Otherwise call `list_open_hackathons`.
-2. If the user gave interest keywords, filter the returned list against them yourself — the list tools do not take a query.
+1. If they may already be registered somewhere, call `list_hackathons` first and offer those.
+2. If the user gave interest keywords, call `search_hackathons` with their query. With no keywords, call `list_open_hackathons` to browse what's open or upcoming.
 3. Present a short numbered list (top 3–5): name, a one-line descriptor, and the slug or URL. Keep it terse.
 4. When they pick, call `get_hackathon_overview` for that slug to confirm, then write `state.hackathon` with `selected: true`, `source: "search"`.
 5. Confirm the selection and point them to `$start-hackathon`.

@@ -32,6 +32,7 @@ Public read tools (no auth required):
 Auth-required tools (OAuth / Bearer JWT; verified live against prod 2026-07-06):
 
 - `whoami`
+- `search_hackathons` — keyword search across Devpost hackathons (not visible in the anonymous `tools/list`; confirmed by the Devpost platform team)
 - `list_hackathons` — hackathons the user is registered for or submitted to
 - `list_open_hackathons` — open/upcoming Devpost-managed hackathons (up to 15)
 - `list_my_projects`
@@ -43,7 +44,7 @@ Auth-required tools (OAuth / Bearer JWT; verified live against prod 2026-07-06):
 - `upload_project_thumbnail` / `prepare_thumbnail_upload`
 - `submit_project`
 
-There is no `search_hackathons` tool — discovery is the two list tools above, with any keyword filtering done by the model in-context.
+Note: the anonymous `tools/list` response omits some auth-only tools (e.g. `search_hackathons`), so an unauthenticated probe undercounts the catalog.
 
 ## Auth Model
 
@@ -86,7 +87,8 @@ Do not store access tokens, full participant profiles, full team records, or ful
 
 ## Skill Integration
 
-- `$start-hackathon`: detect whether the Devpost MCP is available and authenticated; show registration status if available; otherwise keep browser/manual registration fallback.
+- `$find-hackathon`: search via `search_hackathons` (or browse `list_open_hackathons` / `list_hackathons`), resolve with public `get_hackathon_overview`.
+- `$start-hackathon`: register via `get_registration_form` + `register_for_hackathon` after explicit confirmation; browser/manual registration stays as the fallback.
 - `$review`: pull official rules, eligibility, judging criteria, and submission requirements from Devpost when possible.
 - `$resources`: pull official event resources and links when possible.
 - `$prepare-submission`: compare local draft materials against the official Devpost submission fields.

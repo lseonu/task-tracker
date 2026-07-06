@@ -1,6 +1,6 @@
 ---
 name: start-hackathon
-description: Start the OpenAI Codex Hackathon workflow in the current project folder. Use when the user wants to begin the guided experience, initialize the local state file, or understand the end-to-end flow before working through the event in Codex.
+description: Start the OpenAI Codex Hackathon workflow in the current project folder and register for the event. Use when the user wants to begin the guided experience, initialize the local state file, register on Devpost, or understand the end-to-end flow before working through the event in Codex.
 ---
 
 # Start Hackathon
@@ -16,6 +16,8 @@ Chat is the primary participant interface. Keep responses text-first so they ren
 Official event data comes from the `devpost` MCP server — follow **Devpost MCP Server** in `../PLUGIN_RUNTIME.md` (call only what you need, never verify or set up the server, degrade in one line on failure).
 
 For the Start page, draw on these only as needed: `devpost.get_hackathon_overview`, `devpost.get_key_dates`, `devpost.get_announcements`.
+
+For registration (see **Registration**, all AUTH-REQUIRED): `devpost.get_registration_form` and `devpost.register_for_hackathon`.
 
 ## Required References
 
@@ -57,6 +59,19 @@ preserve it, and continue.
 Do not create sample project content, draft submission files, or example hackathon notes
 during this step. Only initialize or reuse the state file.
 
+## Registration
+
+Step 1 is the registration surface. After state is initialized:
+
+1. Ask whether the participant is already registered for the event on Devpost. If yes, continue — do not call any registration tool.
+2. If not, offer to register right here through the Devpost MCP. On acceptance:
+   - Call `devpost.get_registration_form` first — always, before registering — and walk the participant through the required fields conversationally.
+   - Show a short plain summary of exactly what will be submitted on the registration form and require an explicit confirmation before proceeding.
+   - On confirmation, call `devpost.register_for_hackathon` with the collected answers, then report the result.
+3. If the registration tools fail on auth or availability, degrade in one line per `../PLUGIN_RUNTIME.md`: note that registering from Codex requires being signed in to the Devpost MCP, and offer the browser fallback (the official event landing page from live data or `config/hackathon.json`).
+
+Do not persist registration status in the state file — it is Devpost-owned and read live (V2 rule). Registration is a real write to Devpost: never call `register_for_hackathon` without the participant's explicit go-ahead on this turn.
+
 ## Light Personalization
 
 If `participant.name`/`participant.display_name` and `project.summary` are empty, ask a short optional personalization question in chat after composing the Start response:
@@ -95,7 +110,7 @@ In normal operation, respond with:
 
 End by telling the participant:
 
-1. Register on Devpost if needed.
-2. Come back and run `$review`.
+1. Their registration status (registered here via MCP, already registered, or the browser fallback if declined/unavailable).
+2. Run `$review` next.
 
 Also mention `$hackathon-map` only as the recovery command if they lose track later.
