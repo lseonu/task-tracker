@@ -14,6 +14,8 @@ The hackathon is a journey of five steps, and each step is a command you type in
 | 4. Prepare | `$prepare-submission` | Draft your Devpost submission as a local file. |
 | 5. Check | `$submission-check` | Run the final preflight before you submit on Devpost. |
 
+Haven't picked your hackathon yet? Type `$find-hackathon` to browse open Devpost events (or confirm one you already know) before you start.
+
 ## Want more structure while you build?
 
 Inside the Resources step there's an optional guided build track that takes you from rough idea to working project, one document at a time:
