@@ -1,7 +1,7 @@
 # Plugin Runtime Rule
 
 The participant's current working directory is their project folder, not this plugin
-bundle. The local state file `.openai-codex-hackathon-state.json` lives in the
+bundle. The local state file `.devpost-hackathon-state.json` lives in the
 participant's project root.
 
 This plugin runs entirely from skill instructions — there are no scripts to execute and
@@ -19,7 +19,7 @@ generate or embed images — the stepper widget is the only progress visual.
 
 Every command should:
 
-1. Read the required references and local state (`.openai-codex-hackathon-state.json`).
+1. Read the required references and local state (`.devpost-hackathon-state.json`).
 2. Make its workflow-specific state or document updates (see **Writing State**).
 3. Render the journey stepper by calling the `show_hackathon_stepper` MCP tool (the
    bundled `devpost` server — `mcp__devpost__show_hackathon_stepper`) with the
@@ -76,7 +76,7 @@ prompt.
 
 ## Writing State
 
-State lives in `.openai-codex-hackathon-state.json` in the participant's project root.
+State lives in `.devpost-hackathon-state.json` in the participant's project root.
 Edit it directly (a small JSON file edit is fine). Keep these rules:
 
 - Keep the file small and V2-shaped (see `docs/state-model.md`): local progress,

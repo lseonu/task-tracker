@@ -4,7 +4,7 @@ Prototype Codex plugin for guiding participants through a Devpost hackathon flow
 
 - `plugins/devpost-hackathons`: a text-first plugin that renders a rich multi-line text "dashboard" in any Codex host. On hosts that can render them (Codex Desktop / ChatGPT), rich inline visuals come from the bundled Devpost MCP server (server `devpost` at `https://devpost.com/mcp`) and its stepper widget; the CLI and other non-widget hosts always show the text dashboard.
 
-The single text-first package keeps the surface easy to inspect, demo, and evolve while OpenAI and Devpost decide what they want the final hackathon experience to be.
+The single text-first package keeps the surface easy to inspect, demo, and evolve while Devpost decides what it wants the final hackathon experience to be.
 
 Devpost team handoff: start with [`docs/devpost-team-onboarding.md`](docs/devpost-team-onboarding.md) for configuration, copy editing, banner assets, plugin installation, QA, and the required first participant command, `$start-hackathon`.
 
@@ -165,7 +165,7 @@ The marketplace wrapper is editable too:
 
 Developers should own behavior files:
 
-- `skills/*/SKILL.md` for command SOP, gates, state updates, in-context response composition, and which reference/template files to read. There are no scripts: responses are composed in-context, state is written by editing `.openai-codex-hackathon-state.json` directly, and the final-check secret scan is an inline `grep` the model runs.
+- `skills/*/SKILL.md` for command SOP, gates, state updates, in-context response composition, and which reference/template files to read. There are no scripts: responses are composed in-context, state is written by editing `.devpost-hackathon-state.json` directly, and the final-check secret scan is an inline `grep` the model runs.
 
 The bundled Devpost logo files live in `assets/logos/`:
 
@@ -183,7 +183,7 @@ Chat is the primary participant surface. The model composes the response in-cont
 To compose a response, the model reads:
 
 - `config/hackathon.json`
-- `.openai-codex-hackathon-state.json` when present
+- `.devpost-hackathon-state.json` when present
 - `content/steps/*.md`
 - `content/learning/*.md`
 
@@ -204,7 +204,7 @@ V1 command sequence:
 - `$build-checklist`
 - `$build-project`
 
-These commands should create durable local documents under `docs/hackathon-build/` and keep `.openai-codex-hackathon-state.json` small by storing only progress, file paths, and confirmed project metadata.
+These commands should create durable local documents under `docs/hackathon-build/` and keep `.devpost-hackathon-state.json` small by storing only progress, file paths, and confirmed project metadata.
 
 ## Devpost MCP
 
@@ -216,4 +216,4 @@ See [`docs/future-devpost-mcp.md`](docs/future-devpost-mcp.md) for the wiring, t
 
 ## Devpost Team Handoff
 
-For configuring this plugin for OpenAI or a future customer hackathon, start with [`docs/devpost-team-onboarding.md`](docs/devpost-team-onboarding.md). It covers product copy, JSON configuration, banner assets, Codex plugin install docs, QA, and the required first participant command: `$start-hackathon`.
+For configuring this plugin for a customer hackathon, start with [`docs/devpost-team-onboarding.md`](docs/devpost-team-onboarding.md). It covers product copy, JSON configuration, banner assets, Codex plugin install docs, QA, and the required first participant command: `$start-hackathon`.

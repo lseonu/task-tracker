@@ -28,7 +28,7 @@ Read these before responding:
 
 ## Preconditions
 
-Read `.openai-codex-hackathon-state.json`.
+Read `.devpost-hackathon-state.json`.
 
 If the state file does not exist, direct the user to `$start-hackathon`.
 

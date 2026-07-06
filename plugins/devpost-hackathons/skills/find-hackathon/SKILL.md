@@ -37,7 +37,7 @@ Searching and browsing hackathons requires being signed in to the `devpost` MCP 
 
 ## State
 
-Load `.openai-codex-hackathon-state.json` if it exists. If it does not exist yet, that is fine — `$start-hackathon` initializes the full V2 state file. This skill only records the chosen hackathon. If the file does not exist, create a minimal file containing just the `hackathon` block so the selection is not lost; `$start-hackathon` preserves existing fields and fills in the rest.
+Load `.devpost-hackathon-state.json` if it exists. If it does not exist yet, that is fine — `$start-hackathon` initializes the full V2 state file. This skill only records the chosen hackathon. If the file does not exist, create a minimal file containing just the `hackathon` block so the selection is not lost; `$start-hackathon` preserves existing fields and fills in the rest.
 
 The `hackathon` block:
 

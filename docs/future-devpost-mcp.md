@@ -73,7 +73,7 @@ The MCP should not replace the response composer. It should feed it.
 
 `config/hackathon.json` should continue to define local defaults, copy paths, and asset paths. When MCP data exists, the composer and skills can prefer MCP-derived event data for official dates, rules, registration status, team status, and submission requirements.
 
-`.openai-codex-hackathon-state.json` should cache only small derived values:
+`.devpost-hackathon-state.json` should cache only small derived values:
 
 - event id
 - MCP connected/authenticated status

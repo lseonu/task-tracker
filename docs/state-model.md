@@ -2,7 +2,7 @@
 
 ## Purpose
 
-`.openai-codex-hackathon-state.json` is the continuity layer for the participant's in-Codex hackathon flow.
+`.devpost-hackathon-state.json` is the continuity layer for the participant's in-Codex hackathon flow.
 
 It should stay small, human-readable, and easy to compose participant-facing responses from. It is not a database, chat transcript, design settings file, or record of rendered UI.
 
@@ -34,7 +34,7 @@ local file never becomes a stale shadow of the production database.
   "project": {
     "name": "",
     "summary": "",
-    "openai_usage": "",
+    "ai_usage": "",
     "codex_usage": ""
   },
   "current_stage": "review",
@@ -74,7 +74,7 @@ fields they need), but new writes should not add them back.
 
 ## Writing State
 
-The plugin has no state-writing script. Edit `.openai-codex-hackathon-state.json`
+The plugin has no state-writing script. Edit `.devpost-hackathon-state.json`
 directly — a small JSON file edit is the expected mechanism. Keep these rules:
 
 - Write only when state actually changes on this turn. Turns that just read, recap,
@@ -126,7 +126,7 @@ This repo ships one installable plugin package:
 
 It is text-first: the composer always renders the text dashboard from this state shape on every host. Presentation richness is not controlled by the package — rich inline visuals come from the bundled Devpost MCP stepper widget on capable hosts (Codex Desktop / ChatGPT), while the CLI and other non-widget hosts show the text dashboard.
 
-If a participant switches between Codex Desktop and Codex CLI while working in the same project folder, the same `.openai-codex-hackathon-state.json` should continue to work.
+If a participant switches between Codex Desktop and Codex CLI while working in the same project folder, the same `.devpost-hackathon-state.json` should continue to work.
 
 ## Legacy Fields
 

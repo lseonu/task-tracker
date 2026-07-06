@@ -1,0 +1,4 @@
+interface:
+  display_name: "Guided Build Tool: Build"
+  short_description: "Build from the guided checklist"
+  default_prompt: "Use $build-project to execute the next guided build task."

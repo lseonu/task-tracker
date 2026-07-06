@@ -17,7 +17,7 @@ Do not over-explain the whole process. Keep onboarding warm and efficient.
 
 ## Preconditions
 
-Read `.openai-codex-hackathon-state.json`.
+Read `.devpost-hackathon-state.json`.
 
 If the state file does not exist, direct the user to `$start-hackathon`.
 

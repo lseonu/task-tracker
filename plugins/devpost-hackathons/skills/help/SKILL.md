@@ -18,7 +18,7 @@ Read before responding:
 - `../PLUGIN_RUNTIME.md`
 - `../../content/steps/help.md` (the page content you will present)
 - `../../config/hackathon.json`
-- `.openai-codex-hackathon-state.json` when present (read-only, for tailoring)
+- `.devpost-hackathon-state.json` when present (read-only, for tailoring)
 
 ## Live Command Inventory
 

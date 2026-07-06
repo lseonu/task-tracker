@@ -1,0 +1,4 @@
+interface:
+  display_name: "Hackathon Help"
+  short_description: "Friendly tour of the plugin's commands and flow"
+  default_prompt: "Use $help to explain what the Devpost hackathon plugin can do and how to get started."

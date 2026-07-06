@@ -25,7 +25,7 @@ After `$build-project`, return to the main flow with `$prepare-submission`.
 - Do not call the participant remedial or imply the guided build tool is mandatory.
 - Read upstream docs before writing downstream docs.
 - Use local documents as durable context instead of long JSON state.
-- Keep `.openai-codex-hackathon-state.json` small: progress, file paths, and confirmed project metadata only.
+- Keep `.devpost-hackathon-state.json` small: progress, file paths, and confirmed project metadata only.
 - After each build command, run the response composer for the matching build page.
 - Chat is the primary participant interface. Keep composer output text-only, including during the optional guided build tool; rich visuals come from the `devpost` MCP server on capable hosts.
 - Do not hand-write separate dashboards, Mermaid diagrams, or long duplicate writeups in chat.

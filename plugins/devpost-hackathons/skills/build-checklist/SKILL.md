@@ -15,7 +15,7 @@ Turn the spec into a sequenced, verifiable build checklist. The checklist is the
 
 ## Preconditions
 
-Read `.openai-codex-hackathon-state.json`.
+Read `.devpost-hackathon-state.json`.
 
 If the state file does not exist, direct the user to `$start-hackathon`.
 

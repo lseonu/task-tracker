@@ -17,7 +17,7 @@ Interview first, propose second. Adapt depth to the participant's experience lev
 
 ## Preconditions
 
-Read `.openai-codex-hackathon-state.json`.
+Read `.devpost-hackathon-state.json`.
 
 If the state file does not exist, direct the user to `$start-hackathon`.
 

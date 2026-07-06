@@ -17,7 +17,7 @@ This is the most important context-gathering conversation in the guided build to
 
 ## Preconditions
 
-Read `.openai-codex-hackathon-state.json`.
+Read `.devpost-hackathon-state.json`.
 
 If the state file does not exist, direct the user to `$start-hackathon`.
 

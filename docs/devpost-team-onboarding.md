@@ -1,6 +1,6 @@
 # Devpost Team Handoff README
 
-This document is for Devpost product managers, designers, event owners, and developers who need to configure this Codex plugin prototype for the OpenAI Codex Hackathon or a future customer hackathon.
+This document is for Devpost product managers, designers, event owners, and developers who need to configure this Codex plugin prototype for a customer hackathon.
 
 This repo contains one plugin package:
 
@@ -87,13 +87,13 @@ The optional event banner is configured here:
 
 The model composes a text-first response in-context from workflow state:
 
-1. The model reads the current command and `.openai-codex-hackathon-state.json`.
+1. The model reads the current command and `.devpost-hackathon-state.json`.
 2. It reads the page's content file, strips maintainer-only HTML comments, interpolates event values, and writes the text response; it emits no image Markdown.
 3. To verify, run a step command (e.g. `$start-hackathon`) and one learning command and confirm the composed responses still read correctly.
 
 Rich inline visuals come from the bundled Devpost MCP stepper widget on capable hosts (Codex Desktop / ChatGPT), not from generated images.
 
-Do not put Devpost and OpenAI as a single co-branded headline. If Devpost needs attribution in future visual work, prefer a small "Powered by Devpost" treatment or another secondary placement approved by design.
+Do not put Devpost and the event host as a single co-branded headline. If Devpost needs attribution in future visual work, prefer a small "Powered by Devpost" treatment or another secondary placement approved by design.
 
 ## Edit Step Copy
 
@@ -133,8 +133,8 @@ Developer-owned files inside the plugin package:
 
 Generated or runtime files:
 
-- `.openai-codex-hackathon-state.json`: participant-local state file in the active project, written by the model editing the JSON directly.
-- `.openai-codex-hackathon/`: participant-local support directory.
+- `.devpost-hackathon-state.json`: participant-local state file in the active project, written by the model editing the JSON directly.
+- `.devpost-hackathon/`: participant-local support directory.
 
 Do not put customer-specific event facts directly into `skills/*/SKILL.md` unless there is no config or Markdown alternative.
 

@@ -25,7 +25,7 @@ Read `../PLUGIN_RUNTIME.md`, `../../content/steps/prepare.md`, and `references/s
 
 ## Preconditions
 
-Read `.openai-codex-hackathon-state.json`.
+Read `.devpost-hackathon-state.json`.
 
 If the file does not exist, direct the user to `$start-hackathon`.
 
@@ -48,7 +48,7 @@ The draft should include:
 - problem
 - solution
 - why this matters
-- how OpenAI capabilities are used
+- how AI capabilities are used
 - how Codex was used in the build process
 - key features
 - architecture summary

@@ -1,6 +1,6 @@
 ---
 name: start-hackathon
-description: Start the OpenAI Codex Hackathon workflow in the current project folder and register for the event. Use when the user wants to begin the guided experience, initialize the local state file, register on Devpost, or understand the end-to-end flow before working through the event in Codex.
+description: Start the Devpost Hackathon workflow in the current project folder and register for the event. Use when the user wants to begin the guided experience, initialize the local state file, register on Devpost, or understand the end-to-end flow before working through the event in Codex.
 ---
 
 # Start Hackathon
@@ -35,7 +35,7 @@ If the folder already contains project files, continue. This plugin is meant to 
 
 ## State Initialization
 
-If `.openai-codex-hackathon-state.json` does not exist in the project root, create it by
+If `.devpost-hackathon-state.json` does not exist in the project root, create it by
 writing this initial (slim V2) payload:
 
 ```json
@@ -43,7 +43,7 @@ writing this initial (slim V2) payload:
   "plugin": "devpost-hackathon",
   "version": 2,
   "participant": { "name": "", "display_name": "" },
-  "project": { "name": "", "summary": "", "openai_usage": "", "codex_usage": "" },
+  "project": { "name": "", "summary": "", "ai_usage": "", "codex_usage": "" },
   "current_stage": "review",
   "completed_stages": ["start-hackathon"],
   "rules_acknowledged": false,
@@ -80,7 +80,7 @@ If `participant.name`/`participant.display_name` and `project.summary` are empty
 
 Do not block the flow on this. The participant can continue to `$review` without answering.
 
-If the participant provides those details, edit `.openai-codex-hackathon-state.json` to set
+If the participant provides those details, edit `.devpost-hackathon-state.json` to set
 `participant.display_name` and `project.summary` (and `project.name` only if they give a
 clear project name), preserving the rest of the file. Then compose the Start response.
 

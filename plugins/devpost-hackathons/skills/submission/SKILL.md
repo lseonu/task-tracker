@@ -32,7 +32,7 @@ Read before responding:
 
 ## Preconditions
 
-Read `.openai-codex-hackathon-state.json`.
+Read `.devpost-hackathon-state.json`.
 
 If the file does not exist, direct the user to `$start-hackathon`.
 
@@ -71,7 +71,7 @@ Review:
 - rules acknowledgment recorded
 - project brief present
 - honest build description
-- OpenAI usage explained clearly
+- AI usage explained clearly
 - Codex usage explained clearly
 - testing instructions included
 - repo link present or clearly marked TODO
@@ -100,7 +100,7 @@ Fallback: if `submit_project` fails on auth or availability, do NOT silently suc
 
 ## State Update
 
-Edit `.openai-codex-hackathon-state.json` directly, only when state changes on this turn,
+Edit `.devpost-hackathon-state.json` directly, only when state changes on this turn,
 preserving the fields you are not touching.
 
 If the submit succeeds via `submit_project`: add `submission` to `completed_stages`, set

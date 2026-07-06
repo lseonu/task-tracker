@@ -68,7 +68,7 @@ State should only keep small pointers and confirmed project metadata:
 - file paths for durable learning outputs
 - confirmed `project.name`
 - confirmed `project.summary`
-- confirmed `project.openai_usage`
+- confirmed `project.ai_usage`
 - confirmed `project.codex_usage`
 
 ## Off-Ramp

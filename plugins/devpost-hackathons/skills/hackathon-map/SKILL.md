@@ -1,6 +1,6 @@
 ---
 name: hackathon-map
-description: Show the OpenAI Codex Hackathon command map, current project progress, deadline/readiness context, and the next recommended command. Use when the user asks what commands are available, wants to resume after context loss, or wants to know what to do next.
+description: Show the Devpost Hackathon command map, current project progress, deadline/readiness context, and the next recommended command. Use when the user asks what commands are available, wants to resume after context loss, or wants to know what to do next.
 ---
 
 # Hackathon Map
@@ -25,7 +25,7 @@ Read:
 
 - `../PLUGIN_RUNTIME.md`
 - `../../content/steps/map.md`
-- `.openai-codex-hackathon-state.json` when present
+- `.devpost-hackathon-state.json` when present
 - `../../config/hackathon.json`
 
 If the state file does not exist:

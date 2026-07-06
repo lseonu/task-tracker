@@ -17,7 +17,7 @@ The intelligence is in the checklist and spec. Do not improvise new items or ski
 
 ## Preconditions
 
-Read `.openai-codex-hackathon-state.json`.
+Read `.devpost-hackathon-state.json`.
 
 If the state file does not exist, direct the user to `$start-hackathon`.
 

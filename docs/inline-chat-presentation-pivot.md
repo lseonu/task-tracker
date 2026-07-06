@@ -6,7 +6,7 @@ The prototype now ships as one installable Codex plugin package:
 
 - `plugins/devpost-hackathons`
 
-It is text-first: it renders a rich multi-line text "dashboard" in any Codex host. Rich inline visuals come from the bundled Devpost MCP stepper widget (server `devpost` at `https://devpost.com/mcp`) on hosts that can render them. The team is still learning what OpenAI wants for the hackathon and what Devpost wants long-term, so the repo optimizes for easy inspection and testing.
+It is text-first: it renders a rich multi-line text "dashboard" in any Codex host. Rich inline visuals come from the bundled Devpost MCP stepper widget (server `devpost` at `https://devpost.com/mcp`) on hosts that can render them. The team is still learning what the event host wants for the hackathon and what Devpost wants long-term, so the repo optimizes for easy inspection and testing.
 
 ## Product Contract
 
@@ -31,7 +31,7 @@ On hosts that can render them (Codex Desktop / ChatGPT), rich inline visuals com
 The plugin uses one workflow state file:
 
 ```text
-.openai-codex-hackathon-state.json
+.devpost-hackathon-state.json
 ```
 
 State tracks participant progress, registration flags, project metadata, learning progress, submission metadata, deadlines, and the next command. It does not track host type or whether widgets are supported.
@@ -48,7 +48,7 @@ The final-check secret scan is an inline `grep` the model runs over submission f
 
 ## Branding Guidance
 
-Do not put Devpost and OpenAI into a single co-branded headline treatment.
+Do not put Devpost and the event host into a single co-branded headline treatment.
 
 For visual assets, the event should remain primary. If Devpost attribution is needed, use a secondary placement such as "Powered by Devpost" after design approval.
 
