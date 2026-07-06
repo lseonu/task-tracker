@@ -11,11 +11,6 @@
 - Experience level:
 - Languages/frameworks known:
 - AI coding tools used before:
-- What they want to learn technically:
-
-## Learning Goals
-
-- Goals beyond shipping the app:
 - Prior experience planning before coding:
 
 ## Creative Sensibility

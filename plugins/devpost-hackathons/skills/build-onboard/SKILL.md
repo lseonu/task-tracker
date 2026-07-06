@@ -41,7 +41,6 @@ Then ask one question at a time to learn:
 - coding experience level
 - languages/frameworks they know, if any
 - whether they have used AI coding agents before
-- what they want to learn beyond shipping the app
 - creative sensibility signals, such as apps, games, books, music, or art they like
 - whether they have planned projects with docs before
 
