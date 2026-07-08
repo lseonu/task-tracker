@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Task Tracker</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Local hackathon prototype</p>
+          <h1>Task Tracker</h1>
+          <p class="lede">
+            An opinionated triage cockpit for scattered developer work.
+          </p>
+        </div>
+        <div class="topbar-meta">
+          <span class="status-pill">Resets on refresh</span>
+          <span class="status-pill status-pill--accent">Next Up first</span>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <section class="surface queue-surface" aria-label="Queue">
+          <div class="surface-header">
+            <div>
+              <p class="surface-kicker">Queue</p>
+              <h2>Everything in one place</h2>
+            </div>
+            <div class="surface-actions">
+              <label class="field-inline">
+                <span>Search</span>
+                <input id="filter-query" type="search" placeholder="Find a task" />
+              </label>
+              <label class="field-inline">
+                <span>Sort</span>
+                <select id="filter-sort">
+                  <option value="ranking">Ranking</option>
+                  <option value="manual">Manual order</option>
+                  <option value="priority">Priority</option>
+                  <option value="age">Age</option>
+                  <option value="due">Due soon</option>
+                  <option value="effort">Effort</option>
+                  <option value="title">Title</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <form id="task-form" class="composer">
+            <div class="composer-grid">
+              <label>
+                <span>Task</span>
+                <input name="title" placeholder="Add a task" required />
+              </label>
+              <label>
+                <span>Source</span>
+                <select name="source">
+                  <option value="manual">Manual</option>
+                  <option value="github">GitHub</option>
+                  <option value="gitlab">GitLab</option>
+                  <option value="linear">Linear</option>
+                  <option value="housekeeping">Housekeeping</option>
+                </select>
+              </label>
+              <label>
+                <span>Type</span>
+                <select name="type">
+                  <option value="issue">Issue</option>
+                  <option value="review">Review</option>
+                  <option value="task">Task</option>
+                  <option value="chore">Chore</option>
+                </select>
+              </label>
+              <label>
+                <span>Category</span>
+                <input name="category" placeholder="Submission, infra, etc." />
+              </label>
+              <label>
+                <span>Priority</span>
+                <select name="priority">
+                  <option value="5">5</option>
+                  <option value="4" selected>4</option>
+                  <option value="3">3</option>
+                  <option value="2">2</option>
+                  <option value="1">1</option>
+                </select>
+              </label>
+              <label>
+                <span>Effort</span>
+                <select name="effort">
+                  <option value="small">Small</option>
+                  <option value="medium" selected>Medium</option>
+                  <option value="large">Large</option>
+                </select>
+              </label>
+            </div>
+
+            <details class="composer-advanced">
+              <summary>Advanced fields</summary>
+              <div class="composer-advanced-grid">
+                <label>
+                  <span>Due in days</span>
+                  <input name="dueInDays" type="number" min="0" step="1" placeholder="Optional" />
+                </label>
+                <label>
+                  <span>Notes</span>
+                  <input name="notes" placeholder="Optional context" />
+                </label>
+                <label class="check">
+                  <input name="recentlyWorked" type="checkbox" />
+                  <span>Recently worked</span>
+                </label>
+                <label class="check">
+                  <input name="unblocksOthers" type="checkbox" />
+                  <span>Unblocks others</span>
+                </label>
+                <label class="check">
+                  <input name="agentSuitability" type="checkbox" />
+                  <span>Bot candidate</span>
+                </label>
+              </div>
+            </details>
+
+            <div class="composer-actions">
+              <button type="submit" class="primary">Add task</button>
+              <p class="helper">Manual work can be added even when it is not in GitHub, GitLab, or Linear.</p>
+            </div>
+          </form>
+
+          <div class="queue-toolbar">
+            <label class="field-inline">
+              <span>Status</span>
+              <select id="filter-status">
+                <option value="active">Active</option>
+                <option value="done">Done</option>
+                <option value="all">All</option>
+              </select>
+            </label>
+            <label class="field-inline">
+              <span>Source</span>
+              <select id="filter-source">
+                <option value="all">All</option>
+                <option value="github">GitHub</option>
+                <option value="gitlab">GitLab</option>
+                <option value="linear">Linear</option>
+                <option value="manual">Manual</option>
+                <option value="housekeeping">Housekeeping</option>
+              </select>
+            </label>
+            <label class="field-inline">
+              <span>Type</span>
+              <select id="filter-type">
+                <option value="all">All</option>
+                <option value="issue">Issue</option>
+                <option value="review">Review</option>
+                <option value="task">Task</option>
+                <option value="chore">Chore</option>
+              </select>
+            </label>
+            <label class="field-inline">
+              <span>Category</span>
+              <input id="filter-category" type="search" placeholder="Search category" />
+            </label>
+            <label class="field-inline">
+              <span>Priority</span>
+              <select id="filter-priority">
+                <option value="all">All</option>
+                <option value="5">5</option>
+                <option value="4">4</option>
+                <option value="3">3</option>
+                <option value="2">2</option>
+                <option value="1">1</option>
+              </select>
+            </label>
+            <label class="field-inline">
+              <span>Effort</span>
+              <select id="filter-effort">
+                <option value="all">All</option>
+                <option value="small">Small</option>
+                <option value="medium">Medium</option>
+                <option value="large">Large</option>
+              </select>
+            </label>
+            <label class="field-inline">
+              <span>Staleness</span>
+              <select id="filter-staleness">
+                <option value="all">All</option>
+                <option value="fresh">Fresh</option>
+                <option value="stale">Stale</option>
+              </select>
+            </label>
+            <label class="field-inline">
+              <span>Agent</span>
+              <select id="filter-agent">
+                <option value="all">All</option>
+                <option value="human">Human next</option>
+                <option value="bot">Bot candidates</option>
+              </select>
+            </label>
+            <button id="reset-filters" type="button" class="secondary">Reset filters</button>
+          </div>
+
+          <div id="queue-empty" class="empty-state" hidden>
+            <h3>No visible tasks</h3>
+            <p>Change the filters or add a manual task to bring the queue back.</p>
+          </div>
+
+          <div id="queue-list" class="queue-list" role="list"></div>
+        </section>
+
+        <aside class="insights" aria-label="Recommendations">
+          <section class="surface" id="next-up-panel">
+            <div class="surface-header compact">
+              <div>
+                <p class="surface-kicker">Next Up</p>
+                <h2>What to do next</h2>
+              </div>
+            </div>
+            <div id="next-up-body"></div>
+          </section>
+
+          <section class="surface" id="bot-panel">
+            <div class="surface-header compact">
+              <div>
+                <p class="surface-kicker">Bot Candidates</p>
+                <h2>Good one-shot jobs</h2>
+              </div>
+            </div>
+            <div id="bot-body"></div>
+          </section>
+
+          <section class="surface detail-shell">
+            <div class="surface-header compact">
+              <div>
+                <p class="surface-kicker">Task detail</p>
+                <h2>Inspect and edit</h2>
+              </div>
+            </div>
+            <div id="detail-body" class="detail-placeholder">
+              Select a task to edit advanced fields or mark it done.
+            </div>
+          </section>
+        </aside>
+      </main>
+    </div>
+
+    <div id="drawer" class="drawer" hidden>
+      <div class="drawer-backdrop" data-close-drawer></div>
+      <div class="drawer-panel">
+        <div class="surface-header compact">
+          <div>
+            <p class="surface-kicker">Task editor</p>
+            <h2 id="drawer-title">Task</h2>
+          </div>
+          <button class="icon-button" type="button" data-close-drawer aria-label="Close drawer">×</button>
+        </div>
+        <form id="detail-form" class="detail-form"></form>
+      </div>
+    </div>
+
+    <div id="toast" class="toast" hidden></div>
+
+    <script type="module" src="./app/main.js"></script>
+  </body>
+</html>
