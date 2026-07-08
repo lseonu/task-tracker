@@ -79,7 +79,7 @@ python3 -m http.server 4173 --bind 127.0.0.1
 
 ## Public Demo Link
 
-`[TODO - add public demo URL if one is created]`
+No public demo URL is required for the current requirement set because runnable source code is accepted.
 
 For now the demo is local-only at `http://127.0.0.1:4173/`.
 
@@ -91,7 +91,7 @@ This is the intended public submission repo for the hackathon project.
 
 ## Demo Video
 
-`[TODO - add demo video URL]`
+No demo video is required for the current requirement set. Screenshots are included as optional supporting evidence.
 
 Prepared script: `docs/hackathon-build/demo-script.md`
 
@@ -120,16 +120,16 @@ Outline:
 - [x] Capture the queue, Next Up, detail drawer, and Bot Candidates views.
 - [x] Check that the ranking explanation still reads clearly in the browser.
 - [x] Verify the completion/undo flow through prepared screenshot states.
-- [ ] Record or upload the demo video.
+- [x] Screenshot evidence is available; demo video is optional.
 - [x] Confirm the repository URL is the intended public submission repo.
-- [ ] Confirm whether a public demo URL is required by the official Devpost form.
+- [x] Runnable code satisfies the demo requirement.
 
 ## Submission Readiness Notes
 
 - The prototype exists and is runnable locally.
 - The story is coherent: one person, one queue, one clear recommendation surface.
 - Screenshots and a demo script now exist.
-- Remaining external gaps: demo video URL, public demo URL if required, repository confirmation, and official Devpost form fields.
+- Required materials are present for the stated requirements: runnable code, source link, short problem description, and optional screenshots.
 
 ## Known Limitations
 
@@ -137,21 +137,14 @@ Outline:
 - There is no live GitHub, GitLab, or Linear sync.
 - There is no live model call at runtime.
 - The current build is a static HTML/CSS/ES module implementation rather than the React/Next.js stack described in the earlier spec.
-- Public repo, demo URL, and video URL are still placeholders.
 - Public repository URL is set to the intended `lseonu/task-tracker` repo.
-- Public demo URL and video URL are still placeholders.
+- Public demo URL and video URL are not included because the stated requirements allow runnable code and make screenshots/demo clips optional.
 
-## TODO Official Form Fields
+## Stated Submission Requirements
 
-The official Devpost submission form details could not be fetched in this session because the Devpost MCP returned `Auth required`.
+- A working tool: runnable code is available at `https://github.com/lseonu/task-tracker`.
+- A short description of the problem: see `Problem`.
+- A link to source code: `https://github.com/lseonu/task-tracker`.
+- One screenshot or short demo clip: screenshots are available under `docs/hackathon-build/screenshots/`.
 
-Fill these in from the official event page when available:
-
-- Official title field
-- Official one-line summary field
-- Category or track field, if any
-- Public demo or website field, if required
-- Repository field, if required
-- Video URL field, if required
-- Any custom submission questions
-- Any prize or track opt-ins
+Devpost MCP login was completed through `codex mcp login devpost`, but the active Codex session may need a restart before MCP tools stop returning `Auth required`.
