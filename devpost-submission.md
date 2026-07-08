@@ -4,6 +4,36 @@
 
 Task Tracker is a local developer triage cockpit that gathers scattered work into one queue, recommends what to do next, and explains why that task should come first.
 
+## Devpost Form Answers
+
+### Inspiration
+
+I built Task Tracker because my work is spread across too many places: GitHub issues, GitHub PR review requests, GitLab issues, Linear tasks, and small housekeeping items that are not written down anywhere. The pain is not just remembering the tasks, but deciding what to do next when everything feels equally urgent.
+
+### What it does
+
+Task Tracker gives a developer one local queue for scattered work. It shows seeded GitHub, GitLab, Linear, PR review, and housekeeping tasks; lets the user add manual tasks; supports filtering, sorting, completion, archive, and undo; and highlights a ranked `Next Up` top 3 with short explanations for why each item is recommended. It also separates small, well-scoped tasks into a `Bot Candidates` lane for work that could later be handed to a coding agent.
+
+### How we built it
+
+The prototype is a static local web app built with HTML, CSS, and ES modules so it can run immediately from the repository without installing dependencies. The task data, filtering logic, and recommendation logic are split into small modules, while the UI layer handles queue rendering, detail editing, manual task creation, completion, and screenshot-ready demo states. Codex helped turn the initial idea into a scope, PRD, technical spec, checklist, implementation, verification pass, screenshots, and submission materials.
+
+### Challenges we ran into
+
+The biggest challenge was cutting the scope down from a real multi-service integration product into something useful and demoable during the hackathon. Live GitHub, GitLab, and Linear connections would have consumed most of the time, so the MVP focuses on the core workflow: collecting scattered work, ranking it, and explaining the recommendation. Another challenge was making the recommendation feel useful without overstating the prototype, since the current version uses deterministic local scoring rather than a live AI model.
+
+### Accomplishments that we're proud of
+
+I am proud that the prototype gets to the heart of the problem quickly: it opens directly into a working queue, shows a clear top recommendation, and explains the reasoning instead of acting like a generic todo list. The manual task flow, filters, detail drawer, completion/undo behavior, and Bot Candidates lane make the demo feel like a real workflow rather than a static mockup. I am also proud that the project is honest about its current limits while still showing a practical direction for a developer-focused tool.
+
+### What we learned
+
+We learned that the product value is less about syncing every source and more about reducing decision fatigue. The most useful surface is the opinionated `Next Up` assistant: it turns scattered work into a ranked short list and gives the user enough context to accept or override the recommendation. We also learned that a small local prototype can communicate the product direction clearly before investing in integrations.
+
+### What's next for Task Tracker
+
+Next, Task Tracker should add real GitHub, GitLab, and Linear integrations so assigned issues, PR review requests, and project tasks can populate the queue automatically. After that, it should persist user changes, learn from recently completed work, and use a model-backed recommendation layer that can explain tradeoffs more intelligently. The Bot Candidates lane could also evolve into a handoff flow that prepares small tasks for Codex or another coding agent.
+
 ## Problem
 
 Developer work is fragmented across GitHub issues, PR review requests, GitLab issues, Linear tasks, and a steady stream of undocumented housekeeping. The hard part is not just collecting tasks, but deciding what deserves attention next.
